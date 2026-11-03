@@ -18,18 +18,15 @@ export function HomePage() {
   return (
     <>
       <section className="profile-masthead">
-        <div className="profile-masthead-art" aria-label="Abstract artist profile artwork with a rights-safe portrait placeholder">
+        <div className="profile-masthead-art" aria-label="Artist image hero background" style={artist.portrait.src ? { backgroundImage: `url(${artist.portrait.src})` } : undefined}>
           <div className="profile-light" aria-hidden="true" />
-          <div className="profile-portrait-placeholder"><span>TT</span><small>Approved artist image<br />slot</small></div>
-          <div className="profile-masthead-code">TT / 001<br />NIGERIA / 2026</div>
         </div>
         <div className="profile-masthead-content wrap">
           <div className="profile-identity">
-            <div className="profile-avatar" aria-hidden="true">TT</div>
-            <div><p className="eyebrow">Artist profile / {artist.base}</p><h1>{artist.name}</h1><p className="profile-descriptor">{artist.descriptor}</p></div>
+            <div><h1>{artist.name}</h1><p className="profile-descriptor">{artist.descriptor}</p></div>
           </div>
-          <div className="profile-actions"><a className="button button-primary" href={artist.officialDestinations[0].url} target="_blank" rel="noreferrer">Listen on Apple Music <span aria-hidden="true">↗</span></a><button className="button button-quiet" onClick={() => navigateTo('/epk')}>Open EPK</button></div>
-          <div className="profile-facts"><span>{artist.genre}</span><span>{artist.origin}</span><span>{artist.heritage}</span></div>
+          <div className="profile-actions"><a className="button button-primary" href="#listen">Listen everywhere <span aria-hidden="true">↓</span></a></div>
+          <div className="hero-listen-row" id="listen" aria-label="Official listening destinations">{artist.listeningDestinations.map((destination) => <a href={destination.url} target="_blank" rel="noreferrer" key={destination.label}>{destination.label}<span aria-hidden="true">↗</span></a>)}</div>
         </div>
       </section>
 

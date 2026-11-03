@@ -59,6 +59,12 @@ export const artist = {
     { label: 'Instagram', url: 'https://www.instagram.com/teeroy_tyobee' },
     { label: 'Audiomack', url: 'https://audiomack.com/teeroytyobee' },
   ],
+  listeningDestinations: [
+    { label: 'Spotify', url: 'https://open.spotify.com/search/Teeroy%20Tyobee', note: 'Search fallback' },
+    { label: 'Apple Music', url: 'https://music.apple.com/us/artist/teeroy-tyobee/1532919321' },
+    { label: 'Audiomack', url: 'https://audiomack.com/teeroytyobee' },
+    { label: 'YouTube', url: 'https://www.youtube.com/@teeroy_tyobee' },
+  ],
   portrait: {
     src: undefined as string | undefined,
     alt: 'Portrait of Teeroy Tyobee',

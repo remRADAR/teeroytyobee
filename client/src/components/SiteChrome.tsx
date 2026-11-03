@@ -31,7 +31,6 @@ export function SiteChrome({ children }: { children: ReactNode }) {
     <div className="site-shell">
       <header className="site-header">
         <button className="wordmark" onClick={() => navigate('/')} aria-label="Go to Teeroy Tyobee home">
-          <span className="wordmark-mark" aria-hidden="true">TT</span>
           <span>{artist.name}</span>
         </button>
         <button className="menu-toggle" aria-expanded={menuOpen} aria-controls="site-nav" onClick={() => setMenuOpen((open) => !open)}>
@@ -43,7 +42,6 @@ export function SiteChrome({ children }: { children: ReactNode }) {
             ['/catalog', 'Catalog'],
             ['/press', 'Press'],
             ['/media', 'Media'],
-            ['/epk', 'EPK'],
           ].map(([path, label]) => (
             <button key={path} onClick={() => navigate(path)}>{label}</button>
           ))}
@@ -58,7 +56,6 @@ export function SiteChrome({ children }: { children: ReactNode }) {
         <div className="footer-meta">
           <span>{artist.location}</span>
           <span>Content status: recovery build</span>
-          <button onClick={() => navigate('/epk')}>Open EPK <span aria-hidden="true">↗</span></button>
         </div>
       </footer>
     </div>
