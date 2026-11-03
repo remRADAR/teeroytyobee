@@ -1,0 +1,25 @@
+# Apple Music-inspired profile direction
+
+## Direction
+
+The redesign borrows the information hierarchy of a contemporary artist profile rather than copying Apple Music branding or UI. The home page now behaves like an artist profile first: a large identity masthead, artist facts and approved-image slot, a primary listening action, spotlight content, latest releases, albums and EPs, a top-video feature, appearances/collaborations, an About section, and official destinations.
+
+The visual blend remains Teeroy Tyobee-owned: dark graphite backgrounds, restrained gold, warm editorial type, Tiv/Middle Belt identity notes, abstract release art, and visible verification boundaries. No Apple Music screenshot or third-party artist image is embedded in the project.
+
+## Source-backed patterns
+
+Apple Music for Artists documents artist-image and logo customization, button-color customization, spotlighted content, artist details, and a Music and Videos content view. Those ideas are reflected as an approved-image slot, cohesive gold action color, a pinned `JOY (IEMBER)` spotlight, profile facts, and distinct music/video rails. [1]
+
+Apple’s artist-page provider guidance describes a page structure that can include Motion Art, Latest Release, Essential Albums, Albums, Top Videos, Artist Playlists, Singles & EPs, Appears On, and About Me. The redesign uses the subset supported by the recovered content model: spotlight/latest release, albums and EPs, latest releases, top video, appears-on collaborations, and About the artist. [2]
+
+The Apple Music for Artists product page also emphasizes personalizing an artist page, pinning a release or playlist, and using a coherent button color. The profile masthead and spotlight action are designed around those same priorities without implying an Apple partnership. [3]
+
+## Asset and rights boundary
+
+The current project does not have a management-approved portrait or cleared motion art. The new masthead therefore uses a typographic/abstract portrait slot and keeps the rights note visible. Replace that slot only after an approved image is supplied and its source/clearance is recorded.
+
+## References
+
+[1]: https://artists.apple.com/support/3391-artist-content-profile "Manage your artist content and profile — Apple Music for Artists"
+[2]: https://itunespartner.apple.com/music/support/5229-artist-pages "Artist pages — Apple Music Provider Support"
+[3]: https://artists.apple.com/ "Apple Music for Artists"
