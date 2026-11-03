@@ -22,7 +22,7 @@ The hero does not use an image card, profile badge, location tag, or EPK shortcu
 
 ## Asset and rights boundary
 
-The current project does not have a management-approved portrait or cleared motion art. The new masthead therefore uses a typographic/abstract portrait slot and keeps the rights note visible. Replace that slot only after an approved image is supplied and its source/clearance is recorded.
+The user has now supplied `client/public/artist-hero.jpeg`, and the masthead uses it as the full-bleed hero background. The asset is treated as user-provided; final management approval and publication clearance should still be recorded before commercial launch.
 
 ## References
 

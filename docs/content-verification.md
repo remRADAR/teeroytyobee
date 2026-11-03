@@ -18,7 +18,7 @@ This recreation is based on the recovery inventory from the previous session. It
 
 ## Asset rights
 
-The previous handoff referenced a public Spotify artist portrait but explicitly said republication rights were not confirmed. This recreation does not embed that portrait. Replace the typographic placeholder only with a management-approved asset and record its source and clearance.
+The user supplied `client/public/artist-hero.jpeg`, which is now used as the artist profile hero background. The asset is treated as user-provided, but final management approval and publication clearance should still be recorded before commercial launch.
 
 ## Link policy
 
