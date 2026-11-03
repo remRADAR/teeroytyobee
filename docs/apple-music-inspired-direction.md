@@ -14,6 +14,12 @@ Apple’s artist-page provider guidance describes a page structure that can incl
 
 The Apple Music for Artists product page also emphasizes personalizing an artist page, pinning a release or playlist, and using a coherent button color. The profile masthead and spotlight action are designed around those same priorities without implying an Apple partnership. [3]
 
+## Spotify-inspired interaction blend
+
+The current hero now follows familiar dark listening-product conventions: a full-bleed visual surface, strong artist name, one rounded primary listening action, and compact outbound store controls. The controls link to Spotify search, Apple Music, Audiomack, and YouTube. Spotify is intentionally marked in the content model as a search fallback because an exact release URL has not been verified.
+
+The hero does not use an image card, profile badge, location tag, or EPK shortcut. When a management-approved portrait is added to `artist.portrait.src`, it becomes the background image of the hero. Until then, the site uses its existing abstract art fallback instead of embedding an uncleared artist image.
+
 ## Asset and rights boundary
 
 The current project does not have a management-approved portrait or cleared motion art. The new masthead therefore uses a typographic/abstract portrait slot and keeps the rights note visible. Replace that slot only after an approved image is supplied and its source/clearance is recorded.
