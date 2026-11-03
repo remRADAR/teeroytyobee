@@ -66,9 +66,9 @@ export const artist = {
     { label: 'YouTube', url: 'https://www.youtube.com/@teeroy_tyobee' },
   ],
   portrait: {
-    src: undefined as string | undefined,
+    src: '/artist-hero.jpeg' as string | undefined,
     alt: 'Portrait of Teeroy Tyobee',
-    rightsNote: 'A public Spotify artist image was referenced in the previous session, but republication rights are not confirmed. Use a management-approved portrait before commercial launch.',
+    rightsNote: 'Portrait supplied by the user for this artist portfolio. Confirm final management approval and publication clearance before commercial launch.',
   },
   socialImage: undefined as string | undefined,
 }
