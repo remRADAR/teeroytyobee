@@ -15,6 +15,7 @@
 - [x] Preserve Teeroy Tyobee’s own visual language: graphite, warm gold, editorial typography, abstract release art, and visible verification boundaries rather than copying Apple Music branding.
 - [x] Keep the layout responsive across desktop and mobile, with the mobile portrait slot separated from the artist name and all redesigned routes passing typecheck, tests, and static build.
 - [x] Use a full-bleed artist-image hero background when an approved portrait is supplied; remove the hero profile tag, hero icon, location metadata, and EPK shortcut; replace the single Apple Music CTA with Spotify, Apple Music, Audiomack, and YouTube destinations.
+- [x] Fine-tune mobile responsiveness and typography with a taller portrait-led hero, tighter display type, larger touch targets, improved tab height, clearer section rhythm, and stable desktop composition.
 
 ## Editorial and asset verification still open
 
