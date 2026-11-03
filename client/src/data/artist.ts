@@ -25,6 +25,7 @@ export interface Release {
   statusLabel: string
   summary: string
   credits: ReleaseCredit[]
+  tracklist?: string[]
   listeningLinks: ListeningLink[]
   artworkTone: 'gold' | 'rust' | 'blue' | 'violet' | 'green'
 }
@@ -41,12 +42,23 @@ export interface PressItem {
 export const artist = {
   name: 'Teeroy Tyobee',
   location: 'Nigeria',
+  origin: 'Tiv Nation, Benue State, Nigeria',
+  base: 'Abuja, Nigeria',
+  genre: 'Afro-fusion / Afrobeat / soulful storytelling',
+  heritage: 'Tiv heritage and Middle Belt identity',
+  themes: ['cultural identity', 'love', 'resilience', 'hope', 'faith', 'everyday Nigerian life'],
   descriptor: 'Artist, songwriter, and creative voice.',
   shortBio:
     'Teeroy Tyobee is a Nigerian artist building a catalogue around lived detail, melodic instinct, and a clear point of view.',
   longBio:
     'This artist profile is intentionally concise while editorial verification continues. The current build foregrounds only the identity, catalogue signals, and source boundaries available in the recovery inventory.',
   bookingEmail: undefined as string | undefined,
+  officialDestinations: [
+    { label: 'Apple Music', url: 'https://music.apple.com/us/artist/teeroy-tyobee/1532919321' },
+    { label: 'YouTube', url: 'https://www.youtube.com/@teeroy_tyobee' },
+    { label: 'Instagram', url: 'https://www.instagram.com/teeroy_tyobee' },
+    { label: 'Audiomack', url: 'https://audiomack.com/teeroytyobee' },
+  ],
   portrait: {
     src: undefined as string | undefined,
     alt: 'Portrait of Teeroy Tyobee',
@@ -88,6 +100,7 @@ export const releases: Release[] = [
       { label: 'Track count', value: '6 tracks' },
       { label: 'Source note', value: 'Guardian feature and platform listings reviewed in the recovery handoff' },
     ],
+    tracklist: ['JOY (Iember)', 'MAMA AFRICA', 'WAN TIV', 'AUTOMATIC', 'HAPPY CHILD', 'GRIND'],
     listeningLinks: defaultLinks('JOY IEMBER'),
     artworkTone: 'gold',
   },
@@ -137,7 +150,7 @@ export const releases: Release[] = [
       { label: 'Production / mix / master', value: 'Joe Waxy Ejembi' },
       { label: 'Video', value: 'Mauriz' },
     ],
-    listeningLinks: [...defaultLinks('Wise Up'), searchLink('YouTube', 'Teeroy Tyobee Wise Up official')],
+    listeningLinks: [...defaultLinks('Wise Up'), { label: 'Watch official video', platform: 'YouTube', url: 'https://www.youtube.com/watch?v=MGyqosp3l7A' }],
     artworkTone: 'violet',
   },
   {
