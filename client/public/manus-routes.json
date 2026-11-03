@@ -1,0 +1,1 @@
+{"routes":[{"path":"/","title":"Teeroy Tyobee — Artist Portfolio"},{"path":"/catalog","title":"Catalog"},{"path":"/catalog/:slug","title":"Release detail"},{"path":"/press","title":"Press"},{"path":"/media","title":"Media"},{"path":"/epk","title":"Artist Profile / EPK"}]}
