@@ -1,4 +1,6 @@
+import { Link } from 'react-router-dom';
 import { ExternalIcon, CheckIcon, AlertIcon } from './Icons.jsx';
+import { ReleaseArtwork } from './ReleaseArtwork.jsx';
 
 /** Marks a destination as external, with the target announced to assistive tech. */
 export function ExtLink({ href, children, className = '', label }) {
@@ -39,10 +41,13 @@ export function ReleaseRow({ release, showTracks = false }) {
   return (
     <li className="rel">
       <span className="rel__year">{release.year ?? '—'}</span>
+      <Link className="rel__thumb" to={`/catalog/${release.id}`} aria-label={`View ${release.title} details`}>
+        <ReleaseArtwork release={release} compact />
+      </Link>
 
       <div className="rel__main">
         <p className="rel__title">
-          {release.title}
+          <Link className="rel__detail" to={`/catalog/${release.id}`}>{release.title}</Link>
           <span className="badge">{release.kind}</span>
           {release.verified === false && (
             <Verified verified={false}>{release.note ? 'Needs review' : 'Unconfirmed'}</Verified>

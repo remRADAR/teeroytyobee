@@ -1,42 +1,26 @@
-import { useState } from 'react';
 import { videos, channels, photography, mediaDisclosure } from '../content/media.js';
-import { photography as photoArt } from '../lib/artwork.js';
-import { artist } from '../content/artist.js';
+import { art, photography as photoArt } from '../lib/artwork.js';
 import { Img, useRevealOnMount } from '../components/Img.jsx';
 import { ExternalIcon, PlayIcon } from '../components/Icons.jsx';
+import { useRadio } from '../components/RadioPlayer.jsx';
 
-/** Click-to-load YouTube embed. Consumes no network beyond the poster until pressed. */
+/** Click-to-load the shared player; the iframe stays mounted across route changes. */
 function VideoPlayer({ video }) {
-  const [playing, setPlaying] = useState(false);
-  const poster = `/media/crowd-960.webp`;
-
-  if (playing) {
-    return (
-      <div className="player">
-        <iframe
-          src={`https://www.youtube-nocookie.com/embed/${video.videoId}?autoplay=1&rel=0&modestbranding=1`}
-          title={`${artist.displayName} — ${video.title} (official video)`}
-          allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-          referrerPolicy="strict-origin-when-cross-origin"
-          allowFullScreen
-        />
-      </div>
-    );
-  }
-
+  const { play, active } = useRadio();
+  const isActive = active?.id === video.id;
   return (
     <div className="player">
       <button
         type="button"
         className="player__poster"
-        onClick={() => setPlaying(true)}
-        aria-label={`Play ${artist.displayName} — ${video.title}`}
+        onClick={() => play(video)}
+        aria-label={`${isActive ? 'Now playing' : 'Play'} ${video.title} in the persistent official-source player`}
       >
-        <img src={poster} alt="" width="960" height="644" loading="lazy" decoding="async" />
+        <Img {...art.heroPortrait} alt="" />
         <span className="player__play"><PlayIcon /></span>
         <span className="player__label">
           <span>{video.kind} · {video.year}</span>
-          <span>Press to load</span>
+          <span>{isActive ? 'Now playing below' : 'Press to load'}</span>
         </span>
       </button>
     </div>
@@ -66,7 +50,7 @@ export default function Media() {
             </div>
             <div>
               <p className="stat__n">{photography.length}</p>
-              <p className="stat__l">Visual studies</p>
+              <p className="stat__l">Portrait supplied</p>
             </div>
           </div>
         </div>
@@ -99,8 +83,8 @@ export default function Media() {
             <div>
               <p className="eyebrow eyebrow--plain">{lead.subtitle}</p>
               <p className="body" style={{ marginTop: '1rem' }}>
-                Published on the artist’s official channel. Playback happens on YouTube; this site never
-                autoplays or counts a visit as a stream.
+                Published on the artist’s official channel. Playback loads only after you press play and
+                persists in the site player while you move between portfolio pages.
               </p>
               <p className="micro" style={{ marginTop: '1.25rem' }}>
                 Verified via {lead.confirmedBy}
@@ -115,9 +99,9 @@ export default function Media() {
           <div className="section-head" data-reveal>
             <div className="section-head__title">
               <p className="eyebrow">Photography</p>
-              <h2 className="h2" id="gallery-heading">Visual studies</h2>
+              <h2 className="h2" id="gallery-heading">Artist portrait</h2>
             </div>
-            <span className="badge badge--warn">Placeholder art direction</span>
+            <span className="badge badge--warn">Clearance pending</span>
           </div>
 
           <div className="gallery" data-reveal data-reveal-delay="1">
@@ -127,7 +111,7 @@ export default function Media() {
                 key={shot.id}
                 style={{ margin: 0 }}
               >
-                <Img {...photoArt(shot.id)} alt="" />
+                <Img {...photoArt(shot.id)} alt="Portrait of Teeroy Tyobee; final publication clearance is pending." />
                 <figcaption className="gallery__cap">
                   <b>{shot.title}</b>
                   <span>{shot.caption}</span>
@@ -138,9 +122,7 @@ export default function Media() {
 
           <p className="disclosure" data-reveal>
             <strong>Asset status</strong>
-            These images are art-direction studies generated for layout — they are not photographs of the
-            artist and make no claim to be. Approved portraits, live photography and image credits are
-            outstanding.
+            {photography[0]?.rightsNote}
           </p>
         </div>
       </section>

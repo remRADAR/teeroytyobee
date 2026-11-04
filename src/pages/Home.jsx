@@ -4,15 +4,18 @@ import { homeCopy } from '../content/site.js';
 import { featuredRelease, sortedSolo, catalogStats } from '../lib/catalog.js';
 import { press } from '../content/press.js';
 import { videos } from '../content/media.js';
-import { art, releaseArtwork } from '../lib/artwork.js';
+import { art } from '../lib/artwork.js';
 import { Img, useRevealOnMount } from '../components/Img.jsx';
+import { ReleaseArtwork } from '../components/ReleaseArtwork.jsx';
 import { ReleaseRow } from '../components/ReleaseRow.jsx';
 import { ExtLink } from '../components/ReleaseRow.jsx';
 import { ArrowIcon, PlayIcon } from '../components/Icons.jsx';
 import { Marquee } from '../components/Marquee.jsx';
+import { useRadio } from '../components/RadioPlayer.jsx';
 
 export default function Home() {
   const ref = useRevealOnMount();
+  const { play } = useRadio();
   const featured = featuredRelease();
   const recent = sortedSolo.filter((r) => r.id !== featured.id).slice(0, 4);
   const [leadPress] = press;
@@ -27,6 +30,7 @@ export default function Home() {
             <source media="(max-width: 720px)" srcSet={art.heroPortrait.srcSet} sizes="100vw" />
             <Img {...art.heroWide} priority alt="" />
           </picture>
+          <div className="hero__glitch" aria-hidden="true" />
         </div>
         <div className="hero__scrim" aria-hidden="true" />
         <div className="hero__grain" aria-hidden="true" />
@@ -51,6 +55,9 @@ export default function Home() {
               <Link className="btn btn--ghost" to="/artist">
                 {homeCopy.secondaryCta}
               </Link>
+              <button className="btn btn--ghost" type="button" onClick={() => play(leadVideo)}>
+                Play verified source
+              </button>
             </div>
           </div>
 
@@ -95,13 +102,7 @@ export default function Home() {
 
           <div className="featured" data-reveal data-reveal-delay="1">
             <figure className="artwork">
-              <Img {...releaseArtwork(featured.artwork)} alt={`Artwork for ${featured.title}`} />
-              <figcaption className="artwork__stamp">
-                <strong>{featured.title}</strong>
-                <span>
-                  {featured.kind} · {featured.year}
-                </span>
-              </figcaption>
+              <ReleaseArtwork release={featured} />
             </figure>
 
             <div>
@@ -177,7 +178,7 @@ export default function Home() {
           <div className="video-feature" data-reveal data-reveal-delay="1">
             <Link to="/media" className="player" aria-label={`Watch ${leadVideo.title}`}>
               <div className="player__poster">
-                <Img {...art.crowd} alt="" />
+                <Img {...art.heroPortrait} alt="" />
                 <span className="player__play"><PlayIcon /></span>
                 <span className="player__label">
                   <span>{leadVideo.kind} · {leadVideo.year}</span>

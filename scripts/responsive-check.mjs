@@ -22,6 +22,7 @@ const BASE = process.env.BASE_URL ?? 'http://127.0.0.1:4173';
 const ROUTES = [
   { path: '/', name: 'home' },
   { path: '/catalog', name: 'catalog' },
+  { path: '/catalog/iember-joy', name: 'release-detail' },
   { path: '/press', name: 'press' },
   { path: '/media', name: 'media' },
   { path: '/artist', name: 'artist' },

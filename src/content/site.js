@@ -7,7 +7,7 @@ export const site = {
   url: 'https://teeroytyobee.com',
   /** Attributed art direction disclosure shown in the footer. */
   artDirectionNote:
-    'Imagery on this site is art-direction placeholder material pending approved artist photography.',
+    'The supplied artist portrait is used for this local preview; final publication clearance and approved release artwork remain outstanding.',
 };
 
 export const nav = [

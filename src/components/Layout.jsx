@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from 'react';
 import { Link, NavLink, useLocation } from 'react-router-dom';
 import { nav, site } from '../content/site.js';
 import { artist } from '../content/artist.js';
+import { featuredRelease } from '../lib/catalog.js';
 import { useScrollLock } from '../lib/motion.js';
 import { ExternalIcon } from './Icons.jsx';
 
@@ -21,6 +22,7 @@ export function Header() {
   const [solid, setSolid] = useState(false);
   const location = useLocation();
   const firstRender = useRef(true);
+  const latest = featuredRelease();
 
   useScrollLock(open);
 
@@ -62,14 +64,10 @@ export function Header() {
           </nav>
 
           <div className="hdr__aside">
-            <a
-              className="btn btn--sm hdr__listen ext"
-              href={artist.links.appleMusic}
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              Listen <ExternalIcon />
-            </a>
+            <Link className="hdr__latest" to={`/catalog/${latest.id}`} aria-label={`Latest release: ${latest.title}`}>
+              <span className="hdr__latest-mark" aria-hidden="true">TT</span>
+              <span className="hdr__latest-copy"><small>Latest release</small><b>{latest.title}</b></span>
+            </Link>
             <button
               className="burger"
               aria-expanded={open}
@@ -77,7 +75,7 @@ export function Header() {
               aria-label={open ? 'Close menu' : 'Open menu'}
               onClick={() => setOpen((v) => !v)}
             >
-              <i /><i />
+              <span className="burger__label">{open ? 'Close' : 'Menu'}</span>
             </button>
           </div>
         </div>

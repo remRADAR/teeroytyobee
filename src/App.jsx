@@ -6,6 +6,7 @@ import { usePageTransition } from './lib/motion.js';
 import { refreshScroll } from './lib/scrollBus.js';
 import Home from './pages/Home.jsx';
 import Catalog from './pages/Catalog.jsx';
+import ReleaseDetail from './pages/ReleaseDetail.jsx';
 import Press from './pages/Press.jsx';
 import Media from './pages/Media.jsx';
 import Artist from './pages/Artist.jsx';
@@ -66,6 +67,7 @@ export default function App() {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/catalog" element={<Catalog />} />
+          <Route path="/catalog/:id" element={<ReleaseDetail />} />
           <Route path="/press" element={<Press />} />
           <Route path="/media" element={<Media />} />
           <Route path="/artist" element={<Artist />} />

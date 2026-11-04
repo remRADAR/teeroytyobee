@@ -147,10 +147,10 @@ test('only videos with a validated platform id are listed', () => {
   }
 });
 
-test('photography is explicitly marked as placeholder', () => {
-  for (const shot of photography) {
-    assert.equal(shot.isPlaceholder, true, `${shot.id} must be flagged as a placeholder`);
-  }
+test('supplied portrait is not mislabeled as placeholder photography', () => {
+  assert.equal(photography.length, 1, 'only the supplied portrait is present');
+  assert.equal(photography[0].isPlaceholder, false);
+  assert.match(photography[0].rightsNote, /publication clearance (remain|remains) outstanding/i);
 });
 
 test('the featured release exists and comes from the solo set', () => {

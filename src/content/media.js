@@ -1,13 +1,13 @@
 /**
- * Media — official video, channel destinations and photography.
+ * Media — official video, channel destinations and the supplied portrait.
  *
  * `videos[]` may only contain entries confirmed through the platform itself.
  * YouTube entries carry a `videoId` validated via the oEmbed endpoint
  * (title + channel author confirmed), which is what makes an embed legitimate.
  *
- * `photography[]` currently holds ART-DIRECTION PLACEHOLDERS, not artist photography.
- * Each entry is flagged `isPlaceholder: true` and the media page labels them, so the
- * site never implies a stock/visual study is a real photograph of the artist.
+ * The only portrait is documented as user-supplied on another repository branch.
+ * Final publication clearance remains outstanding, and no release-cover artwork
+ * or direct audio streams are present in the selected branch.
  */
 export const videos = [
   {
@@ -54,51 +54,19 @@ export const channels = [
   },
 ];
 
-/** Visual direction studies — explicitly NOT official artist photography. */
 export const photography = [
   {
-    id: 'portrait-study',
-    title: 'Portrait study',
-    caption: 'Silhouette, single source, haze',
-    src: 'hero-portrait',
+    id: 'artist-portrait',
+    title: 'Artist portrait',
+    caption: 'User-supplied image · final publication clearance pending',
+    src: 'artistPortrait',
     ratio: '4 / 5',
-    isPlaceholder: true,
-  },
-  {
-    id: 'stage-study',
-    title: 'Stage study',
-    caption: 'Empty stage, one beam',
-    src: 'stage',
-    ratio: '16 / 9',
-    isPlaceholder: true,
-  },
-  {
-    id: 'crowd-study',
-    title: 'Crowd study',
-    caption: 'Live room, backlit',
-    src: 'crowd',
-    ratio: '3 / 2',
-    isPlaceholder: true,
-  },
-  {
-    id: 'texture-study',
-    title: 'Texture study',
-    caption: 'Light through smoke',
-    src: 'texture',
-    ratio: '3 / 2',
-    isPlaceholder: true,
-  },
-  {
-    id: 'mic-study',
-    title: 'Object study',
-    caption: 'Condenser microphone',
-    src: 'mic',
-    ratio: '4 / 5',
-    isPlaceholder: true,
+    isPlaceholder: false,
+    rightsNote: 'The portrait is documented as user-supplied; final management approval and publication clearance remain outstanding.',
   },
 ];
 
 export const mediaDisclosure =
-  'Only destinations confirmed through the platform itself are published. Videos are embedded on click — nothing autoplays and no streaming metric is derived from this site. The gallery images are art-direction placeholders, not photographs of the artist; they will be replaced with approved, credited photography.';
+  'Only one official video has a confirmed playable source in the current repository. The portrait is user-supplied but still needs final publication clearance. Additional release artwork, photography, audio files and verified streaming URLs have not been supplied; no substitute imagery or playback controls are presented as official.';
 
 export default { videos, channels, photography, mediaDisclosure };
