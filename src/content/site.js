@@ -1,0 +1,37 @@
+/** Site-level copy and navigation. Kept out of components so wording is editable in one place. */
+export const site = {
+  title: 'Teeroy Tyobee',
+  tagline: 'Official artist portfolio',
+  description:
+    'The official portfolio of Teeroy Tyobee — a Nigerian singer and songwriter from the Tiv Nation of Benue State. Catalogue, press, media and press kit.',
+  url: 'https://teeroytyobee.com',
+  /** Attributed art direction disclosure shown in the footer. */
+  artDirectionNote:
+    'Imagery on this site is art-direction placeholder material pending approved artist photography.',
+};
+
+export const nav = [
+  { to: '/', label: 'Home', index: '01' },
+  { to: '/catalog', label: 'Catalog', index: '02' },
+  { to: '/press', label: 'Press', index: '03' },
+  { to: '/media', label: 'Media', index: '04' },
+  { to: '/artist', label: 'Artist', index: '05' },
+];
+
+export const homeCopy = {
+  eyebrow: 'Independent · Benue State, Nigeria',
+  headlineTop: 'The sound',
+  headlineAccent: 'of home.',
+  lede:
+    'Afro-fusion from the Tiv Nation — storytelling, soul and heritage, released independently through Royz Houz.',
+  primaryCta: 'Explore the catalogue',
+  secondaryCta: 'Read the artist file',
+  catalogLabel: 'Latest release',
+  mediaHeading: 'On screen',
+  mediaLede: 'Official visuals, released through the artist’s own channel.',
+  pressHeading: 'In print',
+  pressLede: 'Selected coverage, newest first.',
+  artistHeading: 'The artist',
+};
+
+export default { site, nav, homeCopy };
