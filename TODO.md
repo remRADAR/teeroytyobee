@@ -34,6 +34,8 @@
 ## Final handoff and remaining dependencies
 
 - [x] Generate EPK PDF from existing verified content; do not fabricate official cover art or image permissions.
+- [x] Push feature branch `feat/gojett-teeroy-complete-reconstruction` to `origin`; initial implementation commit: `9dbb729`.
 - [ ] Obtain cleared Teeroy artist photography, approved release covers, press imagery, and any additional direct audio sources before replacing placeholders or building a multi-track player.
-- [ ] Push the committed feature branch and record its commit SHA (only if repository credentials permit).
-- [ ] Preview link remains a sandbox session URL; no public deployment was requested/performed.
+- [ ] After authenticated Framer access becomes available, inspect the remix and create a Framer-native Teeroy project.
+
+Preview is a sandbox session URL; no public deployment was requested or performed.
