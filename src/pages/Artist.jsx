@@ -1,8 +1,7 @@
 import { artist, career, openQuestions } from '../content/artist.js';
 import { sources } from '../content/sources.js';
 import { catalogStats } from '../lib/catalog.js';
-import { art } from '../lib/artwork.js';
-import { Img, useRevealOnMount } from '../components/Img.jsx';
+import { useRevealOnMount } from '../components/Img.jsx';
 import { Verified } from '../components/ReleaseRow.jsx';
 import { ChevronIcon, DownloadIcon, ExternalIcon } from '../components/Icons.jsx';
 
@@ -40,12 +39,10 @@ export default function Artist() {
       <section className="section section--flush" aria-labelledby="bio-heading">
         <div className="wrap">
           <div className="epk">
-            <div className="epk__portrait" data-reveal>
-              <Img {...art.mic} alt="" />
-              <div className="epk__plate">
-                <strong>{artist.monogram}</strong>
-                <span>Artist file · {new Date().getFullYear()}</span>
-              </div>
+            <div className="epk__portrait asset-placeholder" data-reveal role="img" aria-label="Approved artist portrait pending">
+              <span className="asset-placeholder__label">Artist file · {new Date().getFullYear()}</span>
+              <span className="asset-placeholder__message">Approved artist portrait required</span>
+              <span className="micro">Publication clearance pending</span>
             </div>
 
             <div data-reveal data-reveal-delay="1">

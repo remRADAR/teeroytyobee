@@ -1,8 +1,6 @@
 import { useEffect } from 'react';
 import { Routes, Route, useLocation, Link } from 'react-router-dom';
 import { Header, Footer } from './components/Layout.jsx';
-import { Cursor, ScrollRail, PageCurtain } from './components/Motion.jsx';
-import { usePageTransition } from './lib/motion.js';
 import { refreshScroll } from './lib/scrollBus.js';
 import Home from './pages/Home.jsx';
 import Catalog from './pages/Catalog.jsx';
@@ -52,15 +50,9 @@ function NotFound() {
 }
 
 export default function App() {
-  const { pathname } = useLocation();
-  const { phase } = usePageTransition(pathname);
-
   return (
     <div className="shell">
       <a className="skip-link" href="#main">Skip to content</a>
-      <ScrollRail />
-      <Cursor />
-      <PageCurtain phase={phase} />
       <ScrollManager />
       <Header />
       <div style={{ flex: '1 0 auto' }}>

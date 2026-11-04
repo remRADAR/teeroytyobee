@@ -1,6 +1,5 @@
 import { videos, channels, photography, mediaDisclosure } from '../content/media.js';
-import { art, photography as photoArt } from '../lib/artwork.js';
-import { Img, useRevealOnMount } from '../components/Img.jsx';
+import { useRevealOnMount } from '../components/Img.jsx';
 import { ExternalIcon, PlayIcon } from '../components/Icons.jsx';
 import { useRadio } from '../components/RadioPlayer.jsx';
 
@@ -16,7 +15,9 @@ function VideoPlayer({ video }) {
         onClick={() => play(video)}
         aria-label={`${isActive ? 'Now playing' : 'Play'} ${video.title} in the persistent official-source player`}
       >
-        <Img {...art.heroPortrait} alt="" />
+        <span className="media-asset-placeholder" aria-hidden="true">
+          <small>Official video artwork pending</small>
+        </span>
         <span className="player__play"><PlayIcon /></span>
         <span className="player__label">
           <span>{video.kind} · {video.year}</span>
@@ -107,11 +108,14 @@ export default function Media() {
           <div className="gallery" data-reveal data-reveal-delay="1">
             {photography.map((shot) => (
               <figure
-                className={`gallery__cell ${photoArt(shot.id).cell}`}
+                className="gallery__cell gallery__cell--tall"
                 key={shot.id}
                 style={{ margin: 0 }}
               >
-                <Img {...photoArt(shot.id)} alt="Portrait of Teeroy Tyobee; final publication clearance is pending." />
+                <div className="asset-placeholder" role="img" aria-label="Approved artist portrait pending">
+                  <span className="asset-placeholder__label">{shot.title}</span>
+                  <span className="asset-placeholder__message">Approved artist photography required</span>
+                </div>
                 <figcaption className="gallery__cap">
                   <b>{shot.title}</b>
                   <span>{shot.caption}</span>

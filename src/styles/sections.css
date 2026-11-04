@@ -1259,38 +1259,6 @@
 }
 
 
-/* User-established Teeroy adaptation: one restrained image glitch pulse.
-   This is an identity treatment, not a claimed behavior of the Framer reference. */
-.hero__glitch {
-  position: absolute;
-  inset: 0;
-  z-index: 1;
-  opacity: 0;
-  pointer-events: none;
-  background-image: url('/media/artist-hero.jpeg');
-  background-size: cover;
-  background-position: 74% 42%;
-  mix-blend-mode: screen;
-  filter: sepia(0.55) saturate(0.55) hue-rotate(318deg) contrast(1.1);
-  animation: image-glitch-pulse 11s steps(1, end) infinite;
-}
-
-@keyframes image-glitch-pulse {
-  0%, 92%, 100% { opacity: 0; transform: none; clip-path: inset(0); }
-  92.4% { opacity: 0.12; transform: translateX(-2px); clip-path: inset(22% 0 67% 0); }
-  92.9% { opacity: 0.08; transform: translateX(2px); clip-path: inset(62% 0 27% 0); }
-  93.4% { opacity: 0; transform: none; clip-path: inset(0); }
-}
-
-@media (max-width: 720px) {
-  .hero__glitch { background-position: 66% 30%; opacity: 0; }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .hero__glitch { animation: none !important; display: none !important; }
-}
-
-
 .rel__detail { display: inline-flex; align-items: center; min-height: 34px; }
 
 
