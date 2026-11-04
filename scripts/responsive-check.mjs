@@ -9,7 +9,8 @@
  *   - a single H1 (heading structure)
  *   - no console errors and no failed requests
  *   - the page renders real content (not an empty shell)
- *   - tap targets on mobile are at least 40px on one axis
+ *   - mobile interactive targets are not smaller than 30px on either axis
+ *   - compact release-art controls are at least 44x44px on mobile
  *   - with prefers-reduced-motion, no element is left invisible
  * and writes a screenshot per route.
  */
@@ -113,6 +114,13 @@ for (const vp of VIEWPORTS) {
         })
         .map((el) => `${el.tagName}:${(el.textContent || '').trim().slice(0, 26)}`)
         .slice(0, 6);
+      const undersizedReleaseTargets = [...document.querySelectorAll('.rel__thumb')]
+        .filter((el) => {
+          const r = el.getBoundingClientRect();
+          return r.width < 44 || r.height < 44;
+        })
+        .map((el) => `${el.getAttribute('aria-label') || el.textContent.trim()}: ${Math.round(el.getBoundingClientRect().width)}×${Math.round(el.getBoundingClientRect().height)}px`)
+        .slice(0, 6);
       const invisible = [...document.querySelectorAll('[data-reveal]')]
         .filter((el) => getComputedStyle(el).opacity === '0')
         .length;
@@ -122,6 +130,7 @@ for (const vp of VIEWPORTS) {
         h1s,
         text: document.body.innerText.replace(/\\s+/g, ' ').trim(),
         smallTargets,
+        undersizedReleaseTargets,
         invisible,
         nodes: document.querySelectorAll('body *').length,
       };
@@ -156,6 +165,12 @@ for (const vp of VIEWPORTS) {
       findings.push({
         viewport: vp.name, route: route.path, severity: 'warn',
         issue: `small tap targets: ${metrics.smallTargets.join(' | ')}`,
+      });
+    }
+    if (vp.isMobile && metrics.undersizedReleaseTargets.length) {
+      findings.push({
+        viewport: vp.name, route: route.path, severity: 'error',
+        issue: `compact release controls below 44×44px: ${metrics.undersizedReleaseTargets.join(' | ')}`,
       });
     }
     if (errors.length) {
@@ -266,6 +281,7 @@ const report = {
     'page renders real content',
     'no console / request errors',
     'mobile tap targets >= 30px',
+    'compact release controls >= 44×44px on mobile',
     'reveal animations settle',
     'prefers-reduced-motion keeps all content visible',
     'selected-work preview updates on hover',

@@ -28,3 +28,11 @@ A Playwright interaction sweep passed: exact artist name text; mobile menu open/
 ## Limits
 
 These results apply to the current React feature branch. They do not certify the Framer remix/editor, original Framer source components, pixel-perfect image matching, publication rights for pending assets, or a production deployment. The user-supplied remix remains behind Framer login in the available browser.
+
+## Follow-up: mobile controls and scroll motion — 5 November 2026
+
+- Corrected the compact catalog thumbnail grid so the verified `Wise Up` playback control no longer collapses to a 12 px-wide column. Its measured hit area is 51.2 × 51.2 CSS px at 360 px and 390 px viewport widths; the responsive harness now asserts compact release controls are at least 44 × 44 px.
+- Added CSS view-timeline entrances for catalog release rows and selected artist, media and profile cards, plus a subtle scroll-linked artwork-orbit effect. Browser checks confirmed the scroll-timeline rules are supported and active with motion enabled, then resolve to `animation: none` under `prefers-reduced-motion: reduce`.
+- `npm run check`: pass, 19/19 tests and production build. `BASE_URL=http://127.0.0.1:5173 npm run check:responsive`: pass across six routes × five viewports plus reduced motion, 0 errors and 0 warnings.
+- No commit, push or deployment was made. The Cloudflare Pages production deployment observed before this pass remains on commit `df86efef0c97649ff778ace91724791cd5e8911c` (`7052ae32`); the code changes are local and uncommitted.
+- `npm audit --omit=dev` reports two moderate advisories in the existing `react-router` 6.30.6 dependency. The audit's automated fix requires a breaking React Router 7 upgrade; dependencies were not changed as part of this focused styling pass.

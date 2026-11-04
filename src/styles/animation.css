@@ -94,10 +94,21 @@
     .artwork,
     .gallery__cell,
     .press-item,
-    .channel {
+    .channel,
+    .rel,
+    .timeline__row,
+    .video-feature,
+    .epk-download,
+    .fact-grid > div {
       animation: editorial-card-in 1ms linear both;
       animation-timeline: view(block);
       animation-range: entry 0% cover 24%;
+    }
+
+    .release-visual__orbit {
+      animation: release-orbit-scroll 1ms linear both;
+      animation-timeline: view(block);
+      animation-range: entry 0% exit 100%;
     }
 
     .masthead__stage-noise {
@@ -134,6 +145,11 @@
     opacity: 1;
     transform: none;
   }
+}
+
+@keyframes release-orbit-scroll {
+  0% { opacity: 0.48; transform: translate3d(0, -3%, 0) rotate(-8deg) scale(0.96); }
+  100% { opacity: 0.8; transform: translate3d(0, 3%, 0) rotate(8deg) scale(1.04); }
 }
 
 @keyframes hero-scroll-depth {
@@ -280,7 +296,13 @@
   .artwork,
   .gallery__cell,
   .press-item,
-  .channel {
+  .channel,
+  .rel,
+  .timeline__row,
+  .video-feature,
+  .epk-download,
+  .fact-grid > div,
+  .release-visual__orbit {
     animation: none !important;
   }
 

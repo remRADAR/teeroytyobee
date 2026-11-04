@@ -71,9 +71,12 @@ body { background: var(--ink); }
 .playable-art__status { position: absolute; z-index: 4; right: .75rem; bottom: .7rem; left: .75rem; color: rgba(255,255,255,.78); font-size: .5rem; letter-spacing: .12em; text-transform: uppercase; }
 .playable-art--pending { cursor: pointer; }
 .playable-art--pending .playable-art__status { color: var(--bone-faint); }
-.rel__thumb .playable-art { min-height: 5rem; }
+.rel__thumb.playable-art { min-inline-size: 44px; min-block-size: 44px; }
 .rel__thumb .playable-art__status { display: none; }
 .rel__thumb .playable-art__play { width: 2rem; height: 2rem; }
+@media (max-width: 759px) {
+  .rel__thumb.playable-art { inline-size: 3.25rem; block-size: 3.25rem; }
+}
 
 .store-rail { display: grid; grid-template-columns: minmax(11rem, .55fr) minmax(0, 2fr); gap: clamp(1.5rem, 5vw, 5rem); align-items: center; padding: clamp(1.6rem, 3vw, 2.8rem) var(--gutter); border-bottom: 1px solid var(--ink-line); background: #050505; }
 .store-rail__heading { display: grid; gap: .55rem; }
