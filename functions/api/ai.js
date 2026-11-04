@@ -1,4 +1,4 @@
-const MODEL = '@cf/meta/llama-3.1-8b-instruct';
+const MODEL = '@cf/meta/llama-3.1-8b-instruct-fp8';
 const MAX_PROMPT_LENGTH = 4000;
 
 export async function onRequestPost(context) {
