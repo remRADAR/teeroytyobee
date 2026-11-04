@@ -32,6 +32,19 @@ export const homeCopy = {
   pressHeading: 'In print',
   pressLede: 'Selected coverage, newest first.',
   artistHeading: 'The artist',
+  /**
+   * Drifting band under the hero. Descriptive only — no claims, no numbers,
+   * nothing that would need verifying. Kept here so the wording is editable
+   * without touching the component.
+   */
+  marqueeItems: [
+    'Teeroy Tyobee',
+    'Afro-fusion',
+    'Tiv Nation',
+    'Benue State',
+    'Independent',
+    'Royz Houz',
+  ],
 };
 
 export default { site, nav, homeCopy };

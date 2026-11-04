@@ -5,6 +5,7 @@ import App from './App.jsx';
 import './styles/tokens.css';
 import './styles/chrome.css';
 import './styles/sections.css';
+import './styles/marquee.css';
 import './styles/motion.css';
 
 createRoot(document.getElementById('root')).render(
