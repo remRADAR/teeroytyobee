@@ -3,6 +3,7 @@ import { createRoot } from 'react-dom/client';
 import { BrowserRouter } from 'react-router-dom';
 import App from './App.jsx';
 import './styles/tokens.css';
+import './styles/fonts-poster.css';
 import './styles/chrome.css';
 import './styles/sections.css';
 import './styles/marquee.css';
