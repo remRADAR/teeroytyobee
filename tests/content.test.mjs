@@ -8,6 +8,7 @@
  */
 import test from 'node:test';
 import assert from 'node:assert/strict';
+import fs from 'node:fs';
 
 import { artist, career } from '../src/content/artist.js';
 import { soloReleases, collaborations } from '../src/content/releases.js';
@@ -164,4 +165,21 @@ test('catalog stats agree with the source arrays', () => {
   assert.equal(catalogStats.solo, soloReleases.length);
   assert.equal(catalogStats.collaborations, collaborations.length);
   assert.equal(catalogStats.total, soloReleases.length + collaborations.length);
+});
+
+test('preview route manifest declares every application page route', () => {
+  const manifest = JSON.parse(fs.readFileSync(new URL('../public/manus-routes.json', import.meta.url), 'utf8'));
+  assert.ok(Array.isArray(manifest.routes));
+  assert.deepEqual(manifest.routes.map((route) => route.path), [
+    '/',
+    '/catalog',
+    '/catalog/:id',
+    '/press',
+    '/media',
+    '/artist',
+  ]);
+  for (const route of manifest.routes) {
+    assert.match(route.path, /^\//);
+    assert.ok(route.title);
+  }
 });
