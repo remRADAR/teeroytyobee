@@ -1,7 +1,8 @@
 import { Link, useParams } from 'react-router-dom';
 import { artist } from '../content/artist.js';
 import { allReleases } from '../lib/catalog.js';
-import { ReleaseArtwork } from '../components/ReleaseArtwork.jsx';
+import { PlayableReleaseArtwork } from '../components/PlayableReleaseArtwork.jsx';
+import { videos } from '../content/media.js';
 import { ExtLink, Verified } from '../components/ReleaseRow.jsx';
 import { useRevealOnMount } from '../components/Img.jsx';
 
@@ -9,6 +10,7 @@ export default function ReleaseDetail() {
   const { id } = useParams();
   const ref = useRevealOnMount();
   const release = allReleases.find((item) => item.id === id);
+  const video = release?.videoId ? videos.find((item) => item.videoId === release.videoId) : null;
 
   if (!release) {
     return (
@@ -34,7 +36,7 @@ export default function ReleaseDetail() {
       <section className="section section--flush" aria-label={`${release.title} details`}>
         <div className="wrap release-detail">
           <div className="release-detail__art" data-reveal>
-            <ReleaseArtwork release={release} />
+            <PlayableReleaseArtwork release={release} video={video} />
           </div>
           <div className="release-detail__copy" data-reveal data-reveal-delay="1">
             <div className="release-detail__status">

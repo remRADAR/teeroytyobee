@@ -8,6 +8,7 @@ import { videos } from '../content/media.js';
 import { ArrowIcon, ExternalIcon, PlatformIcon } from '../components/Icons.jsx';
 import { Marquee } from '../components/Marquee.jsx';
 import { art } from '../lib/artwork.js';
+import { PlayableReleaseArtwork } from '../components/PlayableReleaseArtwork.jsx';
 
 const storeLinks = [
   { key: 'appleMusic', label: 'Apple Music', kind: 'apple', url: artist.links.appleMusic },
@@ -20,7 +21,8 @@ export default function Home() {
   const featured = featuredRelease();
   const recent = sortedSolo.filter((release) => release.id !== featured.id).slice(0, 4);
   const [selectedWork, setSelectedWork] = useState(featured);
-  const [leadPress] = press;
+  const currentPress = press.filter((item) => /iember|joy|debut ep/i.test(`${item.title} ${item.summary}`));
+  const featuredVideo = videos.find((video) => video.videoId === featured.videoId);
   const [leadVideo] = videos;
 
   return (
@@ -40,35 +42,23 @@ export default function Home() {
             <Link className="masthead__cta" to={`/catalog/${featured.id}`}>
               Explore the release <ArrowIcon />
             </Link>
+            <div className="masthead__stores" aria-label="Listen to Teeroy Tyobee on official platforms">
+              {storeLinks.map((store) => (
+                <a className="masthead__store" href={store.url} key={store.key} target="_blank" rel="noopener noreferrer" aria-label={`Open Teeroy Tyobee on ${store.label}`}>
+                  <PlatformIcon kind={store.kind} />
+                  <span>{store.label}</span>
+                </a>
+              ))}
+            </div>
+          </div>
+          <div className="masthead__featured-art">
+            <PlayableReleaseArtwork release={featured} video={featuredVideo} />
           </div>
           <span className="masthead__asset-note">{artist.displayName} · official artist profile</span>
         </div>
         <div className="masthead__foot">
           <span>{artist.genreLine}</span>
           <a href="#introduction" aria-label="Scroll to artist introduction">Scroll to explore <span aria-hidden="true">↓</span></a>
-        </div>
-      </section>
-
-      <section className="store-rail" aria-labelledby="store-rail-heading">
-        <div className="store-rail__heading">
-          <p className="micro">Listen / follow</p>
-          <h2 id="store-rail-heading">Find the sound.</h2>
-        </div>
-        <div className="store-rail__links">
-          {storeLinks.map((store) => (
-            <a
-              className="store-rail__link"
-              href={store.url}
-              key={store.key}
-              target="_blank"
-              rel="noopener noreferrer"
-              aria-label={`Open Teeroy Tyobee on ${store.label}`}
-            >
-              <span className="store-rail__icon"><PlatformIcon kind={store.kind} /></span>
-              <span className="store-rail__label">{store.label}</span>
-              <ExternalIcon className="store-rail__external" />
-            </a>
-          ))}
         </div>
       </section>
 
@@ -115,11 +105,12 @@ export default function Home() {
               </li>
             ))}
           </ul>
-          <div className="editorial-work__preview" role="group" aria-label={`${selectedWork.title} preview; approved release artwork is required`}>
-            <span className="micro">{selectedWork.year} <i>·</i> {selectedWork.kind}</span>
+          <div className="editorial-work__preview" role="group" aria-label={`${selectedWork.title} preview`}>
+            <PlayableReleaseArtwork
+              release={selectedWork}
+              video={videos.find((video) => video.videoId === selectedWork.videoId)}
+            />
             <strong>{selectedWork.title}</strong>
-            <span className="editorial-work__asset-note">Approved release artwork required</span>
-            <Link to={`/catalog/${selectedWork.id}`} aria-label={`Explore ${selectedWork.title}`}><ArrowIcon /></Link>
           </div>
         </div>
         <p className="editorial-work__note">Solo releases shown newest first. Collaborations remain separately listed in the catalogue.</p>
@@ -139,23 +130,25 @@ export default function Home() {
 
       <section className="editorial-press" aria-labelledby="journal-heading">
         <div className="editorial-section-head">
-          <p className="micro">{homeCopy.pressHeading} / 03</p>
+          <p className="micro">Current project / 03</p>
           <div>
-            <h2 className="poster poster--section" id="journal-heading">In the press</h2>
-            <p className="editorial-press__lede">{homeCopy.pressLede}</p>
+            <h2 className="poster poster--section" id="journal-heading">IEMBER in the press</h2>
+            <p className="editorial-press__lede">Current updates and mentions of the highlighted project.</p>
           </div>
           <Link className="editorial-link" to="/press">All coverage <ArrowIcon /></Link>
         </div>
-        <article className="editorial-press__lead">
-          <span className="micro">{leadPress.outlet} <i>·</i> {leadPress.dateLabel}</span>
-          <h3>{leadPress.title}</h3>
-          <p>{leadPress.summary}</p>
-          {leadPress.url && leadPress.verified ? (
-            <a className="editorial-link" href={leadPress.url} target="_blank" rel="noopener noreferrer">Read the verified story <ExternalIcon /></a>
-          ) : (
-            <span className="editorial-press__pending">Link awaiting verification</span>
-          )}
-        </article>
+        {currentPress.map((item) => (
+          <article className="editorial-press__lead" key={item.id}>
+            <span className="micro">{item.outlet} <i>·</i> {item.dateLabel}</span>
+            <h3>{item.title}</h3>
+            <p>{item.summary}</p>
+            {item.url && item.verified ? (
+              <a className="editorial-link" href={item.url} target="_blank" rel="noopener noreferrer">Read the verified story <ExternalIcon /></a>
+            ) : (
+              <span className="editorial-press__pending">Link awaiting verification</span>
+            )}
+          </article>
+        ))}
       </section>
 
       <section className="editorial-media" aria-labelledby="media-heading">
