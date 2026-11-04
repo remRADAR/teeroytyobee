@@ -9,6 +9,7 @@ import { Img, useRevealOnMount } from '../components/Img.jsx';
 import { ReleaseRow } from '../components/ReleaseRow.jsx';
 import { ExtLink } from '../components/ReleaseRow.jsx';
 import { ArrowIcon, PlayIcon } from '../components/Icons.jsx';
+import { Marquee } from '../components/Marquee.jsx';
 
 export default function Home() {
   const ref = useRevealOnMount();
@@ -33,7 +34,7 @@ export default function Home() {
         <div className="wrap hero__inner">
           <div>
             <p className="eyebrow">{homeCopy.eyebrow}</p>
-            <h1 className="display display--lg hero__title" id="hero-title">
+            <h1 className="poster poster--hero hero__title" id="hero-title">
               <span className="line">{homeCopy.headlineTop}</span>
               <span className="line">
                 <span className="accent glitch" data-text={homeCopy.headlineAccent}>
@@ -73,6 +74,9 @@ export default function Home() {
 
         <span className="hero__scroll" aria-hidden="true">Scroll</span>
       </section>
+
+      {/* --------------------------------------------------------- marquee */}
+      <Marquee items={homeCopy.marqueeItems} outline />
 
       {/* -------------------------------------------------------- featured */}
       <section className="section" aria-labelledby="featured-title">
