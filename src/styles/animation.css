@@ -1,0 +1,307 @@
+/* ==========================================================================
+   Editorial animation layer
+   --------------------------------------------------------------------------
+   This file is intentionally additive: the existing motion.css owns the
+   reveal/parallax primitives, while this layer gives the page's larger
+   compositions a little more rhythm as they enter and leave the viewport.
+   Every scroll-driven rule has a static fallback and is disabled for readers
+   who prefer reduced motion.
+   ========================================================================== */
+
+:root {
+  --animation-slow: 1100ms;
+  --animation-spring: cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* ----------------------------------------------------------- focus rhythm */
+
+:where(a, button, summary):focus-visible {
+  outline: 1px solid var(--gold-bright);
+  outline-offset: 5px;
+  transition: outline-offset 220ms var(--ease-out);
+}
+
+:where(a, button, summary):focus-visible:hover {
+  outline-offset: 7px;
+}
+
+/* ------------------------------------------------------------- hero depth */
+
+.masthead {
+  isolation: isolate;
+}
+
+.masthead__stage {
+  overflow: hidden;
+  transform: translateZ(0);
+}
+
+.masthead__stage::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  background: linear-gradient(115deg, transparent 0 42%, rgba(224, 196, 140, 0.11) 50%, transparent 58%);
+  transform: translate3d(-115%, 0, 0);
+  opacity: 0;
+}
+
+.masthead__stage-copy,
+.masthead__asset-note {
+  position: relative;
+  z-index: 2;
+}
+
+.masthead__cta svg,
+.editorial-link svg,
+.editorial-work__arrow svg,
+.editorial-contact__button svg {
+  transition: transform 420ms var(--animation-spring);
+}
+
+.masthead__cta:hover svg,
+.masthead__cta:focus-visible svg,
+.editorial-link:hover svg,
+.editorial-link:focus-visible svg,
+.editorial-work__item:hover .editorial-work__arrow svg,
+.editorial-work__item:focus-visible .editorial-work__arrow svg,
+.editorial-contact__button:hover svg,
+.editorial-contact__button:focus-visible svg {
+  transform: translate3d(5px, -3px, 0);
+}
+
+/* ------------------------------------------------------- scroll entrances */
+
+@supports (animation-timeline: view()) {
+  @media (prefers-reduced-motion: no-preference) {
+    .editorial-home > section:not(.masthead),
+    .page-head,
+    .catalog-section,
+    .press-list,
+    .media-section,
+    .artist-section,
+    .release-detail {
+      animation: editorial-section-in 1ms linear both;
+      animation-timeline: view(block);
+      animation-range: entry 0% cover 30%;
+    }
+
+    .editorial-work__item,
+    .editorial-press__lead,
+    .editorial-media__tile,
+    .editorial-contact__button,
+    .artwork,
+    .gallery__cell,
+    .press-item,
+    .channel {
+      animation: editorial-card-in 1ms linear both;
+      animation-timeline: view(block);
+      animation-range: entry 0% cover 24%;
+    }
+
+    .masthead__stage-noise {
+      animation: hero-scroll-depth 1ms linear both;
+      animation-timeline: scroll(root block);
+      animation-range: 0 80vh;
+    }
+
+    .masthead__stage::after {
+      animation: hero-sheen 1ms linear both;
+      animation-timeline: view(block);
+      animation-range: entry 0% cover 45%;
+    }
+  }
+}
+
+@keyframes editorial-section-in {
+  0% {
+    opacity: 0.72;
+    transform: translate3d(0, 28px, 0);
+  }
+  100% {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes editorial-card-in {
+  0% {
+    opacity: 0.82;
+    transform: translate3d(0, 18px, 0) scale(0.985);
+  }
+  100% {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes hero-scroll-depth {
+  0% { transform: translate3d(0, 0, 0) scale(1); }
+  100% { transform: translate3d(0, 8vh, 0) scale(1.08); }
+}
+
+@keyframes hero-sheen {
+  0% { opacity: 0; transform: translate3d(-115%, 0, 0); }
+  35%, 68% { opacity: 1; }
+  100% { opacity: 0; transform: translate3d(115%, 0, 0); }
+}
+
+/* ---------------------------------------------------- editorial accents */
+
+.editorial-section-head,
+.section-head {
+  position: relative;
+}
+
+.editorial-section-head::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -1rem;
+  height: 1px;
+  transform: scaleX(0);
+  transform-origin: left center;
+  background: linear-gradient(90deg, var(--gold), transparent 76%);
+  transition: transform 1000ms var(--animation-spring);
+}
+
+.editorial-section-head:hover::after,
+.editorial-section-head:focus-within::after {
+  transform: scaleX(1);
+}
+
+.editorial-intro__mark {
+  display: inline-block;
+  transition: transform 800ms var(--animation-spring), color 360ms var(--ease-out);
+}
+
+.editorial-intro:hover .editorial-intro__mark {
+  color: var(--gold-bright);
+  transform: rotate(-8deg) translate3d(0, -5px, 0);
+}
+
+.editorial-band,
+.editorial-contact {
+  position: relative;
+  overflow: hidden;
+}
+
+.editorial-band::before,
+.editorial-contact::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  width: min(28vw, 20rem);
+  pointer-events: none;
+  background: linear-gradient(90deg, rgba(201, 169, 106, 0.11), transparent);
+  transform: translateX(-100%);
+  transition: transform 1200ms var(--animation-spring);
+}
+
+.editorial-band:hover::before,
+.editorial-contact:hover::before {
+  transform: translateX(0);
+}
+
+/* ------------------------------------------------------ tactile card lift */
+
+.editorial-work__item,
+.editorial-press__lead,
+.editorial-media__tile,
+.editorial-contact__button {
+  transition:
+    transform 520ms var(--animation-spring),
+    color 320ms var(--ease-out),
+    border-color 420ms var(--ease-out),
+    background-color 420ms var(--ease-out);
+}
+
+.editorial-work__item:hover,
+.editorial-work__item:focus-visible {
+  transform: translate3d(8px, 0, 0);
+}
+
+.editorial-press__lead:hover,
+.editorial-media__tile:hover,
+.editorial-contact__button:hover {
+  transform: translate3d(0, -6px, 0);
+}
+
+.editorial-work__index,
+.editorial-work__meta {
+  transition: color 320ms var(--ease-out), transform 420ms var(--animation-spring);
+}
+
+.editorial-work__item:hover .editorial-work__index,
+.editorial-work__item:focus-visible .editorial-work__index {
+  color: var(--gold-bright);
+  transform: translate3d(3px, 0, 0);
+}
+
+.editorial-work__item:hover .editorial-work__meta,
+.editorial-work__item:focus-visible .editorial-work__meta {
+  transform: translate3d(-3px, 0, 0);
+}
+
+/* -------------------------------------------------------------- reduced */
+
+@media (prefers-reduced-motion: reduce) {
+  :where(a, button, summary):focus-visible,
+  :where(a, button, summary):focus-visible:hover {
+    transition: none;
+    outline-offset: 4px;
+  }
+
+  .masthead__stage::after,
+  .editorial-section-head::after,
+  .editorial-band::before,
+  .editorial-contact::before {
+    transition: none;
+    transform: none;
+    opacity: 0;
+  }
+
+  .masthead__stage-noise,
+  .editorial-home > section,
+  .page-head,
+  .catalog-section,
+  .press-list,
+  .media-section,
+  .artist-section,
+  .release-detail,
+  .editorial-work__item,
+  .editorial-press__lead,
+  .editorial-media__tile,
+  .editorial-contact__button,
+  .artwork,
+  .gallery__cell,
+  .press-item,
+  .channel {
+    animation: none !important;
+  }
+
+  .editorial-work__item:hover,
+  .editorial-work__item:focus-visible,
+  .editorial-press__lead:hover,
+  .editorial-media__tile:hover,
+  .editorial-contact__button:hover,
+  .editorial-intro:hover .editorial-intro__mark {
+    transform: none;
+  }
+}
+
+@media (hover: none) {
+  .editorial-work__item:hover,
+  .editorial-press__lead:hover,
+  .editorial-media__tile:hover,
+  .editorial-contact__button:hover,
+  .editorial-intro:hover .editorial-intro__mark,
+  .editorial-band:hover::before,
+  .editorial-contact:hover::before {
+    transform: none;
+  }
+}
