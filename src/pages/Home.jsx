@@ -5,8 +5,16 @@ import { homeCopy } from '../content/site.js';
 import { featuredRelease, sortedSolo } from '../lib/catalog.js';
 import { press } from '../content/press.js';
 import { videos } from '../content/media.js';
-import { ArrowIcon, ExternalIcon } from '../components/Icons.jsx';
+import { ArrowIcon, ExternalIcon, PlatformIcon } from '../components/Icons.jsx';
 import { Marquee } from '../components/Marquee.jsx';
+import { art } from '../lib/artwork.js';
+
+const storeLinks = [
+  { key: 'appleMusic', label: 'Apple Music', kind: 'apple', url: artist.links.appleMusic },
+  { key: 'audiomack', label: 'Audiomack', kind: 'audiomack', url: artist.links.audiomack },
+  { key: 'amazonMusic', label: 'Amazon Music', kind: 'amazon', url: artist.links.amazonMusic },
+  { key: 'youtube', label: 'YouTube', kind: 'youtube', url: artist.links.youtube },
+];
 
 export default function Home() {
   const featured = featuredRelease();
@@ -22,7 +30,9 @@ export default function Home() {
         <h1 className="masthead__title" id="hero-title">
           <span>Teeroy</span>{' '}<span data-text="Tyobee">Tyobee</span>
         </h1>
-        <div className="masthead__stage" role="group" aria-label="Latest release information; approved artist photography is required">
+        <div className="masthead__stage" role="group" aria-label={`Latest release: ${featured.title}`}>
+          <img className="masthead__stage-image" src={art.heroWide.src} alt="" width={art.heroWide.width} height={art.heroWide.height} />
+          <div className="masthead__stage-overlay" aria-hidden="true" />
           <div className="masthead__stage-noise" aria-hidden="true" />
           <div className="masthead__stage-copy">
             <p className="micro">{homeCopy.catalogLabel} · {featured.year}</p>
@@ -31,11 +41,34 @@ export default function Home() {
               Explore the release <ArrowIcon />
             </Link>
           </div>
-          <span className="masthead__asset-note">Approved artist photography required</span>
+          <span className="masthead__asset-note">{artist.displayName} · official artist profile</span>
         </div>
         <div className="masthead__foot">
           <span>{artist.genreLine}</span>
           <a href="#introduction" aria-label="Scroll to artist introduction">Scroll to explore <span aria-hidden="true">↓</span></a>
+        </div>
+      </section>
+
+      <section className="store-rail" aria-labelledby="store-rail-heading">
+        <div className="store-rail__heading">
+          <p className="micro">Listen / follow</p>
+          <h2 id="store-rail-heading">Find the sound.</h2>
+        </div>
+        <div className="store-rail__links">
+          {storeLinks.map((store) => (
+            <a
+              className="store-rail__link"
+              href={store.url}
+              key={store.key}
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label={`Open Teeroy Tyobee on ${store.label}`}
+            >
+              <span className="store-rail__icon"><PlatformIcon kind={store.kind} /></span>
+              <span className="store-rail__label">{store.label}</span>
+              <ExternalIcon className="store-rail__external" />
+            </a>
+          ))}
         </div>
       </section>
 
