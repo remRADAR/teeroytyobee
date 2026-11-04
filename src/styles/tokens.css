@@ -24,6 +24,10 @@
   /* Type stacks (self-hosted) */
   --font-display: 'Instrument Serif', 'Times New Roman', Georgia, serif;
   --font-sans: 'Inter var', 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
+  /* GoJett-derived: ultra-condensed 900 for the oversized display voice,
+     monospace for labels and meta. Both self-hosted, latin subset only. */
+  --font-poster: 'Sofia Sans Extra Condensed', 'Arial Narrow', 'Helvetica Neue', sans-serif;
+  --font-mono: 'Martian Mono', ui-monospace, 'SFMono-Regular', Menlo, monospace;
 
   /* Rhythm */
   --gutter: clamp(1.25rem, 5vw, 6rem);
@@ -128,6 +132,27 @@ h1, h2, h3, h4, p, figure, blockquote { margin: 0; }
   line-height: 0.88;
 }
 
+/* ------------------------------------------------------- poster display -- */
+/* The GoJett signature: a 900-weight extra-condensed face set large enough to
+   fill the measure. Used for the hero wordmark and section titles only — never
+   for body copy, where it would be unreadable. */
+
+.poster {
+  font-family: var(--font-poster);
+  font-weight: 900;
+  text-transform: uppercase;
+  line-height: 0.82;
+  letter-spacing: -0.005em;
+}
+
+.poster--hero {
+  font-size: clamp(3.4rem, 15.5vw, 13.5rem);
+}
+
+.poster--section {
+  font-size: clamp(2.4rem, 8.5vw, 6.5rem);
+}
+
 .h2 {
   font-family: var(--font-display);
   font-weight: 400;
@@ -226,6 +251,17 @@ h1, h2, h3, h4, p, figure, blockquote { margin: 0; }
 }
 
 .section-head__title { max-width: 34ch; }
+
+/* GoJett-derived: every page opens with the same oversized condensed voice as
+   the hero, so the sections read as one publication rather than five pages. */
+.page-head__title {
+  font-family: var(--font-poster);
+  font-weight: 900;
+  text-transform: uppercase;
+  font-size: clamp(2.6rem, 9.5vw, 7rem);
+  line-height: 0.84;
+  letter-spacing: -0.005em;
+}
 
 .grid-2 {
   display: grid;
