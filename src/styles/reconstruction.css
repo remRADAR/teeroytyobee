@@ -107,7 +107,9 @@ body { background: var(--ink); }
 .editorial-work__list { grid-column: 2; grid-row: 1; margin: 0; border-bottom: 1px solid var(--ink-line); }
 .editorial-work__preview { position: relative; grid-column: 1; grid-row: 1; display: flex; width: 100%; min-width: 0; min-height: 30rem; flex-direction: column; justify-content: space-between; gap: 1rem; overflow: hidden; aspect-ratio: .83; padding: clamp(1.2rem, 3vw, 2.25rem); border: 1px solid var(--ink-line); background: radial-gradient(ellipse at 72% 25%, #292928, #161615 48%, #090909 100%); }
 .editorial-work__preview::before { position: absolute; inset: 0; content: ''; background: linear-gradient(0deg, rgba(0,0,0,.65), transparent 55%), linear-gradient(90deg, rgba(255,255,255,.02), transparent 65%); pointer-events: none; }
-.editorial-work__preview > .playable-art { position: absolute; z-index: 0; inset: 0; }
+.editorial-work__preview > .editorial-work__portrait { position: absolute; z-index: 0; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: center 24%; filter: saturate(.86) contrast(1.04); }
+.editorial-work__preview > .editorial-work__cover { position: absolute; z-index: 1; right: clamp(1rem, 3vw, 2rem); bottom: clamp(1rem, 3vw, 2rem); width: min(44%, 13rem); box-shadow: 0 1rem 2.5rem rgba(0,0,0,.45); }
+.editorial-work__cover .playable-art { position: relative; inset: auto; width: 100%; aspect-ratio: .83; }
 .editorial-work__preview > strong { z-index: 2; margin-top: auto; pointer-events: none; }
 .editorial-work__preview > * { position: relative; }
 .editorial-work__preview .micro { color: var(--bone-dim); }
@@ -141,10 +143,11 @@ body { background: var(--ink); }
 .editorial-media { display: grid; grid-template-columns: minmax(0, 1fr) minmax(19rem, .85fr); gap: clamp(2rem, 8vw, 8rem); align-items: center; padding: clamp(3rem, 8vw, 8rem) var(--gutter); border-block: 1px solid var(--ink-line); background: #101010; }
 .editorial-media > div > p:not(.micro) { max-width: 48ch; margin-top: 1.3rem; color: var(--bone-dim); font-size: .9rem; line-height: 1.75; }
 .editorial-media > div > .editorial-link { margin-top: 1.25rem; }
-.editorial-media__tile { position: relative; display: flex; min-height: 17rem; flex-direction: column; justify-content: end; gap: .65rem; overflow: hidden; padding: 1.4rem; border: 1px solid var(--ink-line-strong); background: radial-gradient(ellipse at 70% 25%, #30302e, #151514 50%, #0c0c0c); transition: border-color 300ms, transform 500ms var(--ease-out); }
+.editorial-media__tile { position: relative; display: flex; width: 100%; min-width: 0; min-height: 17rem; flex-direction: column; justify-content: end; gap: .65rem; overflow: hidden; border: 1px solid var(--ink-line-strong); background: #050505; transition: border-color 300ms, transform 500ms var(--ease-out); }
 .editorial-media__tile:hover { border-color: rgba(255,255,255,.7); transform: translateY(-3px); }
 .editorial-media__tile::before { position: absolute; inset: 0; content: ''; background: linear-gradient(0deg, rgba(0,0,0,.72), transparent 72%); }
 .editorial-media__tile > * { position: relative; }
+.editorial-media__tile iframe { position: absolute; inset: 0; display: block; width: 100%; max-width: 100%; height: 100%; border: 0; }
 .editorial-media__tile > .micro { color: var(--bone-dim); }
 .editorial-media__tile strong { font-family: var(--font-display); font-size: clamp(1.5rem, 3vw, 2.8rem); font-weight: 400; }
 .editorial-media__play { position: absolute !important; right: 1.25rem; top: 1.1rem; width: 2.3rem; height: 2.3rem; display: grid; place-items: center; border: 1px solid var(--ink-line-strong); border-radius: 50%; }
@@ -213,7 +216,7 @@ body { background: var(--ink); }
   .editorial-press__lead { grid-template-columns: 1fr; gap: .8rem; padding-block: 1.5rem; }
   .editorial-press__lead > p, .editorial-press__lead .editorial-link, .editorial-press__pending { grid-column: 1; }
   .editorial-media { grid-template-columns: 1fr; gap: 2rem; padding-block: 3.5rem; }
-  .editorial-media__tile { min-height: 14rem; }
+  .editorial-media__tile { min-height: 14rem; aspect-ratio: 16 / 9; }
   .editorial-contact { padding-bottom: 6rem; }
   .editorial-contact h2 { font-size: clamp(3.6rem, 16vw, 6rem); }
   .editorial-contact__location { left: var(--gutter); right: auto; }

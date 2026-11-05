@@ -179,27 +179,25 @@ export default function Artist() {
         <div className="wrap">
           <div className="section-head" data-reveal>
             <div className="section-head__title">
-              <p className="eyebrow">Contact &amp; channels</p>
-              <h2 className="h2" id="links-heading">Official destinations</h2>
+              <p className="eyebrow">Follow &amp; listen</p>
+              <h2 className="h2" id="links-heading">Social &amp; music profiles</h2>
             </div>
           </div>
 
           <div className="channel-grid" data-reveal data-reveal-delay="1">
-            {Object.entries(artist.links)
-              .filter(([, url]) => Boolean(url))
-              .map(([key, url]) => (
-                <a key={key} className="channel" href={url} target="_blank" rel="noopener noreferrer">
+            {artist.profileLinks.map((profile) => (
+                <a key={profile.id} className="channel" href={profile.url} target="_blank" rel="noopener noreferrer">
                   <span>
-                    <b>{key === 'amazonMusic' ? 'Amazon Music' : key === 'appleMusic' ? 'Apple Music' : key.replace(/^\w/, (c) => c.toUpperCase())}</b>
-                    <small>{url.replace(/^https?:\/\/(www\.)?/, '').split('?')[0]}</small>
+                    <b>{profile.label}</b>
+                    <small>{profile.handle} · {profile.role}</small>
                   </span>
                   <ExternalIcon />
                 </a>
-              ))}
+            ))}
           </div>
 
           <p className="disclosure" data-reveal>
-            <strong>Booking &amp; press enquiries</strong>
+            <strong>Booking and press enquiries</strong>
             {artist.contact.note}
           </p>
 

@@ -77,8 +77,13 @@ test('every outbound link is https and points at a known official host', () => {
     'music.apple.com',
     'audiomack.com',
     'music.amazon.com',
+    'open.spotify.com',
     'www.youtube.com',
     'youtube.com',
+    'x.com',
+    'www.tiktok.com',
+    'www.threads.com',
+    'linktr.ee',
     'www.instagram.com',
     'www.facebook.com',
     'guardian.ng',
@@ -104,9 +109,12 @@ test('every outbound link is https and points at a known official host', () => {
   }
 });
 
-test('no Spotify URL is fabricated while the artist link is unknown', () => {
-  assert.equal(artist.links.spotify, null);
-  assert.ok(!/spotify\.com/i.test(everything), 'no Spotify destination may be invented');
+test('the EPK and current public profiles are represented', () => {
+  const ids = new Set(artist.profileLinks.map((profile) => profile.id));
+  for (const id of ['spotify', 'youtube', 'instagram', 'facebook', 'appleMusic', 'x', 'tiktok', 'threads', 'linktree']) {
+    assert.ok(ids.has(id), `${id} should be represented in the public profile archive`);
+    assert.ok(artist.links[id], `${id} should have a verified destination`);
+  }
 });
 
 test('uncertain catalogue records are flagged, not asserted', () => {

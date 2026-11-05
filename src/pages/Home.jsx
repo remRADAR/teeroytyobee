@@ -86,10 +86,20 @@ export default function Home() {
             ))}
           </ul>
           <div className="editorial-work__preview" role="group" aria-label={`${selectedWork.title} preview`}>
-            <PlayableReleaseArtwork
-              release={selectedWork}
-              video={videos.find((video) => video.videoId === selectedWork.videoId)}
+            <img
+              className="editorial-work__portrait"
+              src={art.iemberPortrait.src}
+              alt={art.iemberPortrait.alt}
+              width={art.iemberPortrait.width}
+              height={art.iemberPortrait.height}
+              loading="lazy"
             />
+            <div className="editorial-work__cover">
+              <PlayableReleaseArtwork
+                release={selectedWork}
+                video={videos.find((video) => video.videoId === selectedWork.videoId)}
+              />
+            </div>
             <strong>{selectedWork.title}</strong>
           </div>
         </div>
@@ -155,14 +165,19 @@ export default function Home() {
           <p className="micro">[ Media / 04 · {homeCopy.mediaHeading} ]</p>
           <h2 id="media-heading">Sound in <em>motion.</em></h2>
           <p>{homeCopy.mediaLede}</p>
-          <p>{leadVideo.title} is available from the artist’s verified YouTube channel. Playback opens only when selected.</p>
+          <p>{leadVideo.title} is embedded from the artist’s verified YouTube channel, so the video can be watched without leaving the site.</p>
           <Link className="editorial-link" to="/media">Explore official media <ArrowIcon /></Link>
         </div>
-        <a className="editorial-media__tile" href={leadVideo.url} target="_blank" rel="noopener noreferrer" aria-label={`Open ${leadVideo.title} on YouTube`}>
-          <span className="editorial-media__play" aria-hidden="true">↗</span>
-          <span className="micro">Verified video · {leadVideo.year}</span>
-          <strong>{leadVideo.title}</strong>
-        </a>
+        <div className="editorial-media__tile" aria-label={`${leadVideo.title} embedded YouTube player`}>
+          <iframe
+            src={`https://www.youtube-nocookie.com/embed/${leadVideo.videoId}?rel=0&modestbranding=1&playsinline=1`}
+            title={`${artist.displayName} — ${leadVideo.title} official video`}
+            loading="lazy"
+            allow="autoplay; encrypted-media; picture-in-picture; web-share; compute-pressure"
+            referrerPolicy="strict-origin-when-cross-origin"
+            allowFullScreen
+          />
+        </div>
       </section>
 
       <section className="editorial-contact" aria-labelledby="contact-heading">

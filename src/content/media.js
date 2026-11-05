@@ -6,9 +6,10 @@
  * (title + channel author confirmed), which is what makes an embed legitimate.
  *
  * The only portrait is documented as user-supplied on another repository branch.
- * Final publication clearance remains outstanding, and release-cover artwork is
- * kept separate until the supplied official files are added.
+ * Final publication clearance remains outstanding.
  */
+import { artist } from './artist.js';
+
 export const videos = [
   {
     id: 'automatic-visualizer',
@@ -81,36 +82,7 @@ export const videos = [
   },
 ];
 
-export const channels = [
-  {
-    id: 'youtube',
-    label: 'YouTube',
-    handle: '@teeroy_tyobee',
-    url: 'https://www.youtube.com/@teeroy_tyobee',
-    role: 'Official videos and visualisers',
-  },
-  {
-    id: 'instagram',
-    label: 'Instagram',
-    handle: '@teeroy_tyobee',
-    url: 'https://www.instagram.com/teeroy_tyobee',
-    role: 'Day-to-day visuals',
-  },
-  {
-    id: 'audiomack',
-    label: 'Audiomack',
-    handle: 'teeroytyobee',
-    url: 'https://audiomack.com/teeroytyobee',
-    role: 'Streaming',
-  },
-  {
-    id: 'appleMusic',
-    label: 'Apple Music',
-    handle: 'Teeroy Tyobee',
-    url: 'https://music.apple.com/us/artist/teeroy-tyobee/1532919321',
-    role: 'Streaming',
-  },
-];
+export const channels = artist.profileLinks;
 
 export const photography = [
   {
@@ -125,6 +97,6 @@ export const photography = [
 ];
 
 export const mediaDisclosure =
-  'Videos are listed from the artist’s official YouTube channel, with the current JOY (IEMBER) project shown first. Release covers are sourced from the artist’s Apple Music catalog and stored locally; the portrait remains user-supplied and still needs final publication clearance.';
+  'Videos are listed from the artist’s official YouTube channel, with the current JOY (IEMBER) project shown first and embedded directly on this page. Release covers are sourced from the artist’s Apple Music catalog and stored locally; the supplied IEMBER portrait remains subject to final publication clearance.';
 
 export default { videos, channels, photography, mediaDisclosure };

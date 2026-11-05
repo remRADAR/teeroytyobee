@@ -139,22 +139,12 @@ export function Footer() {
             ))}
           </nav>
 
-          <nav className="foot__nav" aria-label="Official channels">
-            <a href={artist.links.appleMusic} target="_blank" rel="noopener noreferrer" className="ext">
-              Apple Music <ExternalIcon />
-            </a>
-            <a href={artist.links.audiomack} target="_blank" rel="noopener noreferrer" className="ext">
-              Audiomack <ExternalIcon />
-            </a>
-            <a href={artist.links.amazonMusic} target="_blank" rel="noopener noreferrer" className="ext">
-              Amazon Music <ExternalIcon />
-            </a>
-            <a href={artist.links.youtube} target="_blank" rel="noopener noreferrer" className="ext">
-              YouTube <ExternalIcon />
-            </a>
-            <a href={artist.links.instagram} target="_blank" rel="noopener noreferrer" className="ext">
-              Instagram <ExternalIcon />
-            </a>
+          <nav className="foot__nav" aria-label="Social and music profiles">
+            {artist.profileLinks.map((profile) => (
+              <a key={profile.id} href={profile.url} target="_blank" rel="noopener noreferrer" className="ext">
+                {profile.label} <ExternalIcon />
+              </a>
+            ))}
           </nav>
         </div>
 

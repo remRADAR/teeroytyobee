@@ -4,6 +4,7 @@
  * catalog and stored under public/media/covers.
  */
 const PORTRAIT = '/media/artist-hero.jpeg';
+const IEMBER_PORTRAIT = '/media/iember-portrait.jpg';
 
 export const art = {
   artistPortrait: {
@@ -26,6 +27,13 @@ export const art = {
     alt: '',
     width: 1536,
     height: 1920,
+  },
+  iemberPortrait: {
+    src: IEMBER_PORTRAIT,
+    sizes: '(min-width: 940px) 42vw, 100vw',
+    alt: 'Teeroy Tyobee in a white outfit and red patterned head covering, photographed for the IEMBER project.',
+    width: 1800,
+    height: 2250,
   },
   mic: {
     src: PORTRAIT,

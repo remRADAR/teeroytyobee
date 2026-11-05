@@ -23,11 +23,30 @@ export const artist = {
     appleMusic: 'https://music.apple.com/us/artist/teeroy-tyobee/1532919321',
     audiomack: 'https://audiomack.com/teeroytyobee',
     amazonMusic: 'https://music.amazon.com/artists/B08JQQ7N2K/teeroy-tyobee',
+    spotify: 'https://open.spotify.com/artist/45gEDGAdQixjnXDxgDvD7J',
     youtube: 'https://www.youtube.com/@teeroy_tyobee',
+    youtubeMusic: 'https://www.youtube.com/channel/UCrxHwQIZ-2UlhZ5ZYcP_sKQ',
     instagram: 'https://www.instagram.com/teeroy_tyobee',
-    facebook: 'https://www.facebook.com/share/1E5UTQ6Q1k/',
-    spotify: null,
+    threads: 'https://www.threads.com/@teeroy_tyobee',
+    facebook: 'https://www.facebook.com/profile.php?id=100037925713239',
+    x: 'https://x.com/teeroy_tyobee',
+    tiktok: 'https://www.tiktok.com/@teeroy_tyobee',
+    linktree: 'https://linktr.ee/teeroy_tyobee',
   },
+  profileLinks: [
+    { id: 'appleMusic', label: 'Apple Music', handle: 'Teeroy Tyobee', role: 'Streaming' },
+    { id: 'spotify', label: 'Spotify', handle: 'Teeroy Tyobee', role: 'Streaming' },
+    { id: 'audiomack', label: 'Audiomack', handle: '@teeroytyobee', role: 'Streaming and releases' },
+    { id: 'amazonMusic', label: 'Amazon Music', handle: 'Teeroy Tyobee', role: 'Streaming' },
+    { id: 'youtubeMusic', label: 'YouTube Music', handle: 'Teeroy Tyobee · Topic', role: 'Official audio' },
+    { id: 'youtube', label: 'YouTube', handle: '@teeroy_tyobee', role: 'Official videos' },
+    { id: 'instagram', label: 'Instagram', handle: '@teeroy_tyobee', role: 'Visuals and updates' },
+    { id: 'threads', label: 'Threads', handle: '@teeroy_tyobee', role: 'Social updates' },
+    { id: 'facebook', label: 'Facebook', handle: 'Teeroy Tyobee', role: 'Community and updates' },
+    { id: 'x', label: 'X', handle: '@teeroy_tyobee', role: 'Social updates' },
+    { id: 'tiktok', label: 'TikTok', handle: '@teeroy_tyobee', role: 'Short-form video' },
+    { id: 'linktree', label: 'Linktree', handle: 'teeroy_tyobee', role: 'All links in one place' },
+  ],
   /** Booking / management is deliberately not published until the artist supplies it. */
   contact: {
     booking: null,
@@ -36,6 +55,11 @@ export const artist = {
     note: 'Booking, press and management contacts are withheld until the artist or management supplies a verified destination. No third-party contact details are republished here.',
   },
 };
+
+artist.profileLinks = artist.profileLinks.map((profile) => ({
+  ...profile,
+  url: artist.links[profile.id],
+}));
 
 /**
  * Career record. `status` drives the badge shown in the UI:
