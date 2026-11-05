@@ -188,16 +188,6 @@
   transform: scaleX(1);
 }
 
-.editorial-intro__mark {
-  display: inline-block;
-  transition: transform 800ms var(--animation-spring), color 360ms var(--ease-out);
-}
-
-.editorial-intro:hover .editorial-intro__mark {
-  color: var(--gold-bright);
-  transform: rotate(-8deg) translate3d(0, -5px, 0);
-}
-
 .editorial-band,
 .editorial-contact {
   position: relative;
@@ -310,8 +300,7 @@
   .editorial-work__item:focus-visible,
   .editorial-press__lead:hover,
   .editorial-media__tile:hover,
-  .editorial-contact__button:hover,
-  .editorial-intro:hover .editorial-intro__mark {
+  .editorial-contact__button:hover {
     transform: none;
   }
 }
@@ -321,7 +310,6 @@
   .editorial-press__lead:hover,
   .editorial-media__tile:hover,
   .editorial-contact__button:hover,
-  .editorial-intro:hover .editorial-intro__mark,
   .editorial-band:hover::before,
   .editorial-contact:hover::before {
     transform: none;

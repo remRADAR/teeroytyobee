@@ -20,18 +20,11 @@ export const nav = [
 
 export const homeCopy = {
   eyebrow: 'Independent · Benue State, Nigeria',
-  headlineTop: 'The sound',
-  headlineAccent: 'of home.',
-  lede:
-    'Afro-fusion from the Tiv Nation — storytelling, soul and heritage, released independently through Royz Houz.',
-  primaryCta: 'Explore the catalogue',
-  secondaryCta: 'Read the artist file',
   catalogLabel: 'Latest release',
   mediaHeading: 'On screen',
   mediaLede: 'Official visuals, released through the artist’s own channel.',
   pressHeading: 'In print',
   pressLede: 'Selected coverage, newest first.',
-  artistHeading: 'The artist',
   /**
    * Drifting band under the hero. Descriptive only — no claims, no numbers,
    * nothing that would need verifying. Kept here so the wording is editable
