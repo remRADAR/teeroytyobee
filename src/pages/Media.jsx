@@ -2,6 +2,7 @@ import { videos, channels, photography, mediaDisclosure } from '../content/media
 import { useRevealOnMount } from '../components/Img.jsx';
 import { ExternalIcon, PlayIcon } from '../components/Icons.jsx';
 import { useRadio } from '../components/RadioPlayer.jsx';
+import { art } from '../lib/artwork.js';
 
 /** Click-to-load the shared player; the iframe stays mounted across route changes. */
 function VideoPlayer({ video }) {
@@ -15,9 +16,8 @@ function VideoPlayer({ video }) {
         onClick={() => play(video)}
         aria-label={`${isActive ? 'Now playing' : 'Play'} ${video.title} in the persistent official-source player`}
       >
-        <span className="media-asset-placeholder" aria-hidden="true">
-          <small>Official video artwork pending</small>
-        </span>
+        <img className="player__thumb" src={`https://i.ytimg.com/vi/${video.videoId}/hqdefault.jpg`} alt="" loading="lazy" />
+        <span className="media-asset-placeholder" aria-hidden="true" />
         <span className="player__play"><PlayIcon /></span>
         <span className="player__label">
           <span>{video.kind} · {video.year}</span>
@@ -95,6 +95,30 @@ export default function Media() {
         </div>
       </section>
 
+      <section className="section section--flush" aria-labelledby="all-videos-heading">
+        <div className="wrap">
+          <div className="section-head" data-reveal>
+            <div className="section-head__title">
+              <p className="eyebrow">Official YouTube</p>
+              <h2 className="h2" id="all-videos-heading">The video archive</h2>
+            </div>
+            <p className="lede">Current-project visuals first, followed by the verified archive.</p>
+          </div>
+          <div className="video-grid" data-reveal data-reveal-delay="1">
+            {videos.map((video) => (
+              <article className="video-card" key={video.id}>
+                <VideoPlayer video={video} />
+                <div className="video-card__copy">
+                  <p className="eyebrow eyebrow--plain">{video.kind} · {video.year}</p>
+                  <h3>{video.title}</h3>
+                  {video.currentProject && <span className="badge">JOY (IEMBER)</span>}
+                </div>
+              </article>
+            ))}
+          </div>
+        </div>
+      </section>
+
       <section className="section" aria-labelledby="gallery-heading">
         <div className="wrap">
           <div className="section-head" data-reveal>
@@ -112,9 +136,8 @@ export default function Media() {
                 key={shot.id}
                 style={{ margin: 0 }}
               >
-                <div className="asset-placeholder" role="img" aria-label="Approved artist portrait pending">
-                  <span className="asset-placeholder__label">{shot.title}</span>
-                  <span className="asset-placeholder__message">Approved artist photography required</span>
+                <div className="media-photo" role="img" aria-label={art.artistPortrait.alt}>
+                  <img src={art.artistPortrait.src} alt={art.artistPortrait.alt} width={art.artistPortrait.width} height={art.artistPortrait.height} />
                 </div>
                 <figcaption className="gallery__cap">
                   <b>{shot.title}</b>

@@ -6,10 +6,57 @@
  * (title + channel author confirmed), which is what makes an embed legitimate.
  *
  * The only portrait is documented as user-supplied on another repository branch.
- * Final publication clearance remains outstanding, and no release-cover artwork
- * or direct audio streams are present in the selected branch.
+ * Final publication clearance remains outstanding, and release-cover artwork is
+ * kept separate until the supplied official files are added.
  */
 export const videos = [
+  {
+    id: 'automatic-visualizer',
+    title: 'AUTOMATIC',
+    subtitle: 'Official visualizer · JOY (IEMBER) · 2026',
+    kind: 'Official visualizer',
+    year: 2026,
+    currentProject: true,
+    provider: 'youtube',
+    videoId: '0IWmlPoe_yw',
+    url: 'https://www.youtube.com/watch?v=0IWmlPoe_yw',
+    confirmedBy: 'Teeroy Tyobee official YouTube channel',
+  },
+  {
+    id: 'grind-video',
+    title: 'GRIND',
+    subtitle: 'Official video · JOY (IEMBER) · 2026',
+    kind: 'Official video',
+    year: 2026,
+    currentProject: true,
+    provider: 'youtube',
+    videoId: 'F1N-enrTH3U',
+    url: 'https://www.youtube.com/watch?v=F1N-enrTH3U',
+    confirmedBy: 'Teeroy Tyobee official YouTube channel',
+  },
+  {
+    id: 'wan-tiv-visualizer',
+    title: 'WAN TIV',
+    subtitle: 'Official visualiser · JOY (IEMBER) · 2026',
+    kind: 'Official visualiser',
+    year: 2026,
+    currentProject: true,
+    provider: 'youtube',
+    videoId: '-IANiFDuIzI',
+    url: 'https://www.youtube.com/watch?v=-IANiFDuIzI',
+    confirmedBy: 'Teeroy Tyobee official YouTube channel',
+  },
+  {
+    id: 'day-with-teeroy',
+    title: 'A Day With Teeroy',
+    subtitle: 'Official artist film · 2026',
+    kind: 'Artist film',
+    year: 2026,
+    provider: 'youtube',
+    videoId: 'Ie9mKNmOApw',
+    url: 'https://www.youtube.com/watch?v=Ie9mKNmOApw',
+    confirmedBy: 'Teeroy Tyobee official YouTube channel',
+  },
   {
     id: 'wise-up-video',
     title: 'Wise Up',
@@ -19,7 +66,18 @@ export const videos = [
     provider: 'youtube',
     videoId: 'MGyqosp3l7A',
     url: 'https://www.youtube.com/watch?v=MGyqosp3l7A',
-    confirmedBy: 'YouTube oEmbed — title and channel author verified',
+    confirmedBy: 'Teeroy Tyobee official YouTube channel',
+  },
+  {
+    id: 'one-for-the-road-visualizer',
+    title: 'One for the Road',
+    subtitle: 'Official visualizer · 2024',
+    kind: 'Official visualizer',
+    year: 2024,
+    provider: 'youtube',
+    videoId: '0y-cRCdlUY8',
+    url: 'https://www.youtube.com/watch?v=0y-cRCdlUY8',
+    confirmedBy: 'Teeroy Tyobee official YouTube channel',
   },
 ];
 
@@ -67,6 +125,6 @@ export const photography = [
 ];
 
 export const mediaDisclosure =
-  'Only one official video has a confirmed playable source in the current repository. The portrait is user-supplied but still needs final publication clearance. Additional release artwork, photography, audio files and verified streaming URLs have not been supplied; no substitute imagery or playback controls are presented as official.';
+  'Videos are listed from the artist’s official YouTube channel, with the current JOY (IEMBER) project shown first. Release covers are sourced from the artist’s Apple Music catalog and stored locally; the portrait remains user-supplied and still needs final publication clearance.';
 
 export default { videos, channels, photography, mediaDisclosure };

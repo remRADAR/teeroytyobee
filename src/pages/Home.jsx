@@ -23,7 +23,7 @@ export default function Home() {
   const [selectedWork, setSelectedWork] = useState(featured);
   const currentPress = press.filter((item) => /iember|joy|debut ep/i.test(`${item.title} ${item.summary}`));
   const featuredVideo = videos.find((video) => video.videoId === featured.videoId);
-  const [leadVideo] = videos;
+  const leadVideo = videos.find((video) => video.currentProject) ?? videos[0];
 
   return (
     <main id="main" className="editorial-home">
@@ -34,7 +34,6 @@ export default function Home() {
         </h1>
         <div className="masthead__stage" role="group" aria-label={`Latest release: ${featured.title}`}>
           <img className="masthead__stage-image" src={art.heroWide.src} alt="" width={art.heroWide.width} height={art.heroWide.height} />
-          <div className="masthead__stage-overlay" aria-hidden="true" />
           <div className="masthead__stage-noise" aria-hidden="true" />
           <div className="masthead__stage-copy">
             <p className="micro">{homeCopy.catalogLabel} · {featured.year}</p>
@@ -61,25 +60,6 @@ export default function Home() {
           <a href="#introduction" aria-label="Scroll to artist introduction">Scroll to explore <span aria-hidden="true">↓</span></a>
         </div>
       </section>
-
-      <section className="editorial-intro" id="introduction" aria-labelledby="intro-heading">
-        <p className="micro editorial-intro__label">{homeCopy.artistHeading} / 01</p>
-        <div className="editorial-intro__copy">
-          <h2 id="intro-heading">{homeCopy.headlineTop} <em>{homeCopy.headlineAccent}</em></h2>
-          <p>{homeCopy.lede}</p>
-          <p>{artist.shortBio}</p>
-          <div className="editorial-intro__actions">
-            <Link className="editorial-link" to="/catalog">{homeCopy.primaryCta} <ArrowIcon /></Link>
-            <Link className="editorial-link" to="/artist">{homeCopy.secondaryCta} <ArrowIcon /></Link>
-          </div>
-        </div>
-        <div className="editorial-intro__side">
-          <span className="micro">{artist.originLine}</span>
-          <span className="editorial-intro__mark" aria-hidden="true">TT</span>
-        </div>
-      </section>
-
-      <Marquee items={homeCopy.marqueeItems} outline />
 
       <section className="editorial-work" aria-labelledby="selected-work-heading">
         <div className="editorial-section-head">
@@ -115,6 +95,25 @@ export default function Home() {
         </div>
         <p className="editorial-work__note">Solo releases shown newest first. Collaborations remain separately listed in the catalogue.</p>
       </section>
+
+      <section className="editorial-intro" id="introduction" aria-labelledby="intro-heading">
+        <p className="micro editorial-intro__label">{homeCopy.artistHeading} / 01</p>
+        <div className="editorial-intro__copy">
+          <h2 id="intro-heading">{homeCopy.headlineTop} <em>{homeCopy.headlineAccent}</em></h2>
+          <p>{homeCopy.lede}</p>
+          <p>{artist.shortBio}</p>
+          <div className="editorial-intro__actions">
+            <Link className="editorial-link" to="/catalog">{homeCopy.primaryCta} <ArrowIcon /></Link>
+            <Link className="editorial-link" to="/artist">{homeCopy.secondaryCta} <ArrowIcon /></Link>
+          </div>
+        </div>
+        <div className="editorial-intro__side">
+          <span className="micro">{artist.originLine}</span>
+          <span className="editorial-intro__mark" aria-hidden="true">TT</span>
+        </div>
+      </section>
+
+      <Marquee items={homeCopy.marqueeItems} outline />
 
       <section className="editorial-band" aria-label="Artist identity">
         <div>

@@ -1,7 +1,7 @@
 /**
- * Approved/local image inventory. The only supplied image on the selected
- * branch is the Teeroy portrait carried forward from the other repo branch.
- * Release covers and additional photography are not supplied yet.
+ * Approved/local image inventory. The portrait is carried forward from the
+ * other repo branch; release covers are sourced from the artist’s Apple Music
+ * catalog and stored under public/media/covers.
  */
 const PORTRAIT = '/media/artist-hero.jpeg';
 
