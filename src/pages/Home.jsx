@@ -172,7 +172,6 @@ export default function Home() {
           <iframe
             src={`https://www.youtube-nocookie.com/embed/${leadVideo.videoId}?rel=0&modestbranding=1&playsinline=1`}
             title={`${artist.displayName} — ${leadVideo.title} official video`}
-            loading="lazy"
             allow="autoplay; encrypted-media; picture-in-picture; web-share; compute-pressure"
             referrerPolicy="strict-origin-when-cross-origin"
             allowFullScreen
