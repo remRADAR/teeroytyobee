@@ -11,6 +11,7 @@ import './styles/marquee.css';
 import './styles/motion.css';
 import './styles/animation.css';
 import './styles/reconstruction.css';
+import './styles/modern-pass.css';
 
 createRoot(document.getElementById('root')).render(
   <React.StrictMode>
@@ -21,3 +22,4 @@ createRoot(document.getElementById('root')).render(
     </BrowserRouter>
   </React.StrictMode>,
 );
+
