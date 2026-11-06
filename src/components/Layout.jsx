@@ -122,6 +122,7 @@ export function Footer() {
   return (
     <footer className="foot">
       <div className="wrap">
+        <p className="foot__poster-name" aria-hidden="true">{artist.displayName}</p>
         <div className="foot__top">
           <div>
             <p className="foot__name">{artist.displayName}</p>
@@ -154,6 +155,13 @@ export function Footer() {
             destinations open in a new tab.
           </p>
           <p>{site.artDirectionNote}</p>
+          <button
+            type="button"
+            className="foot__top-btn"
+            onClick={() => window.scrollTo({ top: 0 })}
+          >
+            Back to top <span aria-hidden="true">↑</span>
+          </button>
         </div>
       </div>
     </footer>
