@@ -9,7 +9,8 @@
  *   - a single H1 (heading structure)
  *   - no console errors and no failed requests
  *   - the page renders real content (not an empty shell)
- *   - tap targets on mobile are at least 40px on one axis
+ *   - mobile interactive targets are not smaller than 30px on either axis
+ *   - compact release-art controls are at least 44x44px on mobile
  *   - with prefers-reduced-motion, no element is left invisible
  * and writes a screenshot per route.
  */
@@ -29,11 +30,11 @@ const ROUTES = [
 ];
 
 const VIEWPORTS = [
-  { name: 'mobile-360', width: 360, height: 780, isMobile: true },
-  { name: 'mobile-390', width: 390, height: 844, isMobile: true },
-  { name: 'tablet-768', width: 768, height: 1024, isMobile: false },
+  { name: 'desktop-1440', width: 1440, height: 900, isMobile: false },
   { name: 'laptop-1280', width: 1280, height: 800, isMobile: false },
-  { name: 'desktop-1600', width: 1600, height: 1000, isMobile: false },
+  { name: 'tablet-768', width: 768, height: 1024, isMobile: false },
+  { name: 'mobile-390', width: 390, height: 844, isMobile: true },
+  { name: 'mobile-360', width: 360, height: 780, isMobile: true },
 ];
 
 const shellCandidates = [
@@ -50,12 +51,12 @@ const shellCandidates = [
 
 const executablePath = shellCandidates.find((p) => existsSync(p));
 
-const outDir = 'docs/responsive';
+const outDir = 'docs/visual-parity/teeroy';
 await mkdir(outDir, { recursive: true });
 
 const browser = await chromium.launch({
   executablePath,
-  args: ['--no-sandbox', '--disable-dev-shm-usage'],
+  args: ['--no-sandbox', '--disable-dev-shm-usage', '--hide-scrollbars'],
 });
 
 const findings = [];
@@ -113,6 +114,13 @@ for (const vp of VIEWPORTS) {
         })
         .map((el) => `${el.tagName}:${(el.textContent || '').trim().slice(0, 26)}`)
         .slice(0, 6);
+      const undersizedReleaseTargets = [...document.querySelectorAll('.rel__thumb')]
+        .filter((el) => {
+          const r = el.getBoundingClientRect();
+          return r.width < 44 || r.height < 44;
+        })
+        .map((el) => `${el.getAttribute('aria-label') || el.textContent.trim()}: ${Math.round(el.getBoundingClientRect().width)}×${Math.round(el.getBoundingClientRect().height)}px`)
+        .slice(0, 6);
       const invisible = [...document.querySelectorAll('[data-reveal]')]
         .filter((el) => getComputedStyle(el).opacity === '0')
         .length;
@@ -122,6 +130,7 @@ for (const vp of VIEWPORTS) {
         h1s,
         text: document.body.innerText.replace(/\\s+/g, ' ').trim(),
         smallTargets,
+        undersizedReleaseTargets,
         invisible,
         nodes: document.querySelectorAll('body *').length,
       };
@@ -158,6 +167,12 @@ for (const vp of VIEWPORTS) {
         issue: `small tap targets: ${metrics.smallTargets.join(' | ')}`,
       });
     }
+    if (vp.isMobile && metrics.undersizedReleaseTargets.length) {
+      findings.push({
+        viewport: vp.name, route: route.path, severity: 'error',
+        issue: `compact release controls below 44×44px: ${metrics.undersizedReleaseTargets.join(' | ')}`,
+      });
+    }
     if (errors.length) {
       findings.push({
         viewport: vp.name, route: route.path, severity: 'error',
@@ -171,10 +186,15 @@ for (const vp of VIEWPORTS) {
       });
     }
 
-    if (['mobile-390', 'laptop-1280'].includes(vp.name)) {
+    {
       const file = `${outDir}/${route.name}-${vp.name}.png`;
       await page.screenshot({ path: file, fullPage: false });
       shots.push(file);
+      if (route.path === '/') {
+        const fullPageFile = `${outDir}/home-full-${vp.name}.png`;
+        await page.screenshot({ path: fullPageFile, fullPage: true });
+        shots.push(fullPageFile);
+      }
     }
 
     await page.close();
@@ -207,6 +227,47 @@ for (const vp of VIEWPORTS) {
   await context.close();
 }
 
+// ---- observable interaction states ----------------------------------------
+{
+  const context = await browser.newContext({ viewport: { width: 1280, height: 800 } });
+  const page = await context.newPage();
+  await page.goto(`${BASE}/`, { waitUntil: 'networkidle' });
+  await page.locator('.editorial-work__list').scrollIntoViewIfNeeded();
+  const selected = (await page.locator('.editorial-work__item').nth(1).locator('.editorial-work__name').textContent())?.trim();
+  await page.locator('.editorial-work__item').nth(1).hover();
+  const preview = (await page.locator('.editorial-work__preview strong').textContent())?.trim();
+  if (!selected || selected !== preview) {
+    findings.push({ viewport: 'laptop-1280', route: '/', severity: 'error', issue: `hover selection mismatch: expected ${selected}, received ${preview}` });
+  }
+  const file = `${outDir}/home-work-hover-laptop-1280.png`;
+  await page.screenshot({ path: file });
+  shots.push(file);
+  const focusedItem = page.locator('.editorial-work__item').nth(2);
+  const focusedTitle = (await focusedItem.locator('.editorial-work__name').textContent())?.trim();
+  await focusedItem.focus();
+  const focusedPreview = (await page.locator('.editorial-work__preview strong').textContent())?.trim();
+  if (!focusedTitle || focusedTitle !== focusedPreview) {
+    findings.push({ viewport: 'laptop-1280', route: '/', severity: 'error', issue: `keyboard selection mismatch: expected ${focusedTitle}, received ${focusedPreview}` });
+  }
+  await context.close();
+}
+{
+  const context = await browser.newContext({ viewport: { width: 390, height: 844 }, isMobile: true, hasTouch: true });
+  const page = await context.newPage();
+  await page.goto(`${BASE}/`, { waitUntil: 'networkidle' });
+  await page.getByRole('button', { name: 'Open menu' }).click();
+  await page.locator('#mobile-nav').evaluate(async (drawer) => {
+    await Promise.all(drawer.getAnimations().map((animation) => animation.finished.catch(() => {})));
+  });
+  if (!(await page.locator('#mobile-nav').isVisible())) {
+    findings.push({ viewport: 'mobile-390', route: '/', severity: 'error', issue: 'mobile navigation drawer did not open' });
+  }
+  const file = `${outDir}/menu-open-mobile-390.png`;
+  await page.screenshot({ path: file });
+  shots.push(file);
+  await context.close();
+}
+
 await browser.close();
 
 const report = {
@@ -220,8 +281,12 @@ const report = {
     'page renders real content',
     'no console / request errors',
     'mobile tap targets >= 30px',
+    'compact release controls >= 44×44px on mobile',
     'reveal animations settle',
     'prefers-reduced-motion keeps all content visible',
+    'selected-work preview updates on hover',
+    'selected-work preview updates on keyboard focus',
+    'mobile navigation drawer opens',
   ],
   screenshots: shots,
   findings,

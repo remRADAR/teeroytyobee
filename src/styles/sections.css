@@ -225,12 +225,16 @@
 
 .rel {
   display: grid;
-  grid-template-columns: 3.1rem minmax(0, 1fr) auto;
+  grid-template-columns: 3.1rem 3.25rem minmax(0, 1fr);
   align-items: center;
   gap: 0.9rem 1.25rem;
   padding: 1.15rem 0.25rem;
   border-bottom: 1px solid var(--ink-line);
   transition: background var(--dur-fast) var(--ease-out), padding-left var(--dur) var(--ease-out);
+}
+
+@media (max-width: 759px) {
+  .rel__links { grid-column: 2 / -1; }
 }
 
 @media (min-width: 760px) {
@@ -474,7 +478,7 @@
 
 .press-item {
   display: grid;
-  grid-template-columns: 1fr;
+  grid-template-columns: minmax(6.5rem, .6fr) minmax(0, 1fr);
   gap: 0.8rem 2rem;
   padding: clamp(1.5rem, 3vw, 2.15rem) 0.25rem;
   border-bottom: 1px solid var(--ink-line);
@@ -483,9 +487,12 @@
 
 @media (min-width: 820px) {
   .press-item {
-    grid-template-columns: 9.5rem minmax(0, 1fr) 7rem;
+    grid-template-columns: 9.5rem 5.5rem minmax(0, 1fr) 7rem;
     align-items: start;
   }
+
+  .press-item > div:nth-of-type(3),
+  .press-item__tail { grid-column: auto; }
 }
 
 .press-item:hover { background: rgba(255, 255, 255, 0.02); }
@@ -509,6 +516,31 @@
   letter-spacing: 0.1em;
   color: var(--bone-faint);
   font-variant-numeric: tabular-nums;
+}
+
+.press-item__image {
+  width: 5.5rem;
+  aspect-ratio: 1;
+  overflow: hidden;
+  border: 1px solid var(--ink-line);
+  background: var(--ink-panel);
+}
+
+.press-item > div:nth-of-type(3),
+.press-item__tail { grid-column: 1 / -1; }
+
+.press-item__image img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: saturate(.8) contrast(1.04);
+  transition: transform 500ms var(--ease-out), filter 500ms var(--ease-out);
+}
+
+.press-item:hover .press-item__image img {
+  transform: scale(1.06);
+  filter: saturate(1) contrast(1.06);
 }
 
 .press-item__title {
@@ -559,6 +591,50 @@
   .video-feature { grid-template-columns: minmax(0, 1.55fr) minmax(0, 1fr); align-items: center; }
 }
 
+.video-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 18rem), 1fr));
+  gap: 1rem;
+}
+
+.video-card {
+  display: grid;
+  gap: .9rem;
+  min-width: 0;
+}
+
+.video-card__copy {
+  display: grid;
+  gap: .45rem;
+}
+
+.video-card__copy h3 {
+  font-family: var(--font-display);
+  font-size: clamp(1.4rem, 2.5vw, 2.2rem);
+  font-weight: 400;
+  line-height: 1;
+}
+
+.video-card__copy .badge { width: fit-content; }
+
+.media-photo {
+  height: 100%;
+  min-height: 16rem;
+  overflow: hidden;
+  border: 1px solid var(--ink-line);
+  background: var(--ink-panel);
+}
+
+.media-photo img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  min-height: 16rem;
+  object-fit: cover;
+  object-position: center 28%;
+  filter: grayscale(1) contrast(1.04);
+}
+
 .player {
   position: relative;
   aspect-ratio: 16 / 9;
@@ -595,6 +671,13 @@
   filter: grayscale(1) contrast(1.08) brightness(0.62);
   transition: transform var(--dur-slow) var(--ease-out), filter var(--dur) var(--ease-out);
 }
+
+.player__poster .player__thumb {
+  filter: grayscale(.45) contrast(1.04) brightness(.76);
+  transition: transform var(--dur-slow) var(--ease-out), filter var(--dur) var(--ease-out);
+}
+
+.player__poster:hover .player__thumb { transform: scale(1.03); filter: grayscale(.2) contrast(1.08) brightness(.86); }
 
 .player__poster:hover img { transform: scale(1.03); filter: grayscale(1) contrast(1.1) brightness(0.7); }
 
@@ -774,6 +857,18 @@
   inset: 0;
   background: linear-gradient(180deg, transparent 46%, rgba(6, 6, 8, 0.82));
   pointer-events: none;
+}
+
+.epk__portrait-caption {
+  position: absolute;
+  z-index: 1;
+  right: 1rem;
+  bottom: .85rem;
+  left: 1rem;
+  color: rgba(242, 239, 233, .78);
+  font-size: .58rem;
+  letter-spacing: .16em;
+  text-transform: uppercase;
 }
 
 .epk__plate {
@@ -1183,6 +1278,36 @@
 .release-visual--compact .release-visual__bottom { font-size: 0.29rem; letter-spacing: 0.04em; }
 .release-visual--compact .release-visual__orbit { width: 85%; }
 
+.release-visual:has(.release-visual__cover) {
+  display: block;
+  padding: 0;
+  background: #111;
+}
+
+.release-visual__cover {
+  display: block;
+  width: 100%;
+  height: 100%;
+  aspect-ratio: 1;
+  object-fit: cover;
+}
+
+.release-visual__meta {
+  position: absolute;
+  right: .7rem;
+  bottom: .65rem;
+  left: .7rem;
+  z-index: 2;
+  padding: .35rem .45rem;
+  color: rgba(255,255,255,.84);
+  background: linear-gradient(90deg, rgba(0,0,0,.7), rgba(0,0,0,.18));
+  font-size: .48rem;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+}
+
+.release-visual__meta i { padding-inline: .25rem; font-style: normal; }
+
 .artwork > .release-visual { height: 100%; min-height: 100%; }
 
 .rel__detail {
@@ -1190,7 +1315,7 @@
   transition: color var(--dur-fast) var(--ease-out);
 }
 .rel__detail:hover { color: var(--gold-bright); }
-.rel__thumb { display: none; }
+.rel__thumb { display: block; }
 
 @media (min-width: 760px) {
   .rel { grid-template-columns: 3.6rem 4.3rem minmax(0, 1fr) auto; align-items: center; }
@@ -1256,38 +1381,6 @@
 @media (max-width: 520px) {
   .radio-dock { right: 0.6rem; bottom: 0.6rem; width: calc(100vw - 1.2rem); }
   .radio-dock__info { padding-bottom: 0.55rem; }
-}
-
-
-/* User-established Teeroy adaptation: one restrained image glitch pulse.
-   This is an identity treatment, not a claimed behavior of the Framer reference. */
-.hero__glitch {
-  position: absolute;
-  inset: 0;
-  z-index: 1;
-  opacity: 0;
-  pointer-events: none;
-  background-image: url('/media/artist-hero.jpeg');
-  background-size: cover;
-  background-position: 74% 42%;
-  mix-blend-mode: screen;
-  filter: sepia(0.55) saturate(0.55) hue-rotate(318deg) contrast(1.1);
-  animation: image-glitch-pulse 11s steps(1, end) infinite;
-}
-
-@keyframes image-glitch-pulse {
-  0%, 92%, 100% { opacity: 0; transform: none; clip-path: inset(0); }
-  92.4% { opacity: 0.12; transform: translateX(-2px); clip-path: inset(22% 0 67% 0); }
-  92.9% { opacity: 0.08; transform: translateX(2px); clip-path: inset(62% 0 27% 0); }
-  93.4% { opacity: 0; transform: none; clip-path: inset(0); }
-}
-
-@media (max-width: 720px) {
-  .hero__glitch { background-position: 66% 30%; opacity: 0; }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .hero__glitch { animation: none !important; display: none !important; }
 }
 
 

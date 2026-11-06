@@ -59,6 +59,8 @@ export const soloReleases = [
       'A socially conscious record addressing mental emancipation and the need to challenge limiting narratives.',
     verified: true,
     artwork: 'wise-up',
+    videoId: 'MGyqosp3l7A',
+    videoUrl: 'https://www.youtube.com/watch?v=MGyqosp3l7A',
     links: [
       { platform: 'Apple Music', url: 'https://music.apple.com/us/artist/teeroy-tyobee/1532919321', verified: true },
       { platform: 'Amazon Music', url: 'https://music.amazon.com/artists/B08JQQ7N2K/teeroy-tyobee', verified: true },

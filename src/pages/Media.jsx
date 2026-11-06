@@ -1,35 +1,27 @@
 import { videos, channels, photography, mediaDisclosure } from '../content/media.js';
-import { art, photography as photoArt } from '../lib/artwork.js';
-import { Img, useRevealOnMount } from '../components/Img.jsx';
-import { ExternalIcon, PlayIcon } from '../components/Icons.jsx';
-import { useRadio } from '../components/RadioPlayer.jsx';
+import { useRevealOnMount } from '../components/Img.jsx';
+import { ExternalIcon } from '../components/Icons.jsx';
+import { art } from '../lib/artwork.js';
 
-/** Click-to-load the shared player; the iframe stays mounted across route changes. */
+/** Embedded official YouTube player. The source remains visible without redirecting visitors away. */
 function VideoPlayer({ video }) {
-  const { play, active } = useRadio();
-  const isActive = active?.id === video.id;
   return (
     <div className="player">
-      <button
-        type="button"
-        className="player__poster"
-        onClick={() => play(video)}
-        aria-label={`${isActive ? 'Now playing' : 'Play'} ${video.title} in the persistent official-source player`}
-      >
-        <Img {...art.heroPortrait} alt="" />
-        <span className="player__play"><PlayIcon /></span>
-        <span className="player__label">
-          <span>{video.kind} · {video.year}</span>
-          <span>{isActive ? 'Now playing below' : 'Press to load'}</span>
-        </span>
-      </button>
+      <iframe
+        src={`https://www.youtube-nocookie.com/embed/${video.videoId}?rel=0&modestbranding=1&playsinline=1`}
+        title={`${video.title} — official Teeroy Tyobee video`}
+        loading="lazy"
+        allow="autoplay; encrypted-media; picture-in-picture; web-share; compute-pressure"
+        referrerPolicy="strict-origin-when-cross-origin"
+        allowFullScreen
+      />
     </div>
   );
 }
 
 export default function Media() {
   const ref = useRevealOnMount();
-  const [lead] = videos;
+  const lead = videos.find((video) => video.id === 'wan-tiv-visualizer') ?? videos[0];
 
   return (
     <main ref={ref} id="main">
@@ -56,7 +48,7 @@ export default function Media() {
         </div>
         <p className="lede" style={{ marginTop: '1.5rem' }} data-reveal>
           Music videos, visuals and photography. Only releases confirmed through the artist’s own channel
-          are published, and video loads only when you ask for it.
+          are published, with official YouTube players embedded directly on this page.
         </p>
       </div>
 
@@ -83,13 +75,36 @@ export default function Media() {
             <div>
               <p className="eyebrow eyebrow--plain">{lead.subtitle}</p>
               <p className="body" style={{ marginTop: '1rem' }}>
-                Published on the artist’s official channel. Playback loads only after you press play and
-                persists in the site player while you move between portfolio pages.
+                Published on the artist’s official channel. Watch it here, or open the verified source in a new tab.
               </p>
               <p className="micro" style={{ marginTop: '1.25rem' }}>
                 Verified via {lead.confirmedBy}
               </p>
             </div>
+          </div>
+        </div>
+      </section>
+
+      <section className="section section--flush" aria-labelledby="all-videos-heading">
+        <div className="wrap">
+          <div className="section-head" data-reveal>
+            <div className="section-head__title">
+              <p className="eyebrow">Official YouTube</p>
+              <h2 className="h2" id="all-videos-heading">The video archive</h2>
+            </div>
+            <p className="lede">Current-project visuals first, followed by the verified archive.</p>
+          </div>
+          <div className="video-grid" data-reveal data-reveal-delay="1">
+            {videos.map((video) => (
+              <article className="video-card" key={video.id}>
+                <VideoPlayer video={video} />
+                <div className="video-card__copy">
+                  <p className="eyebrow eyebrow--plain">{video.kind} · {video.year}</p>
+                  <h3>{video.title}</h3>
+                  {video.currentProject && <span className="badge">JOY (IEMBER)</span>}
+                </div>
+              </article>
+            ))}
           </div>
         </div>
       </section>
@@ -107,11 +122,13 @@ export default function Media() {
           <div className="gallery" data-reveal data-reveal-delay="1">
             {photography.map((shot) => (
               <figure
-                className={`gallery__cell ${photoArt(shot.id).cell}`}
+                className="gallery__cell gallery__cell--tall"
                 key={shot.id}
                 style={{ margin: 0 }}
               >
-                <Img {...photoArt(shot.id)} alt="Portrait of Teeroy Tyobee; final publication clearance is pending." />
+                <div className="media-photo" role="img" aria-label={art.artistPortrait.alt}>
+                  <img src={art.artistPortrait.src} alt={art.artistPortrait.alt} width={art.artistPortrait.width} height={art.artistPortrait.height} />
+                </div>
                 <figcaption className="gallery__cap">
                   <b>{shot.title}</b>
                   <span>{shot.caption}</span>
@@ -131,8 +148,8 @@ export default function Media() {
         <div className="wrap">
           <div className="section-head" data-reveal>
             <div className="section-head__title">
-              <p className="eyebrow">Follow</p>
-              <h2 className="h2" id="channels-heading">Official channels</h2>
+              <p className="eyebrow">Follow &amp; listen</p>
+              <h2 className="h2" id="channels-heading">Social &amp; music profiles</h2>
             </div>
           </div>
 

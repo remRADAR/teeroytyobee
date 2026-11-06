@@ -9,6 +9,8 @@ import './styles/chrome.css';
 import './styles/sections.css';
 import './styles/marquee.css';
 import './styles/motion.css';
+import './styles/animation.css';
+import './styles/reconstruction.css';
 
 createRoot(document.getElementById('root')).render(
   <React.StrictMode>
