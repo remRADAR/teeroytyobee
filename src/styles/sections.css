@@ -859,6 +859,18 @@
   pointer-events: none;
 }
 
+.epk__portrait-caption {
+  position: absolute;
+  z-index: 1;
+  right: 1rem;
+  bottom: .85rem;
+  left: 1rem;
+  color: rgba(242, 239, 233, .78);
+  font-size: .58rem;
+  letter-spacing: .16em;
+  text-transform: uppercase;
+}
+
 .epk__plate {
   position: absolute;
   z-index: 2;

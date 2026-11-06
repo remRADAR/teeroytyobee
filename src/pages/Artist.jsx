@@ -4,6 +4,7 @@ import { catalogStats } from '../lib/catalog.js';
 import { useRevealOnMount } from '../components/Img.jsx';
 import { Verified } from '../components/ReleaseRow.jsx';
 import { ChevronIcon, DownloadIcon, ExternalIcon } from '../components/Icons.jsx';
+import { art } from '../lib/artwork.js';
 
 const EPK_PATH = '/downloads/teeroy-tyobee-epk.pdf';
 
@@ -39,10 +40,9 @@ export default function Artist() {
       <section className="section section--flush" aria-labelledby="bio-heading">
         <div className="wrap">
           <div className="epk">
-            <div className="epk__portrait asset-placeholder" data-reveal role="img" aria-label="Approved artist portrait pending">
-              <span className="asset-placeholder__label">Artist file · {new Date().getFullYear()}</span>
-              <span className="asset-placeholder__message">Approved artist portrait required</span>
-              <span className="micro">Publication clearance pending</span>
+            <div className="epk__portrait" data-reveal>
+              <img src={art.profilePortrait.src} alt={art.profilePortrait.alt} width={art.profilePortrait.width} height={art.profilePortrait.height} />
+              <span className="epk__portrait-caption">Artist file · {new Date().getFullYear()}</span>
             </div>
 
             <div data-reveal data-reveal-delay="1">

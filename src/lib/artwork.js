@@ -4,6 +4,7 @@
  * catalog and stored under public/media/covers.
  */
 const PORTRAIT = '/media/artist-hero.jpeg';
+const PROFILE_PORTRAIT = '/media/artist-profile.jpg';
 const IEMBER_PORTRAIT = '/media/iember-portrait.jpg';
 
 export const art = {
@@ -13,6 +14,13 @@ export const art = {
     alt: 'Portrait of Teeroy Tyobee; final publication clearance is pending.',
     width: 1536,
     height: 1920,
+  },
+  profilePortrait: {
+    src: PROFILE_PORTRAIT,
+    sizes: '(min-width: 940px) 38vw, 100vw',
+    alt: 'Portrait of Teeroy Tyobee in a white outfit and red patterned head covering.',
+    width: 1800,
+    height: 2250,
   },
   heroWide: {
     src: PORTRAIT,
