@@ -5,7 +5,7 @@ import { homeCopy } from '../content/site.js';
 import { featuredRelease, sortedSolo } from '../lib/catalog.js';
 import { press } from '../content/press.js';
 import { videos } from '../content/media.js';
-import { ArrowIcon, ExternalIcon, PlatformIcon } from '../components/Icons.jsx';
+import { ArrowIcon, ExternalIcon, PlatformIcon, PlayIcon } from '../components/Icons.jsx';
 import { Marquee } from '../components/Marquee.jsx';
 import { art } from '../lib/artwork.js';
 import { PlayableReleaseArtwork } from '../components/PlayableReleaseArtwork.jsx';
@@ -21,6 +21,7 @@ export default function Home() {
   const featured = featuredRelease();
   const recent = sortedSolo.filter((release) => release.id !== featured.id).slice(0, 4);
   const [selectedWork, setSelectedWork] = useState(featured);
+  const [videoLoaded, setVideoLoaded] = useState(false);
   const currentPress = press.filter((item) => /iember|joy|debut ep/i.test(`${item.title} ${item.summary}`));
   const featuredVideo = videos.find((video) => video.videoId === featured.videoId);
   const leadVideo = videos.find((video) => video.id === 'wan-tiv-visualizer') ?? videos[0];
@@ -45,7 +46,7 @@ export default function Home() {
               {storeLinks.map((store) => (
                 <a className="masthead__store" href={store.url} key={store.key} target="_blank" rel="noopener noreferrer" aria-label={`Open Teeroy Tyobee on ${store.label}`}>
                   <PlatformIcon kind={store.kind} />
-                  <span className="visually-hidden">{store.label}</span>
+                  <span className="masthead__store-label" aria-hidden="true">{store.label}</span>
                 </a>
               ))}
             </div>
@@ -94,13 +95,13 @@ export default function Home() {
               height={art.iemberPortrait.height}
               loading="lazy"
             />
-            <div className="editorial-work__cover">
+            <div className="editorial-work__cover editorial-work__preview-swap" key={`cover-${selectedWork.id}`}>
               <PlayableReleaseArtwork
                 release={selectedWork}
                 video={videos.find((video) => video.videoId === selectedWork.videoId)}
               />
             </div>
-            <strong>{selectedWork.title}</strong>
+            <strong className="editorial-work__preview-swap" key={`title-${selectedWork.id}`}>{selectedWork.title}</strong>
           </div>
         </div>
         <p className="editorial-work__note">Solo releases shown newest first. Collaborations remain separately listed in the catalogue.</p>
@@ -152,13 +153,26 @@ export default function Home() {
           <Link className="editorial-link" to="/media">Explore official media <ArrowIcon /></Link>
         </div>
         <div className="editorial-media__tile" aria-label={`${leadVideo.title} embedded YouTube player`}>
-          <iframe
-            src={`https://www.youtube-nocookie.com/embed/${leadVideo.videoId}?rel=0&modestbranding=1&playsinline=1`}
-            title={`${artist.displayName} — ${leadVideo.title} official video`}
-            allow="autoplay; encrypted-media; picture-in-picture; web-share; compute-pressure"
-            referrerPolicy="strict-origin-when-cross-origin"
-            allowFullScreen
-          />
+          {videoLoaded ? (
+            <iframe
+              src={`https://www.youtube-nocookie.com/embed/${leadVideo.videoId}?rel=0&modestbranding=1&playsinline=1&autoplay=1`}
+              title={`${artist.displayName} — ${leadVideo.title} official video`}
+              allow="autoplay; encrypted-media; picture-in-picture; web-share; compute-pressure"
+              referrerPolicy="strict-origin-when-cross-origin"
+              allowFullScreen
+            />
+          ) : (
+            <button
+              type="button"
+              className="media-facade"
+              onClick={() => setVideoLoaded(true)}
+              aria-label={`Play ${leadVideo.title} — loads the official YouTube player`}
+            >
+              <img src={art.heroWide.src} alt="" width={art.heroWide.width} height={art.heroWide.height} loading="lazy" />
+              <span className="media-facade__play"><PlayIcon /></span>
+              <span className="media-facade__label">Play {leadVideo.title} · official video</span>
+            </button>
+          )}
         </div>
       </section>
 

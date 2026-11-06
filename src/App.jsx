@@ -1,6 +1,7 @@
 import { useEffect } from 'react';
 import { Routes, Route, useLocation, Link } from 'react-router-dom';
 import { Header, Footer } from './components/Layout.jsx';
+import { ScrollRail } from './components/Motion.jsx';
 import { refreshScroll } from './lib/scrollBus.js';
 import Home from './pages/Home.jsx';
 import Catalog from './pages/Catalog.jsx';
@@ -40,24 +41,30 @@ function ScrollManager() {
 function NotFound() {
   return (
     <main id="main" className="wrap page-head" style={{ minHeight: '60vh' }}>
-      <p className="eyebrow">404</p>
+      <p className="eyebrow">Error 404 — Not found</p>
       <h1 className="page-head__title">Nothing here<span className="serif-italic">.</span></h1>
       <p className="lede" style={{ marginTop: '1.25rem' }}>
         That page is not part of {artist.displayName}’s portfolio.
       </p>
-      <Link className="btn" to="/" style={{ marginTop: '1.75rem' }}>Back to home</Link>
+      <div style={{ display: 'flex', flexWrap: 'wrap', gap: '1rem', marginTop: '1.75rem', alignItems: 'center' }}>
+        <Link className="btn" to="/">Back to home</Link>
+        <Link className="editorial-link" to="/catalog">View the catalogue</Link>
+      </div>
     </main>
   );
 }
 
 export default function App() {
+  const { pathname } = useLocation();
+
   return (
     <div className="shell">
       <a className="skip-link" href="#main">Skip to content</a>
       <ScrollManager />
+      <ScrollRail />
       <SEO />
       <Header />
-      <div style={{ flex: '1 0 auto' }}>
+      <div className="route-view" key={pathname} style={{ flex: '1 0 auto' }}>
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/catalog" element={<Catalog />} />
