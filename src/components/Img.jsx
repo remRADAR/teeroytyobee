@@ -70,8 +70,13 @@ export function useRevealOnMount(deps = []) {
       let remaining = false;
       for (const node of nodes) {
         if (node.classList.contains('is-visible')) continue;
-        const { top, bottom } = node.getBoundingClientRect();
-        if (top < limit && bottom > -40) {
+        const { top } = node.getBoundingClientRect();
+        // Reveal once the node's top edge has crossed the fold line, and keep it
+        // revealed. Deliberately no lower bound: a node that a fast scroll has
+        // already carried well above the viewport must still be revealed, or it
+        // stays at opacity 0 for the rest of the session. That is an
+        // accessibility failure, not a cosmetic one.
+        if (top < limit) {
           node.classList.add('is-visible');
         } else {
           remaining = true;

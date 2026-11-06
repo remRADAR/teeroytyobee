@@ -8,6 +8,7 @@
  */
 import test from 'node:test';
 import assert from 'node:assert/strict';
+import fs from 'node:fs';
 
 import { artist, career } from '../src/content/artist.js';
 import { soloReleases, collaborations } from '../src/content/releases.js';
@@ -76,11 +77,17 @@ test('every outbound link is https and points at a known official host', () => {
     'music.apple.com',
     'audiomack.com',
     'music.amazon.com',
+    'open.spotify.com',
     'www.youtube.com',
     'youtube.com',
+    'x.com',
+    'www.tiktok.com',
+    'www.threads.com',
+    'linktr.ee',
     'www.instagram.com',
     'www.facebook.com',
     'guardian.ng',
+    'radarcharts.net',
     'voyagedenver.com',
     'www.nta.ng',
     'thenationonlineng.net',
@@ -103,9 +110,12 @@ test('every outbound link is https and points at a known official host', () => {
   }
 });
 
-test('no Spotify URL is fabricated while the artist link is unknown', () => {
-  assert.equal(artist.links.spotify, null);
-  assert.ok(!/spotify\.com/i.test(everything), 'no Spotify destination may be invented');
+test('the EPK and current public profiles are represented', () => {
+  const ids = new Set(artist.profileLinks.map((profile) => profile.id));
+  for (const id of ['spotify', 'youtube', 'instagram', 'facebook', 'appleMusic', 'x', 'tiktok', 'threads', 'linktree']) {
+    assert.ok(ids.has(id), `${id} should be represented in the public profile archive`);
+    assert.ok(artist.links[id], `${id} should have a verified destination`);
+  }
 });
 
 test('uncertain catalogue records are flagged, not asserted', () => {
@@ -147,10 +157,10 @@ test('only videos with a validated platform id are listed', () => {
   }
 });
 
-test('photography is explicitly marked as placeholder', () => {
-  for (const shot of photography) {
-    assert.equal(shot.isPlaceholder, true, `${shot.id} must be flagged as a placeholder`);
-  }
+test('supplied portrait is not mislabeled as placeholder photography', () => {
+  assert.equal(photography.length, 1, 'only the supplied portrait is present');
+  assert.equal(photography[0].isPlaceholder, false);
+  assert.match(photography[0].rightsNote, /publication clearance (remain|remains) outstanding/i);
 });
 
 test('the featured release exists and comes from the solo set', () => {
@@ -164,4 +174,21 @@ test('catalog stats agree with the source arrays', () => {
   assert.equal(catalogStats.solo, soloReleases.length);
   assert.equal(catalogStats.collaborations, collaborations.length);
   assert.equal(catalogStats.total, soloReleases.length + collaborations.length);
+});
+
+test('preview route manifest declares every application page route', () => {
+  const manifest = JSON.parse(fs.readFileSync(new URL('../public/manus-routes.json', import.meta.url), 'utf8'));
+  assert.ok(Array.isArray(manifest.routes));
+  assert.deepEqual(manifest.routes.map((route) => route.path), [
+    '/',
+    '/catalog',
+    '/catalog/:id',
+    '/press',
+    '/media',
+    '/artist',
+  ]);
+  for (const route of manifest.routes) {
+    assert.match(route.path, /^\//);
+    assert.ok(route.title);
+  }
 });

@@ -144,3 +144,12 @@ These are enforced by `tests/content.test.mjs`, not just by convention:
 No secrets, tokens or credentials are stored in this repository. Deployment, DNS and
 hosting configuration are intentionally out of scope and are not performed by this
 codebase; there is no deploy script.
+
+## Cloudflare Pages and Workers AI
+
+The feature branch is connected to the Cloudflare Pages project `teeroytyobee`. Pages builds
+run `npm run build` and publish `dist/`. The source-controlled `wrangler.jsonc` declares the
+Pages output directory and the server-side `AI` Workers AI binding. The guarded `POST /api/ai`
+Pages Function is ready for future AI-assisted product features; it does not call a model
+during builds or tests and returns a configuration error until the binding is available in the
+deployed environment. See `docs/CLOUDFLARE.md` for the integration details.

@@ -1,4 +1,7 @@
+import { Link } from 'react-router-dom';
 import { ExternalIcon, CheckIcon, AlertIcon } from './Icons.jsx';
+import { PlayableReleaseArtwork } from './PlayableReleaseArtwork.jsx';
+import { videos } from '../content/media.js';
 
 /** Marks a destination as external, with the target announced to assistive tech. */
 export function ExtLink({ href, children, className = '', label }) {
@@ -36,13 +39,18 @@ export function Verified({ verified, children }) {
  * no button ever points at a guessed URL.
  */
 export function ReleaseRow({ release, showTracks = false }) {
+  const video = release.videoId
+    ? videos.find((item) => item.videoId === release.videoId)
+    : null;
+
   return (
     <li className="rel">
       <span className="rel__year">{release.year ?? '—'}</span>
+      <PlayableReleaseArtwork release={release} video={video} compact className="rel__thumb" />
 
       <div className="rel__main">
         <p className="rel__title">
-          {release.title}
+          <Link className="rel__detail" to={`/catalog/${release.id}`}>{release.title}</Link>
           <span className="badge">{release.kind}</span>
           {release.verified === false && (
             <Verified verified={false}>{release.note ? 'Needs review' : 'Unconfirmed'}</Verified>

@@ -1,0 +1,10 @@
+{
+  "routes": [
+    { "path": "/", "title": "Home" },
+    { "path": "/catalog", "title": "Catalog" },
+    { "path": "/catalog/:id", "title": "Release detail" },
+    { "path": "/press", "title": "Press" },
+    { "path": "/media", "title": "Media" },
+    { "path": "/artist", "title": "Artist" }
+  ]
+}

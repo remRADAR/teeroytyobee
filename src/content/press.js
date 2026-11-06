@@ -5,6 +5,20 @@
  */
 export const press = [
   {
+    id: 'radarcharts-iember',
+    outlet: 'RADARCharts · On the Radar',
+    published: '2026-10-10',
+    dateLabel: '10 Oct 2026',
+    title: 'Teeroy Tyobee explores joy on IEMBER (JOY)',
+    kind: 'Feature',
+    summary:
+      'A project feature on IEMBER (JOY), its Tiv heritage, and the record’s movement through happiness, love, resilience and identity.',
+    url: 'https://radarcharts.net/ontheradar/articles/teeroy-tyobee-channels-tiv-heritage-and-resilience-on-iember-joy',
+    image: '/media/covers/iember.jpg',
+    verified: true,
+    verificationNote: null,
+  },
+  {
     id: 'guardian-iember',
     outlet: 'The Guardian Nigeria',
     published: '2026-10-07',
@@ -14,8 +28,9 @@ export const press = [
     summary:
       'Coverage of the six-track IEMBER (JOY) EP — its Tiv cultural grounding, the themes behind the record and the production credits.',
     url: 'https://guardian.ng/art/teeroy-tyobee-steps-out-with-iember/',
-    verified: false,
-    verificationNote: 'Link awaiting final confirmation.'
+    image: '/media/covers/iember.jpg',
+    verified: true,
+    verificationNote: null,
   },
   {
     id: 'voyage-interview',
@@ -27,6 +42,7 @@ export const press = [
     summary:
       'An interview on the independent journey, creative purpose, "Different People" and the forthcoming JOY project.',
     url: 'https://voyagedenver.com/interview/rising-stars-meet-teeroy-tyobee-of-national/',
+    image: '/media/artist-hero.jpeg',
     verified: true,
     verificationNote: null,
   },
@@ -40,6 +56,7 @@ export const press = [
     summary:
       'Announcement of "Mama Africa" as the lead single from the forthcoming debut EP, framed around African heritage and resilience.',
     url: 'https://www.nta.ng/news/entertainment/teeroy-tyobee-unveils-powerful-new-anthem-mama-africa-ahead-of-debut-ep',
+    image: '/media/covers/mama-africa.jpg',
     verified: true,
     verificationNote: null,
   },
@@ -53,8 +70,9 @@ export const press = [
     summary:
       'Coverage of "Wise Up", including the artist’s comments on mental emancipation and reported career background.',
     url: 'https://thenationonlineng.net/tyobee-releases-new-single-wise-up/',
-    verified: false,
-    verificationNote: 'Link awaiting final confirmation.'
+    image: '/media/covers/wise-up.jpg',
+    verified: true,
+    verificationNote: null,
   },
   {
     id: 'tooxclusive-good-old-days',

@@ -7,7 +7,7 @@ export const site = {
   url: 'https://teeroytyobee.com',
   /** Attributed art direction disclosure shown in the footer. */
   artDirectionNote:
-    'Imagery on this site is art-direction placeholder material pending approved artist photography.',
+    'The supplied artist portraits are used for this preview; final publication clearance remains outstanding.',
 };
 
 export const nav = [
@@ -20,18 +20,24 @@ export const nav = [
 
 export const homeCopy = {
   eyebrow: 'Independent · Benue State, Nigeria',
-  headlineTop: 'The sound',
-  headlineAccent: 'of home.',
-  lede:
-    'Afro-fusion from the Tiv Nation — storytelling, soul and heritage, released independently through Royz Houz.',
-  primaryCta: 'Explore the catalogue',
-  secondaryCta: 'Read the artist file',
   catalogLabel: 'Latest release',
   mediaHeading: 'On screen',
   mediaLede: 'Official visuals, released through the artist’s own channel.',
   pressHeading: 'In print',
   pressLede: 'Selected coverage, newest first.',
-  artistHeading: 'The artist',
+  /**
+   * Drifting band under the hero. Descriptive only — no claims, no numbers,
+   * nothing that would need verifying. Kept here so the wording is editable
+   * without touching the component.
+   */
+  marqueeItems: [
+    'Teeroy Tyobee',
+    'Afro-fusion',
+    'Tiv Nation',
+    'Benue State',
+    'Independent',
+    'Royz Houz',
+  ],
 };
 
 export default { site, nav, homeCopy };

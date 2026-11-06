@@ -1,273 +1,174 @@
+import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { artist } from '../content/artist.js';
 import { homeCopy } from '../content/site.js';
-import { featuredRelease, sortedSolo, catalogStats } from '../lib/catalog.js';
+import { featuredRelease, sortedSolo } from '../lib/catalog.js';
 import { press } from '../content/press.js';
 import { videos } from '../content/media.js';
-import { art, releaseArtwork } from '../lib/artwork.js';
-import { Img, useRevealOnMount } from '../components/Img.jsx';
-import { ReleaseRow } from '../components/ReleaseRow.jsx';
-import { ExtLink } from '../components/ReleaseRow.jsx';
-import { ArrowIcon, PlayIcon } from '../components/Icons.jsx';
+import { ArrowIcon, ExternalIcon, PlatformIcon } from '../components/Icons.jsx';
+import { Marquee } from '../components/Marquee.jsx';
+import { art } from '../lib/artwork.js';
+import { PlayableReleaseArtwork } from '../components/PlayableReleaseArtwork.jsx';
+
+const storeLinks = [
+  { key: 'spotify', label: 'Spotify', kind: 'spotify', url: artist.links.spotify },
+  { key: 'appleMusic', label: 'Apple Music', kind: 'apple', url: artist.links.appleMusic },
+  { key: 'youtube', label: 'YouTube', kind: 'youtube', url: artist.links.youtube },
+  { key: 'audiomack', label: 'Audiomack', kind: 'audiomack', url: artist.links.audiomack },
+];
 
 export default function Home() {
-  const ref = useRevealOnMount();
   const featured = featuredRelease();
-  const recent = sortedSolo.filter((r) => r.id !== featured.id).slice(0, 4);
-  const [leadPress] = press;
-  const [leadVideo] = videos;
+  const recent = sortedSolo.filter((release) => release.id !== featured.id).slice(0, 4);
+  const [selectedWork, setSelectedWork] = useState(featured);
+  const currentPress = press.filter((item) => /iember|joy|debut ep/i.test(`${item.title} ${item.summary}`));
+  const featuredVideo = videos.find((video) => video.videoId === featured.videoId);
+  const leadVideo = videos.find((video) => video.id === 'wan-tiv-visualizer') ?? videos[0];
 
   return (
-    <div ref={ref}>
-      {/* ------------------------------------------------------------ hero */}
-      <section className="hero" aria-labelledby="hero-title">
-        <div className="hero__media">
-          <picture>
-            <source media="(max-width: 720px)" srcSet={art.heroPortrait.srcSet} sizes="100vw" />
-            <Img {...art.heroWide} priority alt="" />
-          </picture>
-        </div>
-        <div className="hero__scrim" aria-hidden="true" />
-        <div className="hero__grain" aria-hidden="true" />
-
-        <div className="wrap hero__inner">
-          <div>
-            <p className="eyebrow">{homeCopy.eyebrow}</p>
-            <h1 className="display display--lg hero__title" id="hero-title">
-              <span className="line">{homeCopy.headlineTop}</span>
-              <span className="line">
-                <span className="accent glitch" data-text={homeCopy.headlineAccent}>
-                  {homeCopy.headlineAccent}
-                </span>
-              </span>
-            </h1>
-            <p className="lede" style={{ marginTop: '1.5rem' }}>{homeCopy.lede}</p>
-
-            <div className="hero__actions" style={{ marginTop: '1.9rem' }}>
-              <Link className="btn" to="/catalog">
-                {homeCopy.primaryCta} <ArrowIcon />
-              </Link>
-              <Link className="btn btn--ghost" to="/artist">
-                {homeCopy.secondaryCta}
-              </Link>
-            </div>
-          </div>
-
-          <dl className="hero__meta">
-            <div>
-              <dt>Artist</dt>
-              <dd>{artist.displayName}</dd>
-            </div>
-            <div>
-              <dt>Sound</dt>
-              <dd>{artist.genreLine}</dd>
-            </div>
-            <div>
-              <dt>Releases catalogued</dt>
-              <dd>
-                {catalogStats.total} · {catalogStats.solo} solo / {catalogStats.collaborations} collaborations
-              </dd>
-            </div>
-          </dl>
-        </div>
-
-        <span className="hero__scroll" aria-hidden="true">Scroll</span>
-      </section>
-
-      {/* -------------------------------------------------------- featured */}
-      <section className="section" aria-labelledby="featured-title">
-        <div className="wrap">
-          <div className="section-head" data-reveal>
-            <div className="section-head__title">
-              <p className="eyebrow">{homeCopy.catalogLabel}</p>
-              <h2 className="h2" id="featured-title">
-                {featured.title} <span className="serif-italic">— out now</span>
-              </h2>
-            </div>
-            <Link className="link-arrow" to="/catalog">
-              Full catalogue <ArrowIcon />
+    <main id="main" className="editorial-home">
+      <section className="masthead" aria-labelledby="hero-title">
+        <p className="masthead__kicker">{homeCopy.eyebrow}</p>
+        <h1 className="masthead__title" id="hero-title">
+          <span>Teeroy</span>{' '}<span data-text="Tyobee">Tyobee</span>
+        </h1>
+        <div className="masthead__stage" role="group" aria-label={`Latest release: ${featured.title}`}>
+          <img className="masthead__stage-image" src={art.heroWide.src} alt="" width={art.heroWide.width} height={art.heroWide.height} />
+          <div className="masthead__stage-noise" aria-hidden="true" />
+          <div className="masthead__stage-copy">
+            <p className="micro">{homeCopy.catalogLabel} · {featured.year}</p>
+            <p className="masthead__release">{featured.title}</p>
+            <Link className="masthead__cta" to={`/catalog/${featured.id}`}>
+              Explore the release <ArrowIcon />
             </Link>
-          </div>
-
-          <div className="featured" data-reveal data-reveal-delay="1">
-            <figure className="artwork">
-              <Img {...releaseArtwork(featured.artwork)} alt={`Artwork for ${featured.title}`} />
-              <figcaption className="artwork__stamp">
-                <strong>{featured.title}</strong>
-                <span>
-                  {featured.kind} · {featured.year}
-                </span>
-              </figcaption>
-            </figure>
-
-            <div>
-              <p className="eyebrow eyebrow--plain">
-                {featured.kind} · {featured.trackCount} tracks · {featured.year}
-              </p>
-              <h3 className="h2" style={{ marginTop: '0.85rem' }}>{featured.title}</h3>
-              <p className="body" style={{ marginTop: '1rem' }}>{featured.summary}</p>
-
-              {featured.tracks?.length > 0 && (
-                <ol className="rel__tracks" style={{ marginTop: '1.25rem' }}>
-                  {featured.tracks.map((t, i) => (
-                    <li key={t} style={{ fontSize: '0.72rem', color: 'var(--bone-faint)' }}>
-                      {String(i + 1).padStart(2, '0')} {t}
-                    </li>
-                  ))}
-                </ol>
-              )}
-
-              <div className="hero__actions" style={{ marginTop: '1.75rem' }}>
-                {featured.links.map((link) => (
-                  <ExtLink key={link.platform} href={link.url} className="btn btn--sm" label={`${featured.title} on ${link.platform}`}>
-                    {link.platform}
-                  </ExtLink>
-                ))}
-                <Link className="btn btn--quiet btn--sm" to="/catalog#collaborations">
-                  Collaborations <ArrowIcon />
-                </Link>
-              </div>
+            <div className="masthead__stores" aria-label="Listen to Teeroy Tyobee on official platforms">
+              {storeLinks.map((store) => (
+                <a className="masthead__store" href={store.url} key={store.key} target="_blank" rel="noopener noreferrer" aria-label={`Open Teeroy Tyobee on ${store.label}`}>
+                  <PlatformIcon kind={store.kind} />
+                  <span className="visually-hidden">{store.label}</span>
+                </a>
+              ))}
             </div>
           </div>
+          <div className="masthead__featured-art">
+            <PlayableReleaseArtwork release={featured} video={featuredVideo} />
+          </div>
+          <span className="masthead__asset-note">{artist.displayName} · official artist profile</span>
+        </div>
+        <div className="masthead__foot">
+          <span>{artist.genreLine}</span>
+          <a href="#story" aria-label="Scroll to the Story First section">Scroll to explore <span aria-hidden="true">↓</span></a>
         </div>
       </section>
 
-      {/* ------------------------------------------------------ recent list */}
-      <section className="section" aria-labelledby="recent-title">
-        <div className="wrap">
-          <div className="section-head" data-reveal>
-            <div className="section-head__title">
-              <p className="eyebrow">The catalogue</p>
-              <h2 className="h2" id="recent-title">Recent releases</h2>
-            </div>
-            <p className="micro">Newest first</p>
-          </div>
-
-          <ul className="rel-list" data-reveal>
-            {recent.map((r) => (
-              <ReleaseRow key={r.id} release={r} />
+      <section className="editorial-work" aria-labelledby="selected-work-heading">
+        <div className="editorial-section-head">
+          <p className="micro">{homeCopy.catalogLabel} / 02</p>
+          <h2 className="poster poster--section" id="selected-work-heading">Selected work</h2>
+          <Link className="editorial-link" to="/catalog">View the catalogue <ArrowIcon /></Link>
+        </div>
+        <div className="editorial-work__layout">
+          <ul className="editorial-work__list">
+            {[featured, ...recent].map((release, index) => (
+              <li key={release.id}>
+                <Link
+                  to={`/catalog/${release.id}`}
+                  className="editorial-work__item"
+                  onMouseEnter={() => setSelectedWork(release)}
+                  onFocus={() => setSelectedWork(release)}
+                >
+                  <span className="editorial-work__index">{String(index + 1).padStart(2, '0')}</span>
+                  <span className="editorial-work__name">{release.title}</span>
+                  <span className="editorial-work__meta">{release.year} <i>·</i> {release.kind}</span>
+                  <span className="editorial-work__arrow" aria-hidden="true"><ArrowIcon /></span>
+                </Link>
+              </li>
             ))}
           </ul>
-
-          <p className="disclosure">
-            <strong>Note</strong>
-            Solo releases only. Collaborations and featured appearances are listed separately in the
-            catalogue.
-          </p>
-        </div>
-      </section>
-
-      {/* ----------------------------------------------------------- media */}
-      <section className="section" aria-labelledby="media-teaser-title">
-        <div className="wrap">
-          <div className="section-head" data-reveal>
-            <div className="section-head__title">
-              <p className="eyebrow">{homeCopy.mediaHeading}</p>
-              <h2 className="h2" id="media-teaser-title">{homeCopy.mediaLede}</h2>
+          <div className="editorial-work__preview" role="group" aria-label={`${selectedWork.title} preview`}>
+            <img
+              className="editorial-work__portrait"
+              src={art.iemberPortrait.src}
+              alt={art.iemberPortrait.alt}
+              width={art.iemberPortrait.width}
+              height={art.iemberPortrait.height}
+              loading="lazy"
+            />
+            <div className="editorial-work__cover">
+              <PlayableReleaseArtwork
+                release={selectedWork}
+                video={videos.find((video) => video.videoId === selectedWork.videoId)}
+              />
             </div>
-            <Link className="link-arrow" to="/media">
-              All media <ArrowIcon />
-            </Link>
-          </div>
-
-          <div className="video-feature" data-reveal data-reveal-delay="1">
-            <Link to="/media" className="player" aria-label={`Watch ${leadVideo.title}`}>
-              <div className="player__poster">
-                <Img {...art.crowd} alt="" />
-                <span className="player__play"><PlayIcon /></span>
-                <span className="player__label">
-                  <span>{leadVideo.kind} · {leadVideo.year}</span>
-                  <span>Plays on click</span>
-                </span>
-              </div>
-            </Link>
-
-            <div>
-              <p className="eyebrow eyebrow--plain">Official video</p>
-              <h3 className="h2" style={{ marginTop: '0.8rem' }}>{leadVideo.title}</h3>
-              <p className="body" style={{ marginTop: '0.9rem' }}>
-                {leadVideo.subtitle}. Embedded from the artist’s official channel — nothing loads until you
-                press play.
-              </p>
-              <Link className="link-arrow" to="/media" style={{ marginTop: '1.25rem' }}>
-                Watch the visuals <ArrowIcon />
-              </Link>
-            </div>
+            <strong>{selectedWork.title}</strong>
           </div>
         </div>
+        <p className="editorial-work__note">Solo releases shown newest first. Collaborations remain separately listed in the catalogue.</p>
       </section>
 
-      {/* ----------------------------------------------------------- press */}
-      <section className="section" aria-labelledby="press-teaser-title">
-        <div className="wrap">
-          <div className="section-head" data-reveal>
-            <div className="section-head__title">
-              <p className="eyebrow">{homeCopy.pressHeading}</p>
-              <h2 className="h2" id="press-teaser-title">{press[0].title}</h2>
-            </div>
-            <Link className="link-arrow" to="/press">
-              Press archive <ArrowIcon />
-            </Link>
-          </div>
+      <section className="editorial-band" id="story" aria-label="Artist identity">
+        <div>
+          <p className="micro">{artist.roleLine}</p>
+          <h2>Story first.<br /><em>Always.</em></h2>
+        </div>
+        <div className="editorial-band__copy">
+          <p>{artist.longBio[0]}</p>
+          <p>{artist.longBio[1]}</p>
+        </div>
+        <Link className="editorial-link" to="/artist">Read the artist file <ArrowIcon /></Link>
+      </section>
 
-          <article className="grid-2" data-reveal data-reveal-delay="1">
-            <div>
-              <p className="press-item__outlet">
-                {leadPress.outlet} · {leadPress.dateLabel}
-              </p>
-              <p className="body" style={{ marginTop: '1rem' }}>{leadPress.summary}</p>
-            </div>
-            <div>
-              <p className="micro">Also in the archive</p>
-              <ul className="rel-list" style={{ marginTop: '0.9rem' }}>
-                {press.slice(1, 4).map((p) => (
-                  <li key={p.id} className="rel" style={{ gridTemplateColumns: '1fr auto' }}>
-                    <span className="rel__title" style={{ fontSize: '0.9rem' }}>
-                      {p.title}
-                      <span className="micro">{p.outlet}</span>
-                    </span>
-                    <span className="rel__year">{p.dateLabel}</span>
-                  </li>
-                ))}
-              </ul>
-            </div>
+      <Marquee items={homeCopy.marqueeItems} outline />
+
+      <section className="editorial-press" aria-labelledby="journal-heading">
+        <div className="editorial-section-head">
+          <p className="micro">Current project / 03</p>
+          <div>
+            <h2 className="poster poster--section" id="journal-heading">IEMBER in the press</h2>
+            <p className="editorial-press__lede">Current updates and mentions of the highlighted project.</p>
+          </div>
+          <Link className="editorial-link" to="/press">All coverage <ArrowIcon /></Link>
+        </div>
+        {currentPress.map((item) => (
+          <article className="editorial-press__lead" key={item.id}>
+            <span className="micro">{item.outlet} <i>·</i> {item.dateLabel}</span>
+            <h3>{item.title}</h3>
+            <p>{item.summary}</p>
+            {item.url && item.verified ? (
+              <a className="editorial-link" href={item.url} target="_blank" rel="noopener noreferrer">Read the verified story <ExternalIcon /></a>
+            ) : (
+              <span className="editorial-press__pending">Link awaiting verification</span>
+            )}
           </article>
+        ))}
+      </section>
+
+      <section className="editorial-media" aria-labelledby="media-heading">
+        <div>
+          <p className="micro">[ Media / 04 · {homeCopy.mediaHeading} ]</p>
+          <h2 id="media-heading">Sound in <em>motion.</em></h2>
+          <p>{homeCopy.mediaLede}</p>
+          <p>{leadVideo.title} is embedded from the artist’s verified YouTube channel, so it can be watched without leaving the site.</p>
+          <Link className="editorial-link" to="/media">Explore official media <ArrowIcon /></Link>
+        </div>
+        <div className="editorial-media__tile" aria-label={`${leadVideo.title} embedded YouTube player`}>
+          <iframe
+            src={`https://www.youtube-nocookie.com/embed/${leadVideo.videoId}?rel=0&modestbranding=1&playsinline=1`}
+            title={`${artist.displayName} — ${leadVideo.title} official video`}
+            allow="autoplay; encrypted-media; picture-in-picture; web-share; compute-pressure"
+            referrerPolicy="strict-origin-when-cross-origin"
+            allowFullScreen
+          />
         </div>
       </section>
 
-      {/* ---------------------------------------------------------- artist */}
-      <section className="section" aria-labelledby="artist-teaser-title">
-        <div className="wrap">
-          <div className="epk" data-reveal>
-            <div className="epk__portrait">
-              <Img {...art.heroPortrait} alt="" />
-              <div className="epk__plate">
-                <strong>{artist.displayName}</strong>
-                <span>Artist file</span>
-              </div>
-            </div>
-
-            <div>
-              <p className="eyebrow">{homeCopy.artistHeading}</p>
-              <h2 className="h2" id="artist-teaser-title" style={{ marginTop: '0.9rem' }}>
-                <span className="serif-italic">Tiv</span> heritage, contemporary sound.
-              </h2>
-              <div className="bio" style={{ marginTop: '1.35rem' }}>
-                <p>{artist.shortBio}</p>
-                <p>{artist.longBio[1]}</p>
-              </div>
-              <div className="tag-row" style={{ marginTop: '1.5rem' }}>
-                {artist.genres.map((g) => (
-                  <span className="badge" key={g}>{g}</span>
-                ))}
-              </div>
-              <Link className="link-arrow" to="/artist" style={{ marginTop: '1.75rem' }}>
-                Read the artist file &amp; press kit <ArrowIcon />
-              </Link>
-            </div>
-          </div>
-        </div>
+      <section className="editorial-contact" aria-labelledby="contact-heading">
+        <p className="micro">[ Connect / 05 ]</p>
+        <h2 id="contact-heading">Keep the<br /><em>conversation</em><br />moving.</h2>
+        <p>Official artist channels and profile information are listed in the artist file.</p>
+        <Link className="editorial-contact__button" to="/artist">Open artist profile <ArrowIcon /></Link>
+        <span className="editorial-contact__location">{artist.originLine}</span>
       </section>
-    </div>
+    </main>
   );
 }

@@ -1,0 +1,67 @@
+/* ------------------------------------------------------------- marquee -- */
+/* GoJett-derived: a full-bleed band of oversized condensed type that drifts
+   continuously. Decorative, so it is hidden from assistive technology and
+   pauses on hover. Under reduced motion the track is frozen at its start
+   position rather than merely sped up — a moving band is exactly what the
+   preference is about. */
+
+.marquee {
+  position: relative;
+  overflow: hidden;
+  border-block: 1px solid var(--ink-line);
+  background: var(--ink-raised);
+  padding-block: clamp(0.7rem, 1.6vw, 1.15rem);
+  user-select: none;
+}
+
+.marquee__track {
+  display: flex;
+  width: max-content;
+  animation: marquee-drift 38s linear infinite;
+}
+
+.marquee:hover .marquee__track { animation-play-state: paused; }
+
+.marquee__group {
+  display: flex;
+  align-items: center;
+  flex: none;
+}
+
+.marquee__item {
+  display: inline-flex;
+  align-items: center;
+  gap: clamp(1.1rem, 3vw, 2.4rem);
+  padding-inline: clamp(1.1rem, 3vw, 2.4rem);
+  font-family: var(--font-poster);
+  font-weight: 900;
+  text-transform: uppercase;
+  font-size: clamp(1.5rem, 4.2vw, 3.1rem);
+  line-height: 1;
+  color: var(--bone);
+  white-space: nowrap;
+}
+
+.marquee__item::after {
+  content: '';
+  width: 0.42em;
+  height: 0.42em;
+  border-radius: 50%;
+  background: var(--gold);
+  flex: none;
+}
+
+.marquee__item--outline {
+  color: transparent;
+  -webkit-text-stroke: 1px var(--bone-faint);
+}
+
+@keyframes marquee-drift {
+  from { transform: translate3d(0, 0, 0); }
+  to { transform: translate3d(-50%, 0, 0); }
+}
+
+/* Freeze the band rather than letting it drift at 0.001ms. */
+@media (prefers-reduced-motion: reduce) {
+  .marquee__track { animation: none; transform: none; }
+}
