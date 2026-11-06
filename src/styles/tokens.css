@@ -21,16 +21,14 @@
   --gold-bright: #e0c48c;
   --gold-faint: rgba(201, 169, 106, 0.24);
 
-  /* Type stacks (self-hosted) */
-  --font-display: 'Instrument Serif', 'Times New Roman', Georgia, serif;
-  --font-sans: 'Inter var', 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
-  /* GoJett-derived: ultra-condensed 900 for the oversized display voice,
-     monospace for labels and meta. Both self-hosted, latin subset only. */
-  --font-poster: 'Sofia Sans Extra Condensed', 'Arial Narrow', 'Helvetica Neue', sans-serif;
-  --font-mono: 'Martian Mono', ui-monospace, 'SFMono-Regular', Menlo, monospace;
+  /* The poster face is bundled locally under OFL; other text remains system-first. */
+  --font-display: Georgia, 'Times New Roman', serif;
+  --font-sans: Inter, -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
+  --font-poster: 'Sofia Sans Extra Condensed', Impact, 'Arial Narrow', 'Liberation Sans Narrow', 'DejaVu Sans Condensed', sans-serif;
+  --font-mono: ui-monospace, 'SFMono-Regular', Menlo, Consolas, monospace;
 
   /* Rhythm */
-  --gutter: clamp(1.25rem, 5vw, 6rem);
+  --gutter: clamp(1rem, 1.8vw, 3rem);
   --max: 1440px;
   --section-y: clamp(4.5rem, 11vh, 9rem);
 
@@ -44,14 +42,12 @@
   --dur-reveal: 1100ms;
 
   /* Chrome */
-  --header-h: 68px;
+  --header-h: 64px;
   --radius: 2px;
   --shadow-lift: 0 24px 60px -20px rgba(0, 0, 0, 0.8);
 }
 
-@media (min-width: 900px) {
-  :root { --header-h: 84px; }
-}
+@media (min-width: 900px) { :root { --header-h: 64px; } }
 
 /* ---------------------------------------------------------------- reset -- */
 

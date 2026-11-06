@@ -1,98 +1,58 @@
 /**
- * Artwork and photography resolution.
- *
- * Every responsive image is described here in ONE place so `srcset` widths and
- * aspect framing stay consistent, and so placeholder artwork can be swapped for
- * approved files without touching components.
+ * Approved/local image inventory. The portrait is carried forward from the
+ * other repo branch; release covers are sourced from the artist’s Apple Music
+ * catalog and stored under public/media/covers.
  */
-
-const MEDIA = '/media';
-
-/** Widths generated for each source (see scripts/build-media.mjs). */
-const srcset = (name, widths) =>
-  widths.map((w) => `${MEDIA}/${name}-${w}.webp ${w}w`).join(', ');
+const PORTRAIT = '/media/artist-hero.jpeg';
+const PROFILE_PORTRAIT = '/media/artist-profile.jpg';
+const IEMBER_PORTRAIT = '/media/iember-portrait.jpg';
 
 export const art = {
+  artistPortrait: {
+    src: PORTRAIT,
+    sizes: '100vw',
+    alt: 'Portrait of Teeroy Tyobee; final publication clearance is pending.',
+    width: 1536,
+    height: 1920,
+  },
+  profilePortrait: {
+    src: PROFILE_PORTRAIT,
+    sizes: '(min-width: 940px) 38vw, 100vw',
+    alt: 'Portrait of Teeroy Tyobee in a white outfit and red patterned head covering.',
+    width: 1800,
+    height: 2250,
+  },
   heroWide: {
-    src: `${MEDIA}/hero-wide-1280.webp`,
-    srcSet: srcset('hero-wide', [860, 1280, 1920]),
+    src: PORTRAIT,
     sizes: '100vw',
     alt: '',
-    width: 1920,
-    height: 1072,
+    width: 1536,
+    height: 1920,
   },
   heroPortrait: {
-    src: `${MEDIA}/hero-portrait-720.webp`,
-    srcSet: srcset('hero-portrait', [460, 720, 1100]),
+    src: PORTRAIT,
     sizes: '(min-width: 940px) 34vw, 100vw',
     alt: '',
-    width: 1100,
-    height: 1473,
+    width: 1536,
+    height: 1920,
   },
-  stage: {
-    src: `${MEDIA}/stage-960.webp`,
-    srcSet: srcset('stage', [560, 960, 1600]),
-    sizes: '(min-width: 900px) 56vw, 100vw',
-    alt: '',
-    width: 1600,
-    height: 893,
-  },
-  crowd: {
-    src: `${MEDIA}/crowd-960.webp`,
-    srcSet: srcset('crowd', [560, 960, 1600]),
-    sizes: '(min-width: 760px) 33vw, 50vw',
-    alt: '',
-    width: 1600,
-    height: 1073,
-  },
-  texture: {
-    src: `${MEDIA}/texture-960.webp`,
-    srcSet: srcset('texture', [560, 960, 1600]),
-    sizes: '(min-width: 760px) 33vw, 50vw',
-    alt: '',
-    width: 1600,
-    height: 1073,
+  iemberPortrait: {
+    src: IEMBER_PORTRAIT,
+    sizes: '(min-width: 940px) 42vw, 100vw',
+    alt: 'Teeroy Tyobee in a white outfit and red patterned head covering, photographed for the IEMBER project.',
+    width: 1800,
+    height: 2250,
   },
   mic: {
-    src: `${MEDIA}/mic-700.webp`,
-    srcSet: srcset('mic', [420, 700, 1100]),
+    src: PORTRAIT,
     sizes: '(min-width: 940px) 30vw, 50vw',
-    alt: '',
-    width: 1100,
-    height: 1366,
+    alt: 'Portrait of Teeroy Tyobee.',
+    width: 1536,
+    height: 1920,
   },
-};
-
-/** Release artwork uses the same visual family; each release maps to a study. */
-const artworkMap = {
-  iember: 'heroPortrait',
-  'mama-africa': 'stage',
-  'wise-up': 'crowd',
-  'one-for-the-road': 'texture',
-  'better-man': 'mic',
-  'one-call': 'stage',
-  'good-old-days': 'crowd',
-  heaven: 'texture',
-  'we-are': 'mic',
-  'tee-totti': 'stage',
-  'my-hands': 'mic',
-  udoo: 'crowd',
-  'three-star-general': 'texture',
-  'different-people': 'heroPortrait',
-};
-
-export function releaseArtwork(key) {
-  return art[artworkMap[key]] ?? art.stage;
-}
-
-export const photographyArt = {
-  'portrait-study': { ...art.heroPortrait, cell: 'gallery__cell--tall' },
-  'stage-study': { ...art.stage, cell: 'gallery__cell--wide' },
-  'crowd-study': { ...art.crowd, cell: 'gallery__cell--half' },
-  'texture-study': { ...art.texture, cell: 'gallery__cell--half' },
-  'mic-study': { ...art.mic, cell: 'gallery__cell--tall' },
 };
 
 export function photography(key) {
-  return photographyArt[key] ?? { ...art.stage, cell: 'gallery__cell--wide' };
+  if (key === 'artist-portrait') return { ...art.artistPortrait, cell: 'gallery__cell--tall' };
+  return { ...art.artistPortrait, cell: 'gallery__cell--tall' };
 }

@@ -1,10 +1,10 @@
 import { artist, career, openQuestions } from '../content/artist.js';
 import { sources } from '../content/sources.js';
 import { catalogStats } from '../lib/catalog.js';
-import { art } from '../lib/artwork.js';
-import { Img, useRevealOnMount } from '../components/Img.jsx';
+import { useRevealOnMount } from '../components/Img.jsx';
 import { Verified } from '../components/ReleaseRow.jsx';
 import { ChevronIcon, DownloadIcon, ExternalIcon } from '../components/Icons.jsx';
+import { art } from '../lib/artwork.js';
 
 const EPK_PATH = '/downloads/teeroy-tyobee-epk.pdf';
 
@@ -41,11 +41,8 @@ export default function Artist() {
         <div className="wrap">
           <div className="epk">
             <div className="epk__portrait" data-reveal>
-              <Img {...art.mic} alt="" />
-              <div className="epk__plate">
-                <strong>{artist.monogram}</strong>
-                <span>Artist file · {new Date().getFullYear()}</span>
-              </div>
+              <img src={art.profilePortrait.src} alt={art.profilePortrait.alt} width={art.profilePortrait.width} height={art.profilePortrait.height} />
+              <span className="epk__portrait-caption">Artist file · {new Date().getFullYear()}</span>
             </div>
 
             <div data-reveal data-reveal-delay="1">
@@ -182,27 +179,25 @@ export default function Artist() {
         <div className="wrap">
           <div className="section-head" data-reveal>
             <div className="section-head__title">
-              <p className="eyebrow">Contact &amp; channels</p>
-              <h2 className="h2" id="links-heading">Official destinations</h2>
+              <p className="eyebrow">Follow &amp; listen</p>
+              <h2 className="h2" id="links-heading">Social &amp; music profiles</h2>
             </div>
           </div>
 
           <div className="channel-grid" data-reveal data-reveal-delay="1">
-            {Object.entries(artist.links)
-              .filter(([, url]) => Boolean(url))
-              .map(([key, url]) => (
-                <a key={key} className="channel" href={url} target="_blank" rel="noopener noreferrer">
+            {artist.profileLinks.map((profile) => (
+                <a key={profile.id} className="channel" href={profile.url} target="_blank" rel="noopener noreferrer">
                   <span>
-                    <b>{key === 'amazonMusic' ? 'Amazon Music' : key === 'appleMusic' ? 'Apple Music' : key.replace(/^\w/, (c) => c.toUpperCase())}</b>
-                    <small>{url.replace(/^https?:\/\/(www\.)?/, '').split('?')[0]}</small>
+                    <b>{profile.label}</b>
+                    <small>{profile.handle} · {profile.role}</small>
                   </span>
                   <ExternalIcon />
                 </a>
-              ))}
+            ))}
           </div>
 
           <p className="disclosure" data-reveal>
-            <strong>Booking &amp; press enquiries</strong>
+            <strong>Booking and press enquiries</strong>
             {artist.contact.note}
           </p>
 

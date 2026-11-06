@@ -52,8 +52,8 @@ export default function Catalog() {
           </div>
         </div>
         <p className="lede" style={{ marginTop: '1.5rem' }} data-reveal>
-          Music releases, projects and collaborations — newest first. Every link opens the official
-          destination; nothing is played from this site.
+          Music releases, projects and collaborations — newest first. Covers with a verified official
+          YouTube source can load in the site player; every other link opens the official destination.
         </p>
       </div>
 

@@ -1,34 +1,20 @@
-/* GoJett-derived display + meta faces.
-   Latin subset only, self-hosted so the site keeps working with no
-   third-party font request at runtime. Declared separately from chrome.css
-   so the type layer can be swapped without touching the chrome. */
+/* Sofia Sans Extra Condensed — locally bundled from Google Fonts.
+   Copyright 2019 The Sofia Sans Project Authors; SIL Open Font License 1.1.
+   See public/fonts/OFL.txt for the complete license. */
+@font-face {
+  font-family: 'Sofia Sans Extra Condensed';
+  src: url('/fonts/SofiaSansExtraCondensed-latin.woff2') format('woff2');
+  font-style: normal;
+  font-weight: 100 1000;
+  font-display: swap;
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
 
 @font-face {
   font-family: 'Sofia Sans Extra Condensed';
-  font-style: normal;
-  font-weight: 900;
+  src: url('/fonts/SofiaSansExtraCondensed-Italic-latin.woff2') format('woff2');
+  font-style: italic;
+  font-weight: 100 1000;
   font-display: swap;
-  src: url('/fonts/sofia-sans-extra-condensed-900-latin.woff2') format('woff2');
-  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC,
-    U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
-}
-
-@font-face {
-  font-family: 'Martian Mono';
-  font-style: normal;
-  font-weight: 400;
-  font-display: swap;
-  src: url('/fonts/martian-mono-400-latin.woff2') format('woff2');
-  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC,
-    U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
-}
-
-@font-face {
-  font-family: 'Martian Mono';
-  font-style: normal;
-  font-weight: 500;
-  font-display: swap;
-  src: url('/fonts/martian-mono-500-latin.woff2') format('woff2');
-  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC,
-    U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
 }

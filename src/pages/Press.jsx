@@ -49,6 +49,10 @@ export default function Press() {
                   <p className="micro">{item.kind}</p>
                 </div>
 
+                <div className="press-item__image" aria-hidden="true">
+                  <img src={item.image ?? '/media/covers/iember.jpg'} alt="" loading="lazy" width="640" height="640" />
+                </div>
+
                 <div>
                   <h3 className="press-item__title">{item.title}</h3>
                   <p className="press-item__summary">{item.summary}</p>

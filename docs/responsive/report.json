@@ -1,0 +1,46 @@
+{
+  "base": "http://127.0.0.1:4173",
+  "ranAt": "2026-11-04T18:46:46.039Z",
+  "viewports": [
+    "mobile-360 (360×780)",
+    "mobile-390 (390×844)",
+    "tablet-768 (768×1024)",
+    "laptop-1280 (1280×800)",
+    "desktop-1600 (1600×1000)"
+  ],
+  "routes": [
+    "/",
+    "/catalog",
+    "/catalog/iember-joy",
+    "/press",
+    "/media",
+    "/artist"
+  ],
+  "checks": [
+    "no horizontal overflow",
+    "exactly one h1 per page",
+    "page renders real content",
+    "no console / request errors",
+    "mobile tap targets >= 30px",
+    "reveal animations settle",
+    "prefers-reduced-motion keeps all content visible"
+  ],
+  "screenshots": [
+    "docs/responsive/home-mobile-390.png",
+    "docs/responsive/catalog-mobile-390.png",
+    "docs/responsive/release-detail-mobile-390.png",
+    "docs/responsive/press-mobile-390.png",
+    "docs/responsive/media-mobile-390.png",
+    "docs/responsive/artist-mobile-390.png",
+    "docs/responsive/home-laptop-1280.png",
+    "docs/responsive/catalog-laptop-1280.png",
+    "docs/responsive/release-detail-laptop-1280.png",
+    "docs/responsive/press-laptop-1280.png",
+    "docs/responsive/media-laptop-1280.png",
+    "docs/responsive/artist-laptop-1280.png",
+    "docs/responsive/reduced-motion-home.png"
+  ],
+  "findings": [],
+  "errors": 0,
+  "warnings": 0
+}
