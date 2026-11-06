@@ -87,6 +87,7 @@ test('every outbound link is https and points at a known official host', () => {
     'www.instagram.com',
     'www.facebook.com',
     'guardian.ng',
+    'radarcharts.net',
     'voyagedenver.com',
     'www.nta.ng',
     'thenationonlineng.net',

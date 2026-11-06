@@ -11,10 +11,10 @@ import { art } from '../lib/artwork.js';
 import { PlayableReleaseArtwork } from '../components/PlayableReleaseArtwork.jsx';
 
 const storeLinks = [
+  { key: 'spotify', label: 'Spotify', kind: 'spotify', url: artist.links.spotify },
   { key: 'appleMusic', label: 'Apple Music', kind: 'apple', url: artist.links.appleMusic },
-  { key: 'audiomack', label: 'Audiomack', kind: 'audiomack', url: artist.links.audiomack },
-  { key: 'amazonMusic', label: 'Amazon Music', kind: 'amazon', url: artist.links.amazonMusic },
   { key: 'youtube', label: 'YouTube', kind: 'youtube', url: artist.links.youtube },
+  { key: 'audiomack', label: 'Audiomack', kind: 'audiomack', url: artist.links.audiomack },
 ];
 
 export default function Home() {
@@ -23,7 +23,7 @@ export default function Home() {
   const [selectedWork, setSelectedWork] = useState(featured);
   const currentPress = press.filter((item) => /iember|joy|debut ep/i.test(`${item.title} ${item.summary}`));
   const featuredVideo = videos.find((video) => video.videoId === featured.videoId);
-  const leadVideo = videos.find((video) => video.currentProject) ?? videos[0];
+  const leadVideo = videos.find((video) => video.id === 'wan-tiv-visualizer') ?? videos[0];
 
   return (
     <main id="main" className="editorial-home">
@@ -45,7 +45,7 @@ export default function Home() {
               {storeLinks.map((store) => (
                 <a className="masthead__store" href={store.url} key={store.key} target="_blank" rel="noopener noreferrer" aria-label={`Open Teeroy Tyobee on ${store.label}`}>
                   <PlatformIcon kind={store.kind} />
-                  <span>{store.label}</span>
+                  <span className="visually-hidden">{store.label}</span>
                 </a>
               ))}
             </div>
@@ -148,7 +148,7 @@ export default function Home() {
           <p className="micro">[ Media / 04 · {homeCopy.mediaHeading} ]</p>
           <h2 id="media-heading">Sound in <em>motion.</em></h2>
           <p>{homeCopy.mediaLede}</p>
-          <p>{leadVideo.title} is embedded from the artist’s verified YouTube channel, so the video can be watched without leaving the site.</p>
+          <p>{leadVideo.title} is embedded from the artist’s verified YouTube channel, so it can be watched without leaving the site.</p>
           <Link className="editorial-link" to="/media">Explore official media <ArrowIcon /></Link>
         </div>
         <div className="editorial-media__tile" aria-label={`${leadVideo.title} embedded YouTube player`}>

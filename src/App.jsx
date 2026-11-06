@@ -9,6 +9,7 @@ import Press from './pages/Press.jsx';
 import Media from './pages/Media.jsx';
 import Artist from './pages/Artist.jsx';
 import { artist } from './content/artist.js';
+import { SEO } from './components/SEO.jsx';
 
 /** Scrolls to top on navigation, honouring in-page hash targets. */
 function ScrollManager() {
@@ -54,6 +55,7 @@ export default function App() {
     <div className="shell">
       <a className="skip-link" href="#main">Skip to content</a>
       <ScrollManager />
+      <SEO />
       <Header />
       <div style={{ flex: '1 0 auto' }}>
         <Routes>
