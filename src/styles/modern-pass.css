@@ -1,0 +1,215 @@
+/* ============================================================================
+   Modern pass: brand type rebrand + motion and communication upgrades
+   ----------------------------------------------------------------------------
+   Additive final layer, imported last (after reconstruction.css). Two jobs:
+
+   1. TYPE REBRAND — four brand faces, loaded in index.html with full system
+      fallbacks so the design holds even if the webfont request fails:
+        Anton            → poster face (wordmark, section titles, big numbers)
+        Instrument Serif → display serif (editorial display type, italics)
+        Space Grotesk     → text and UI face
+        JetBrains Mono    → meta/label voice
+      Anton ships a single 400 weight; every 900 poster declaration is
+      normalized here and `font-synthesis: none` stops the browser from
+      faking a bold that Anton was never drawn with.
+
+   2. MOTION & COMMUNICATION — extends the editorial animation layer
+      (animation.css): staggered wordmark entrance, pointer tilt + glare on
+      artwork, play-cue pulse, scroll-cue bob, store-rail sheen sweep, and
+      gradient hairline borders on the two media cards. Everything resolves
+      to a resting state under prefers-reduced-motion and nothing depends on
+      an animation to be readable.
+   ========================================================================== */
+
+/* ------------------------------------------------------- 1. type tokens -- */
+
+:root {
+  --font-sans: 'Space Grotesk', Inter, -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
+  --font-display: 'Instrument Serif', Georgia, 'Times New Roman', serif;
+  --font-poster: 'Anton', 'Sofia Sans Extra Condensed', Impact, 'Arial Narrow', 'Liberation Sans Narrow', sans-serif;
+  --font-mono: 'JetBrains Mono', ui-monospace, 'SFMono-Regular', Menlo, Consolas, monospace;
+}
+
+body { font-synthesis: none; }
+
+/* Anton is drawn heavy at 400 — never let a 900 declaration synthesize a bold. */
+.poster,
+.poster--hero,
+.poster--section,
+.masthead__title,
+.masthead__release,
+.page-head__title,
+.foot__poster-name,
+.wordmark,
+.wordmark b,
+.hdr__latest-mark,
+.editorial-work__preview strong,
+.marquee__item { font-weight: 400; }
+
+/* Anton sets slightly wider than the old extra-condensed face: relax the
+   poster scales and tracking so nothing clips inside overflow-hidden heads.
+   The masthead size change is desktop-scoped so the max-width: 620px block
+   in reconstruction.css keeps control on phones. */
+.masthead__title { letter-spacing: -0.015em; }
+
+@media (min-width: 621px) {
+  .masthead__title { font-size: clamp(4.4rem, 14.5vw, 13.5rem); }
+}
+
+.page-head__title {
+  font-size: clamp(2.8rem, 10.5vw, 9rem);
+  letter-spacing: -0.01em;
+}
+
+.poster--hero { font-size: clamp(3rem, 13.5vw, 11.5rem); }
+.poster--section { font-size: clamp(2.2rem, 7.8vw, 6rem); letter-spacing: -0.005em; }
+
+/* -------------------------------------------- 2. wordmark entrance ------ */
+
+/* The masthead words rise into place, staggered. The title box is already
+   overflow:hidden, so the rise reads as a masked reveal; the text itself is
+   in the DOM from first paint. */
+.masthead__title span {
+  animation: hero-word-rise 880ms var(--ease-out) both;
+}
+
+.masthead__title span:last-child { animation-delay: 130ms; }
+
+@keyframes hero-word-rise {
+  from { opacity: 0; transform: translate3d(0, 0.6em, 0); }
+  to { opacity: 1; transform: none; }
+}
+
+/* -------------------------------------------------- 3. tilt and glare --- */
+
+/* Driven by the Tilt component (fine pointers only, never under reduced
+   motion). Purely decorative: the artwork is complete without it. */
+.tilt {
+  transform: perspective(900px) rotateX(var(--tilt-x, 0deg)) rotateY(var(--tilt-y, 0deg));
+  transition: transform 260ms var(--ease-out);
+}
+
+.tilt.is-tilting { transition: transform 90ms linear; }
+
+.tilt__glare {
+  position: absolute;
+  inset: 0;
+  z-index: 3;
+  pointer-events: none;
+  opacity: 0;
+  background: radial-gradient(
+    240px circle at var(--gx, 50%) var(--gy, 50%),
+    rgba(255, 255, 255, 0.16),
+    transparent 62%
+  );
+  transition: opacity 320ms var(--ease-out);
+}
+
+.tilt.is-tilting .tilt__glare { opacity: 1; }
+
+/* ------------------------------------------- 4. gradient hairline cards - */
+
+/* Modern card treatment: a 1px gradient border on the two hero media cards,
+   replacing the flat ink hairline. Same geometry, richer edge. */
+.editorial-work__preview {
+  border: 1px solid transparent;
+  background:
+    radial-gradient(ellipse at 72% 25%, #292928, #161615 48%, #090909 100%) padding-box,
+    linear-gradient(135deg, rgba(255, 255, 255, 0.38), rgba(255, 255, 255, 0.05) 55%, rgba(255, 255, 255, 0.18)) border-box;
+}
+
+.editorial-media__tile {
+  border: 1px solid transparent;
+  background:
+    #050505 padding-box,
+    linear-gradient(135deg, rgba(255, 255, 255, 0.38), rgba(255, 255, 255, 0.05) 55%, rgba(255, 255, 255, 0.18)) border-box;
+}
+
+/* --------------------------------------------------- 5. store sheen ----- */
+
+/* A light sheen sweeps across a store chip on hover — the same light move the
+   hero stage sheen makes, at button scale. */
+.masthead__store { position: relative; overflow: hidden; }
+
+.masthead__store::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  pointer-events: none;
+  background: linear-gradient(115deg, transparent 30%, rgba(255, 255, 255, 0.16) 50%, transparent 70%);
+  transform: translateX(-130%);
+  transition: transform 620ms var(--ease-out);
+}
+
+.masthead__store:hover::after,
+.masthead__store:focus-visible::after { transform: translateX(130%); }
+
+/* ------------------------------------------------- 6. play-cue pulse ---- */
+
+/* The facade play control breathes so the tile reads as playable, not static. */
+.media-facade__play { position: relative; }
+
+.media-facade__play::after {
+  content: '';
+  position: absolute;
+  inset: -7px;
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  border-radius: 50%;
+  pointer-events: none;
+  animation: play-pulse 2.6s var(--ease-out) infinite;
+}
+
+@keyframes play-pulse {
+  0% { transform: scale(0.92); opacity: 0.7; }
+  70%, 100% { transform: scale(1.22); opacity: 0; }
+}
+
+/* -------------------------------------------------- 7. scroll cue bob ---- */
+
+/* The hero's "Scroll to explore" arrow gently bobs: the page tells you it
+   continues below. */
+.masthead__foot a span[aria-hidden='true'] {
+  display: inline-block;
+  animation: cue-bob 2.2s ease-in-out infinite;
+}
+
+@keyframes cue-bob {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(5px); }
+}
+
+/* --------------------------------------------- 8. back-to-top arrow ----- */
+
+.foot__top-btn span {
+  display: inline-block;
+  transition: transform 320ms var(--ease-spring);
+}
+
+.foot__top-btn:hover span,
+.foot__top-btn:focus-visible span { transform: translateY(-3px); }
+
+/* ------------------------------------------------------ reduced motion -- */
+
+@media (prefers-reduced-motion: reduce) {
+  .masthead__title span { animation: none; }
+
+  .tilt,
+  .tilt.is-tilting { transform: none; transition: none; }
+
+  .tilt__glare { display: none; }
+
+  .masthead__store::after,
+  .media-facade__play::after { display: none; }
+
+  .masthead__foot a span[aria-hidden='true'] { animation: none; }
+
+  .foot__top-btn span { transition: none; }
+  .foot__top-btn:hover span,
+  .foot__top-btn:focus-visible span { transform: none; }
+}
+
+/* Touch devices never tilt (the Tilt component ignores touch pointers too). */
+@media (hover: none) {
+  .tilt { transform: none; }
+}

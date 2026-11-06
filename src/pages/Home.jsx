@@ -7,6 +7,7 @@ import { press } from '../content/press.js';
 import { videos } from '../content/media.js';
 import { ArrowIcon, ExternalIcon, PlatformIcon, PlayIcon } from '../components/Icons.jsx';
 import { Marquee } from '../components/Marquee.jsx';
+import { Tilt } from '../components/Tilt.jsx';
 import { art } from '../lib/artwork.js';
 import { PlayableReleaseArtwork } from '../components/PlayableReleaseArtwork.jsx';
 
@@ -51,9 +52,9 @@ export default function Home() {
               ))}
             </div>
           </div>
-          <div className="masthead__featured-art">
+          <Tilt className="masthead__featured-art">
             <PlayableReleaseArtwork release={featured} video={featuredVideo} />
-          </div>
+          </Tilt>
           <span className="masthead__asset-note">{artist.displayName} · official artist profile</span>
         </div>
         <div className="masthead__foot">
@@ -95,12 +96,14 @@ export default function Home() {
               height={art.iemberPortrait.height}
               loading="lazy"
             />
-            <div className="editorial-work__cover editorial-work__preview-swap" key={`cover-${selectedWork.id}`}>
-              <PlayableReleaseArtwork
-                release={selectedWork}
-                video={videos.find((video) => video.videoId === selectedWork.videoId)}
-              />
-            </div>
+            <Tilt className="editorial-work__cover" key={`cover-${selectedWork.id}`}>
+              <div className="editorial-work__preview-swap">
+                <PlayableReleaseArtwork
+                  release={selectedWork}
+                  video={videos.find((video) => video.videoId === selectedWork.videoId)}
+                />
+              </div>
+            </Tilt>
             <strong className="editorial-work__preview-swap" key={`title-${selectedWork.id}`}>{selectedWork.title}</strong>
           </div>
         </div>
