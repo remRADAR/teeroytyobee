@@ -216,3 +216,221 @@ body { background: var(--ink); }
   .editorial-work__item, .editorial-work__arrow, .editorial-work__preview > a, .masthead__cta svg, .editorial-link svg, .editorial-media__tile { transition: none; }
   .masthead__stage-noise { display: none; }
 }
+
+
+/* ============================================================================
+   UI polish pass (feat/ui-beautification)
+   ----------------------------------------------------------------------------
+   Additive layer: every rule below either decorates content that is already
+   painted or resolves to a resting state under prefers-reduced-motion. No
+   existing rule is modified; everything is appended so the diff is one
+   clearly-delimited section. Works in the reconstruction palette (the accent
+   --gold is the warm bone #e5e4df, not the earlier gold #c9a96a).
+   ========================================================================== */
+
+/* Meta voice: the mono face carries every .micro label, matching the
+   Framer reference's meta treatment. No font file needed (system mono stack). */
+.micro { font-family: var(--font-mono); }
+
+/* Masthead depth: a soft accent glow sits above the stage image and below the
+   noise layer, plus a very slow Ken Burns drift on the hero image itself. */
+.masthead__stage::after {
+  content: '';
+  position: absolute;
+  z-index: -2;
+  inset: 0;
+  background: radial-gradient(ellipse 46% 38% at 74% 32%, rgba(229, 228, 223, 0.14), transparent 70%);
+  pointer-events: none;
+}
+
+.masthead__stage-image {
+  animation: stage-drift 26s var(--ease-in-out) infinite alternate;
+  will-change: transform;
+}
+
+@keyframes stage-drift {
+  from { transform: scale(1.025); }
+  to { transform: scale(1.09); }
+}
+
+/* Hero store rail: icons keep their round treatment on touch, and gain a
+   visible label on desktop so the destinations are readable, not guessed. */
+.masthead__store-label { display: none; }
+
+@media (min-width: 900px) {
+  .masthead__store {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    width: auto;
+    padding-inline: 0.75rem;
+    border-radius: 2px;
+    font-size: 0.6rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+  }
+  .masthead__store-label { display: inline; }
+}
+
+/* Selected work: the hovered row draws an accent rule on its left edge, and
+   the preview panel crossfades when the selection changes (the inner elements
+   are keyed in JSX, so a remount replays this animation). */
+.editorial-work__item::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 2px;
+  background: var(--gold);
+  transform: scaleY(0);
+  transform-origin: 50% 0;
+  transition: transform 380ms var(--ease-out);
+}
+
+.editorial-work__item:hover::before,
+.editorial-work__item:focus-visible::before { transform: scaleY(1); }
+
+.editorial-work__preview-swap {
+  animation: preview-swap 480ms var(--ease-out) both;
+}
+
+@keyframes preview-swap {
+  from { opacity: 0; transform: translate3d(0, 12px, 0); }
+  to { opacity: 1; transform: none; }
+}
+
+/* Press: an unverified link reads as a dashed accent chip instead of a bare
+   line, making the verification state a deliberate design element. */
+.editorial-press__pending {
+  display: inline-block;
+  width: fit-content;
+  padding: 0.3rem 0.6rem;
+  border: 1px dashed var(--ink-line-strong);
+  font-size: 0.6rem;
+  letter-spacing: 0.14em;
+}
+
+/* Media facade: the homepage video tile is a click-to-load poster. The play
+   control scales with the spring easing; the backdrop matches the tile's
+   existing gradient so the swap to the iframe is seamless. */
+.media-facade {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  padding: 1.5rem;
+  background: #050505;
+  cursor: pointer;
+}
+
+.media-facade img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: grayscale(0.9) contrast(1.06) brightness(0.8);
+}
+
+.media-facade::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(0deg, rgba(0, 0, 0, 0.72), transparent 72%);
+}
+
+.media-facade__play {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  place-items: center;
+  width: 4.2rem;
+  height: 4.2rem;
+  border: 1px solid rgba(255, 255, 255, 0.7);
+  border-radius: 50%;
+  background: rgba(8, 8, 10, 0.55);
+  color: var(--bone);
+  transition: transform 380ms var(--ease-spring), background-color 300ms var(--ease-out);
+}
+
+.media-facade__play svg { width: 1.35rem; height: 1.35rem; }
+
+.media-facade:hover .media-facade__play,
+.media-facade:focus-visible .media-facade__play {
+  transform: scale(1.08);
+  background-color: rgba(229, 228, 223, 0.18);
+}
+
+.media-facade__label {
+  position: relative;
+  z-index: 1;
+  color: var(--bone);
+  font-family: var(--font-mono);
+  font-size: 0.62rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  text-align: center;
+}
+
+/* Route transitions: the incoming page rises into place once, matching the
+   page-head title rise. Content is visible even if this never runs. */
+.route-view {
+  animation: route-fade 420ms var(--ease-out) both;
+}
+
+@keyframes route-fade {
+  from { opacity: 0; transform: translate3d(0, 14px, 0); }
+  to { opacity: 1; transform: none; }
+}
+
+/* Footer: the artist name gets the oversized poster voice (decorative; the
+   real name remains in .foot__name), plus a back-to-top control. */
+.foot__poster-name {
+  margin-bottom: clamp(1.75rem, 4vw, 3rem);
+  font-family: var(--font-poster);
+  font-weight: 900;
+  font-size: clamp(2.6rem, 12vw, 9.5rem);
+  line-height: 0.84;
+  letter-spacing: -0.02em;
+  text-transform: uppercase;
+  color: var(--bone);
+  overflow-wrap: anywhere;
+}
+
+.foot__top-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  min-height: 44px;
+  padding: 0.6rem 1rem;
+  border: 1px solid var(--ink-line-strong);
+  color: var(--bone-dim);
+  font-size: 0.62rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  transition: color 280ms var(--ease-out), border-color 280ms var(--ease-out),
+    background-color 280ms var(--ease-out);
+}
+
+.foot__top-btn:hover,
+.foot__top-btn:focus-visible {
+  color: var(--bone);
+  border-color: var(--gold-bright);
+  background-color: rgba(255, 255, 255, 0.05);
+}
+
+/* Reduced motion: everything added above resolves to its resting state, per
+   the motion layer's governing rule. */
+@media (prefers-reduced-motion: reduce) {
+  .masthead__stage-image { animation: none; }
+  .editorial-work__preview-swap { animation: none; }
+  .route-view { animation: none; }
+  .media-facade__play { transition: none; }
+  .media-facade:hover .media-facade__play,
+  .media-facade:focus-visible .media-facade__play { transform: none; }
+}
