@@ -1,0 +1,52 @@
+name: Verify
+
+# The ritual: content-integrity tests, the production build, and the
+# responsive verification harness, run for real on every pull request and
+# every push to main. The Cloudflare Pages production build runs the same
+# `npm run build`, so a green run here means the Pages build can succeed too.
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+jobs:
+  ritual:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node 22
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Install dependencies (npm ci)
+        run: npm ci
+
+      - name: Content integrity tests (npm test)
+        run: npm test
+
+      - name: Production build (vite build)
+        run: npm run build
+
+      - name: Install Playwright browser
+        run: npx playwright install --with-deps chromium
+
+      - name: Responsive verification (5 routes x 5 viewports + reduced motion)
+        run: |
+          npm run preview &
+          PREVIEW_PID=$!
+          for _ in $(seq 1 30); do
+            if curl -sf http://localhost:4173 > /dev/null; then break; fi
+            sleep 1
+          done
+          set +e
+          npm run check:responsive
+          CHECK_EXIT=$?
+          set -e
+          kill "$PREVIEW_PID" 2>/dev/null || true
+          exit "$CHECK_EXIT"
