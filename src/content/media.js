@@ -43,8 +43,8 @@ export const videos = [
     year: 2026,
     currentProject: true,
     provider: 'youtube',
-    videoId: 'bFD5AX5PNtk',
-    url: 'https://www.youtube.com/watch?v=bFD5AX5PNtk',
+    videoId: '-IANiFDuIzI',
+    url: 'https://www.youtube.com/watch?v=-IANiFDuIzI',
     confirmedBy: 'Teeroy Tyobee official YouTube channel',
   },
   {

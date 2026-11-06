@@ -21,7 +21,7 @@ function VideoPlayer({ video }) {
 
 export default function Media() {
   const ref = useRevealOnMount();
-  const [lead] = videos;
+  const lead = videos.find((video) => video.id === 'wan-tiv-visualizer') ?? videos[0];
 
   return (
     <main ref={ref} id="main">
