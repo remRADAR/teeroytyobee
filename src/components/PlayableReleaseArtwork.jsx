@@ -1,4 +1,3 @@
-import { Link } from 'react-router-dom';
 import { PlayIcon } from './Icons.jsx';
 import { ReleaseArtwork } from './ReleaseArtwork.jsx';
 import { useRadio } from './RadioPlayer.jsx';
@@ -10,14 +9,16 @@ export function PlayableReleaseArtwork({ release, video, compact = false, classN
 
   if (!video?.videoId) {
     return (
-      <Link
+      <a
         className={`playable-art playable-art--pending ${className}`.trim()}
-        to={`/catalog/${release.id}`}
-        aria-label={`View ${release.title} release details and official destinations`}
+        href={release.links?.[0]?.url}
+        target="_blank"
+        rel="noopener noreferrer"
+        aria-label={`Open ${release.title} on YouTube in a new tab`}
       >
         {artwork}
-        <span className="playable-art__status">Official cover / playback pending</span>
-      </Link>
+        <span className="playable-art__status">Open on YouTube</span>
+      </a>
     );
   }
 

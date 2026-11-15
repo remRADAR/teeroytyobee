@@ -2,7 +2,7 @@ import { useMemo, useState } from 'react';
 import { catalogDisclosure } from '../content/releases.js';
 import { catalogStats, sortedSolo, sortedCollaborations } from '../lib/catalog.js';
 import { useRevealOnMount } from '../components/Img.jsx';
-import { ReleaseRow, Verified } from '../components/ReleaseRow.jsx';
+import { ReleaseRow } from '../components/ReleaseRow.jsx';
 
 const FILTERS = [
   { id: 'all', label: 'Everything' },
@@ -52,8 +52,8 @@ export default function Catalog() {
           </div>
         </div>
         <p className="lede" style={{ marginTop: '1.5rem' }} data-reveal>
-          Music releases, projects and collaborations — newest first. Covers with a verified official
-          YouTube source can load in the site player; every other link opens the official destination.
+          Music releases, projects and collaborations — newest first. Every playback destination is YouTube:
+          exact uploads open in the site player and channel callouts open in a new tab.
         </p>
       </div>
 
@@ -115,18 +115,6 @@ export default function Catalog() {
             {catalogDisclosure}
           </div>
 
-          <div className="disclosure" data-reveal>
-            <strong>How to read the badges</strong>
-            <span style={{ display: 'inline-flex', gap: '0.75rem', flexWrap: 'wrap', alignItems: 'center' }}>
-              <Verified verified>Confirmed</Verified>
-              <span>Official destination reachable and matched to the record.</span>
-            </span>
-            <br />
-            <span style={{ display: 'inline-flex', gap: '0.75rem', flexWrap: 'wrap', alignItems: 'center' }}>
-              <Verified verified={false}>Needs review</Verified>
-              <span>Credits, month or exact split-artist listing still to be confirmed with the distributor.</span>
-            </span>
-          </div>
         </div>
       </section>
     </main>

@@ -52,9 +52,6 @@ export function ReleaseRow({ release, showTracks = false }) {
         <p className="rel__title">
           <Link className="rel__detail" to={`/catalog/${release.id}`}>{release.title}</Link>
           <span className="badge">{release.kind}</span>
-          {release.verified === false && (
-            <Verified verified={false}>{release.note ? 'Needs review' : 'Unconfirmed'}</Verified>
-          )}
         </p>
         {release.credit && <p className="rel__credit">{release.credit}</p>}
         {release.summary && <p className="rel__sub">{release.summary}</p>}

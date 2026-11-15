@@ -6,11 +6,9 @@
     <meta name="color-scheme" content="dark" />
     <meta name="theme-color" content="#08080a" />
 
-    <!-- Brand type (rebrand pass): Anton (poster face), Instrument Serif (display),
-         Space Grotesk (text/UI), JetBrains Mono (meta). Loaded with font-display
-         swap and full system fallbacks so the design holds offline.
-         Self-hosting these four faces in /public/fonts is the documented
-         follow-up (see the rebrand PR). -->
+    <!-- Brand type: Instrument Serif (display), Space Grotesk (text/UI),
+         JetBrains Mono (meta), plus the locally bundled Sofia Sans Extra Condensed
+         poster face. All tokens below use these names consistently. -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
@@ -34,14 +32,18 @@
     />
     <meta property="og:url" content="https://teeroytyobee.com/" />
     <meta property="og:site_name" content="Teeroy Tyobee" />
-    <meta property="og:image" content="https://teeroytyobee.com/media/artist-hero.jpeg" />
+    <meta property="og:image" content="https://teeroytyobee.com/media/social/teeroy-tyobee-share.jpg" />
     <meta property="og:image:alt" content="Portrait of Nigerian singer Teeroy Tyobee" />
+    <meta property="og:image:type" content="image/jpeg" />
+    <meta property="og:image:width" content="1600" />
+    <meta property="og:image:height" content="1143" />
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content="Teeroy Tyobee — Official Artist Portfolio" />
     <meta name="twitter:description" content="Afro-fusion music, IEMBER (JOY), official videos, press and artist profiles." />
-    <meta name="twitter:image" content="https://teeroytyobee.com/media/artist-hero.jpeg" />
+    <meta name="twitter:image" content="https://teeroytyobee.com/media/social/teeroy-tyobee-share.jpg" />
+    <meta name="twitter:image:alt" content="Portrait of Nigerian singer Teeroy Tyobee" />
 
-    <link rel="preload" as="image" href="/media/artist-hero.jpeg" />
+    <link rel="preload" as="image" href="/media/social/teeroy-tyobee-share.jpg" />
     <link rel="preload" href="/fonts/SofiaSansExtraCondensed-latin.woff2" as="font" type="font/woff2" crossorigin />
 
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
@@ -51,15 +53,12 @@
         "@context": "https://schema.org",
         "@type": "MusicGroup",
         "name": "Teeroy Tyobee",
-        "alternateName": "TeeRoy Tyobee",
+        "alternateName": "Rowland Teeroy Tyobee",
         "description": "Nigerian singer, songwriter and performer from the Tiv Nation of Benue State making Afro-fusion music shaped by storytelling, heritage and hope.",
         "genre": ["Afro-fusion", "Afrobeat"],
         "foundingLocation": { "@type": "Place", "name": "Benue State, Nigeria" },
         "url": "https://teeroytyobee.com/",
         "sameAs": [
-          "https://music.apple.com/us/artist/teeroy-tyobee/1532919321",
-          "https://audiomack.com/teeroytyobee",
-          "https://open.spotify.com/artist/45gEDGAdQixjnXDxgDvD7J",
           "https://www.youtube.com/@teeroy_tyobee",
           "https://www.instagram.com/teeroy_tyobee",
           "https://www.facebook.com/profile.php?id=100037925713239",
@@ -75,12 +74,9 @@
     <noscript>
       <p style="padding: 2rem; font-family: system-ui; color: #f2efe9; background: #08080a">
         This portfolio needs JavaScript for navigation. You can still reach Teeroy Tyobee on
-        <a href="https://music.apple.com/us/artist/teeroy-tyobee/1532919321" style="color: #c9a96a">Apple Music</a>
-        and
         <a href="https://www.youtube.com/@teeroy_tyobee" style="color: #c9a96a">YouTube</a>.
       </p>
     </noscript>
     <script type="module" src="/src/main.jsx"></script>
   </body>
 </html>
-

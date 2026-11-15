@@ -34,6 +34,26 @@
 .masthead__stage {
   overflow: hidden;
   transform: translateZ(0);
+  contain: paint;
+}
+
+.masthead__stage-image,
+.masthead__featured-art,
+.editorial-work__cover,
+.editorial-media__tile img {
+  transition: transform 900ms var(--animation-spring), filter 700ms var(--ease-out);
+  will-change: transform;
+}
+
+.masthead__stage:hover .masthead__stage-image,
+.masthead__stage:focus-within .masthead__stage-image {
+  transform: scale(1.035);
+  filter: saturate(1.08) contrast(1.04);
+}
+
+.masthead__featured-art:hover,
+.editorial-work__cover:hover {
+  transform: translateY(-5px) rotate(1deg);
 }
 
 .masthead__stage::after {
@@ -213,6 +233,24 @@
   transform: translateX(0);
 }
 
+.editorial-band::after,
+.editorial-contact::after {
+  content: '';
+  position: absolute;
+  inset: auto 0 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--gold), transparent);
+  transform: scaleX(0.2);
+  opacity: 0.45;
+  transition: transform 900ms var(--animation-spring), opacity 500ms var(--ease-out);
+}
+
+.editorial-band:hover::after,
+.editorial-contact:hover::after {
+  transform: scaleX(1);
+  opacity: 0.9;
+}
+
 /* ------------------------------------------------------ tactile card lift */
 
 .editorial-work__item,
@@ -253,6 +291,39 @@
   transform: translate3d(-3px, 0, 0);
 }
 
+.masthead__store,
+.playable-art,
+.radio-dock__button {
+  transition: transform 360ms var(--animation-spring), color 260ms var(--ease-out), background-color 260ms var(--ease-out);
+}
+
+.masthead__store:hover,
+.masthead__store:focus-visible,
+.radio-dock__button:hover,
+.radio-dock__button:focus-visible {
+  transform: translateY(-3px);
+  color: var(--gold-bright);
+}
+
+.playable-art:hover .playable-art__play,
+.playable-art:focus-visible .playable-art__play {
+  transform: translate(-50%, -50%) scale(1.12);
+}
+
+.playable-art__play {
+  transition: transform 360ms var(--animation-spring), box-shadow 360ms var(--ease-out);
+}
+
+@keyframes audio-pulse {
+  0%, 100% { transform: scale(1); opacity: 0.82; }
+  50% { transform: scale(1.13); opacity: 1; }
+}
+
+.radio-dock__button[aria-label*="Pause"] svg,
+.radio-dock__button[aria-label*="pause"] svg {
+  animation: audio-pulse 1.8s ease-in-out infinite;
+}
+
 /* -------------------------------------------------------------- reduced */
 
 @media (prefers-reduced-motion: reduce) {
@@ -265,7 +336,9 @@
   .masthead__stage::after,
   .editorial-section-head::after,
   .editorial-band::before,
-  .editorial-contact::before {
+  .editorial-contact::before,
+  .editorial-band::after,
+  .editorial-contact::after {
     transition: none;
     transform: none;
     opacity: 0;
@@ -303,6 +376,18 @@
   .editorial-contact__button:hover {
     transform: none;
   }
+
+  .masthead__stage-image,
+  .masthead__featured-art,
+  .editorial-work__cover,
+  .editorial-media__tile img,
+  .playable-art__play,
+  .radio-dock__button[aria-label*="Pause"] svg,
+  .radio-dock__button[aria-label*="pause"] svg {
+    transition: none;
+    animation: none;
+    transform: none;
+  }
 }
 
 @media (hover: none) {
@@ -313,5 +398,19 @@
   .editorial-band:hover::before,
   .editorial-contact:hover::before {
     transform: none;
+  }
+}
+
+@media (max-width: 720px) {
+  .editorial-section-head > .editorial-link,
+  .editorial-press__lead .editorial-link,
+  .masthead__cta {
+    white-space: normal;
+    max-width: 100%;
+  }
+
+  .editorial-band::before,
+  .editorial-contact::before {
+    width: 70vw;
   }
 }

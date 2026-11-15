@@ -105,11 +105,11 @@ export function Header() {
             <p className="micro">{artist.originLine}</p>
             <a
               className="btn"
-              href={artist.links.appleMusic}
+              href={artist.links.youtube}
               target="_blank"
               rel="noopener noreferrer"
             >
-              Listen on Apple Music <ExternalIcon />
+              Open YouTube channel <ExternalIcon />
             </a>
           </div>
         </div>

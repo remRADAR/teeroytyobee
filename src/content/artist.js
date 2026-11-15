@@ -1,31 +1,28 @@
 /**
- * Artist identity — the only place the artist's name is written long-form.
- * Every visible reference must render `displayName` so the spelling cannot drift.
+ * Public artist profile. Playback and catalogue links are YouTube-first; the
+ * remaining destinations are clearly external social/profile callouts.
  */
 export const artist = {
   displayName: 'Teeroy Tyobee',
-  // Monogram used by the wordmark and the dossier stamp.
+  legalName: 'Rowland Teeroy Tyobee',
   monogram: 'TT',
+  birthDate: '22 May 1991',
   roleLine: 'Singer · Songwriter · Performer',
   originLine: 'Tiv Nation, Benue State, Nigeria',
-  genreLine: 'Afro-fusion · Afrobeat · Storytelling',
+  baseLine: 'Based in Abuja, Nigeria',
+  genreLine: 'Afro-fusion · Afrobeat · Inspirational storytelling',
   label: 'Royz Houz',
+  education: 'Sociology · University of Mkar',
   shortBio:
-    'A Nigerian singer, songwriter and performer from the Tiv Nation of Benue State, making Afro-fusion shaped by storytelling, upliftment and cultural identity.',
+    'Teeroy Tyobee is a Nigerian singer, songwriter and performer from the Tiv Nation of Benue State, based in Abuja and releasing independently through Royz Houz.',
   longBio: [
-    'Teeroy Tyobee is a Nigerian singer, songwriter and performer from the Tiv Nation of Benue State. His music brings together Afrobeat rhythms, soulful melodies and storytelling, with themes that move through hope, identity, love, resilience and everyday Nigerian life.',
-    'His work places Tiv and Middle Belt heritage inside a contemporary Afro-fusion sound. Releasing independently through Royz Houz, he has built a catalogue that includes the six-track project IEMBER (JOY), whose title draws on the Tiv word for joy.',
+    'Teeroy Tyobee — Rowland Teeroy Tyobee — is a Nigerian singer, songwriter and performer from the Tiv Nation of Benue State. Born on 22 May 1991, he discovered music in his teens and draws on Afro-fusion, Afrobeat, faith, hope and personal storytelling.',
+    'He studied Sociology at the University of Mkar and is based in Abuja. His public interviews describe music as a tool for hope, joy and healing. His catalogue moves from early inspirational work and the international collaboration “Different People” with Allie Gardner to the independent Royz Houz EP IEMBER (JOY), whose title means “joy” in Tiv.',
   ],
-  genres: ['Afro-fusion', 'Afrobeat', 'Soul', 'Storytelling'],
-  themes: ['Hope', 'Identity', 'Love', 'Resilience', 'Heritage'],
-  /** Verified official destinations only. `null` means "not yet confirmed" — never substitute a guess. */
+  genres: ['Afro-fusion', 'Afrobeat', 'Afropop', 'Inspirational music'],
+  themes: ['Hope', 'Joy', 'Identity', 'Love', 'Resilience', 'Tiv heritage'],
   links: {
-    appleMusic: 'https://music.apple.com/us/artist/teeroy-tyobee/1532919321',
-    audiomack: 'https://audiomack.com/teeroytyobee',
-    amazonMusic: 'https://music.amazon.com/artists/B08JQQ7N2K/teeroy-tyobee',
-    spotify: 'https://open.spotify.com/artist/45gEDGAdQixjnXDxgDvD7J',
     youtube: 'https://www.youtube.com/@teeroy_tyobee',
-    youtubeMusic: 'https://www.youtube.com/channel/UCrxHwQIZ-2UlhZ5ZYcP_sKQ',
     instagram: 'https://www.instagram.com/teeroy_tyobee',
     threads: 'https://www.threads.com/@teeroy_tyobee',
     facebook: 'https://www.facebook.com/profile.php?id=100037925713239',
@@ -34,25 +31,19 @@ export const artist = {
     linktree: 'https://linktr.ee/teeroy_tyobee',
   },
   profileLinks: [
-    { id: 'appleMusic', label: 'Apple Music', handle: 'Teeroy Tyobee', role: 'Streaming' },
-    { id: 'spotify', label: 'Spotify', handle: 'Teeroy Tyobee', role: 'Streaming' },
-    { id: 'audiomack', label: 'Audiomack', handle: '@teeroytyobee', role: 'Streaming and releases' },
-    { id: 'amazonMusic', label: 'Amazon Music', handle: 'Teeroy Tyobee', role: 'Streaming' },
-    { id: 'youtubeMusic', label: 'YouTube Music', handle: 'Teeroy Tyobee · Topic', role: 'Official audio' },
-    { id: 'youtube', label: 'YouTube', handle: '@teeroy_tyobee', role: 'Official videos' },
+    { id: 'youtube', label: 'YouTube', handle: '@teeroy_tyobee', role: 'Official music and video' },
     { id: 'instagram', label: 'Instagram', handle: '@teeroy_tyobee', role: 'Visuals and updates' },
     { id: 'threads', label: 'Threads', handle: '@teeroy_tyobee', role: 'Social updates' },
     { id: 'facebook', label: 'Facebook', handle: 'Teeroy Tyobee', role: 'Community and updates' },
     { id: 'x', label: 'X', handle: '@teeroy_tyobee', role: 'Social updates' },
     { id: 'tiktok', label: 'TikTok', handle: '@teeroy_tyobee', role: 'Short-form video' },
-    { id: 'linktree', label: 'Linktree', handle: 'teeroy_tyobee', role: 'All links in one place' },
+    { id: 'linktree', label: 'Linktree', handle: 'teeroy_tyobee', role: 'External profile directory' },
   ],
-  /** Booking / management is deliberately not published until the artist supplies it. */
   contact: {
     booking: null,
     press: null,
     management: null,
-    note: 'Booking, press and management contacts are withheld until the artist or management supplies a verified destination. No third-party contact details are republished here.',
+    note: 'No booking, press or management address is publicly listed in the sources used for this portfolio.',
   },
 };
 
@@ -61,94 +52,75 @@ artist.profileLinks = artist.profileLinks.map((profile) => ({
   url: artist.links[profile.id],
 }));
 
-/**
- * Career record. `status` drives the badge shown in the UI:
- *  - "confirmed"   : corroborated by a primary source (press, platform catalogue)
- *  - "needs-review": sources disagree or the detail is unconfirmed — shown, never asserted
- */
+/** Public chronology assembled from the artist’s interviews and published profiles. */
 export const career = [
   {
-    id: 'origin',
-    year: null,
-    label: 'Origin',
-    title: 'Tiv Nation, Benue State',
-    body: 'Public profiles place his upbringing and cultural grounding in Benue State, in Nigeria’s Middle Belt. The Tiv language and its storytelling traditions recur across the catalogue.',
+    id: 'early-writing',
+    year: 'Teens–2009',
+    label: 'Early work',
+    title: 'Music begins with inspirational songwriting',
+    body: 'Public profiles place his musical discovery in his teens. An early profile records “Get There” in 2009 and “Valentine Love” in 2010, which received airplay and led to his first radio interview.',
     status: 'confirmed',
-    sourceIds: ['musicinafrica', 'voyage'],
+    sourceIds: ['lds-profile'],
   },
   {
-    id: 'first-single',
-    year: null,
-    label: 'Debut chronology',
-    title: 'First official single — date disputed',
-    body: 'Two records conflict. A 2026 interview describes "Different People" (2020) as his first official single and first international collaboration, while The Nation reported "Are You There? (Dear Heavenly Father)" as the 2019 debut. Both are presented together rather than resolved.',
-    status: 'needs-review',
-    sourceIds: ['voyage', 'nation'],
+    id: 'education',
+    year: '2013–2015',
+    label: 'Education',
+    title: 'University of Mkar and Famouz 19 Records',
+    body: 'He studied Sociology at the University of Mkar, performed in school programmes and radio, and became a co-owner of Famouz 19 Records in 2013. He completed the degree programme in 2015.',
+    status: 'confirmed',
+    sourceIds: ['lds-profile', 'nation'],
   },
   {
-    id: 'catalogue',
-    year: '2022 — 2024',
-    label: 'Catalogue',
-    title: 'Singles build an independent catalogue',
-    body: 'A run of singles — including "We Are" (2022), "Good Old Days" and "Heaven" (2023), then "One Call", "Better Man" and "One for the Road" (2024) — established the sound released independently through Royz Houz.',
+    id: 'rebrand',
+    year: '2016–2017',
+    label: 'Rebrand',
+    title: 'A return to music built around hope',
+    body: 'After the earlier label folded, he returned to Benue, wrote school anthems and promotional songs, and reoriented his work toward inspirational music. The 2020 profile records recognition as an inspirational writer in 2017.',
     status: 'confirmed',
-    sourceIds: ['apple'],
+    sourceIds: ['lds-profile'],
   },
   {
-    id: 'wise-up',
-    year: '2025',
-    label: 'Single',
-    title: '"Wise Up" and the socially conscious turn',
-    body: 'The Nation covered "Wise Up" in May 2025, framing it around mental emancipation and the rejection of limiting narratives.',
+    id: 'debut',
+    year: '2018–2020',
+    label: 'Public debut',
+    title: 'Gospel releases and Different People',
+    body: 'Public profiles record “The Plan” in 2018, “Are You There” in 2019 and “Different People” featuring Allie Gardner in 2020. The artist has described Different People as his first official international collaboration.',
     status: 'confirmed',
-    sourceIds: ['nation'],
+    sourceIds: ['lds-profile', 'voyage', 'youtube'],
   },
   {
-    id: 'mama-africa',
-    year: '2026',
-    label: 'Single',
-    title: '"Mama Africa" leads the EP',
-    body: 'Released as the lead single ahead of the debut EP, "Mama Africa" centres African heritage, strength and resilience. NTA announced it as the first taste of the project.',
+    id: 'singles',
+    year: '2022–2025',
+    label: 'Singles',
+    title: 'An independent catalogue takes shape',
+    body: 'The catalogue expands through “We Are”, “Heaven”, “Good Old Days”, “One Call”, “Better Man”, “One for the Road” and “Wise Up”. The Nation describes “Wise Up” as a song about mental emancipation and freedom of thought.',
     status: 'confirmed',
-    sourceIds: ['nta', 'apple'],
+    sourceIds: ['nation', 'youtube'],
   },
   {
     id: 'iember',
     year: '2026',
     label: 'Project',
-    title: 'IEMBER (JOY) — six tracks',
-    body: 'The six-track EP, released through Royz Houz, takes its title from the Tiv word for joy and moves from struggle toward finding happiness. The Guardian Nigeria covered its release in October 2026.',
+    title: 'IEMBER (JOY) arrives through Royz Houz',
+    body: 'The six-track EP IEMBER (JOY) was released through independent label Royz Houz. “Iember” means joy in Tiv; the project places Tiv and Middle Belt culture alongside love, childlike freedom, gratitude and everyday hustle.',
     status: 'confirmed',
-    sourceIds: ['guardian', 'apple'],
+    sourceIds: ['guardian', 'youtube'],
   },
 ];
 
-/** Facts that must stay visibly hedged on the site. */
+/** Notes kept for transparency without presenting missing business details as facts. */
 export const openQuestions = [
   {
-    id: 'birth-year',
-    question: 'Birth year',
-    detail: 'Only the day and month (22 May) are supported by public profiles. No birth year is published.',
-  },
-  {
-    id: 'award',
-    question: 'Award claim',
-    detail: 'An award referenced in an earlier press kit could not be independently verified and is not published.',
-  },
-  {
-    id: 'catalogue-completeness',
-    question: 'Catalogue completeness',
-    detail: 'The catalogue below is assembled from indexed platform listings and press coverage; it should be reconciled against the distributor account.',
-  },
-  {
-    id: 'credits',
-    question: 'Production credits',
-    detail: 'Producer, mixing and mastering credits are not confirmed and are omitted rather than guessed.',
-  },
-  {
     id: 'contact',
-    question: 'Booking contact',
-    detail: 'No booking or management email is published until a verified destination is supplied.',
+    question: 'Public contact details',
+    detail: 'No booking, press or management address is publicly listed in the cited sources.',
+  },
+  {
+    id: 'photography',
+    question: 'Portrait permissions',
+    detail: 'The portfolio uses the supplied portrait as an artist-file image; separate publicity-rights documentation is not published here.',
   },
 ];
 

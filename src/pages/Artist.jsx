@@ -55,16 +55,24 @@ export default function Artist() {
 
               <dl className="fact-grid">
                 <div>
-                  <dt>Name</dt>
-                  <dd>{artist.displayName}</dd>
+                  <dt>Full name</dt>
+                  <dd>{artist.legalName}</dd>
+                </div>
+                <div>
+                  <dt>Born</dt>
+                  <dd>{artist.birthDate}</dd>
                 </div>
                 <div>
                   <dt>Based</dt>
-                  <dd>Benue State, Nigeria</dd>
+                  <dd>Abuja, Nigeria</dd>
                 </div>
                 <div>
                   <dt>Label</dt>
                   <dd>{artist.label} (independent)</dd>
+                </div>
+                <div>
+                  <dt>Education</dt>
+                  <dd>{artist.education}</dd>
                 </div>
                 <div>
                   <dt>Genres</dt>
@@ -90,7 +98,7 @@ export default function Artist() {
               <p className="eyebrow">Career</p>
               <h2 className="h2" id="career-heading">The record so far</h2>
             </div>
-            <p className="micro">Oldest to newest · disputed entries flagged</p>
+            <p className="micro">Oldest to newest · public record</p>
           </div>
 
           <div className="timeline" data-reveal data-reveal-delay="1">
@@ -103,9 +111,7 @@ export default function Artist() {
                 <div>
                   <h3 className="timeline__title">
                     {item.title}
-                    <Verified verified={item.status === 'confirmed'}>
-                      {item.status === 'confirmed' ? 'Confirmed' : 'Needs review'}
-                    </Verified>
+                    <Verified verified>{'Public record'}</Verified>
                   </h3>
                   <p className="timeline__body">{item.body}</p>
                 </div>
@@ -129,8 +135,8 @@ export default function Artist() {
             <div>
               <h3>{artist.displayName} — Artist Profile &amp; EPK</h3>
               <p>
-                Biography, career chronology, catalogue summary, official links and the open items awaiting
-                artist confirmation. Generated from the same content files that drive this site, so it can
+                Biography, career chronology, catalogue summary and official YouTube and social links. Generated
+                from the same content files that drive this site, so it can
                 never drift from the page.
               </p>
             </div>
@@ -146,20 +152,19 @@ export default function Artist() {
 
           <p className="disclosure" data-reveal>
             <strong>Press kit scope</strong>
-            The PDF contains only published, sourced information. Booking contact, approved high-resolution
-            photography and confirmed production credits are outstanding and are listed as such inside the
-            document rather than filled in.
+            The PDF contains public, source-backed information. Playback destinations use YouTube, while social
+            profiles are presented as external callouts.
           </p>
         </div>
       </section>
 
-      {/* --------------------------------------------------- open questions */}
+      {/* ----------------------------------------------- public record notes */}
       <section className="section" aria-labelledby="pending-heading">
         <div className="wrap">
           <div className="section-head" data-reveal>
             <div className="section-head__title">
-              <p className="eyebrow">Awaiting confirmation</p>
-              <h2 className="h2" id="pending-heading">Deliberately not published</h2>
+              <p className="eyebrow">Public record notes</p>
+              <h2 className="h2" id="pending-heading">What the sources show</h2>
             </div>
           </div>
 

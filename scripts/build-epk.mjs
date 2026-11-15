@@ -57,7 +57,7 @@ const careerRows = career
     (c) => `<li>
       <span class=\"mono\">${esc(c.year ?? '\u2014')}</span>
       <div>
-        <b>${esc(c.title)}</b>${c.status === 'needs-review' ? ' <em class=\"flag\">needs review</em>' : ''}
+        <b>${esc(c.title)}</b>
         <p>${esc(c.body)}</p>
       </div>
     </li>`,
@@ -159,9 +159,8 @@ const html = `<!doctype html>
 <ul class=\"links\">${linkRows}</ul>
 <p class=\"note\">${esc(artist.contact.note)}</p>
 
-<h2 class=\"break\">Open items \u2014 awaiting artist confirmation</h2>
-<p>The following are deliberately withheld rather than presented as fact. They are listed here so a
-journalist or promoter can see exactly what is not yet published.</p>
+<h2 class=\"break\">Public record notes</h2>
+<p>The following notes describe information that is not publicly listed in the cited sources.</p>
 <ul class=\"pending\">${pendingRows}</ul>
 
 <h2>Sources</h2>

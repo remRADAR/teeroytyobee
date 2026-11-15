@@ -3,6 +3,8 @@ import { useLocation } from 'react-router-dom';
 import { artist } from '../content/artist.js';
 import { site } from '../content/site.js';
 
+const SOCIAL_IMAGE = `${site.url}/media/social/teeroy-tyobee-share.jpg`;
+
 const pageMeta = {
   '/': {
     title: `${artist.displayName} — Official Artist Portfolio`,
@@ -60,11 +62,16 @@ export function SEO() {
     setMeta('og:description', meta.description, 'property');
     setMeta('og:url', canonical, 'property');
     setMeta('og:site_name', artist.displayName, 'property');
-    setMeta('og:image', `${site.url}/media/artist-hero.jpeg`, 'property');
+    setMeta('og:image', SOCIAL_IMAGE, 'property');
+    setMeta('og:image:alt', `Portrait of ${artist.displayName}`, 'property');
+    setMeta('og:image:type', 'image/jpeg', 'property');
+    setMeta('og:image:width', '1600', 'property');
+    setMeta('og:image:height', '1143', 'property');
     setMeta('twitter:card', 'summary_large_image');
     setMeta('twitter:title', meta.title);
     setMeta('twitter:description', meta.description);
-    setMeta('twitter:image', `${site.url}/media/artist-hero.jpeg`);
+    setMeta('twitter:image', SOCIAL_IMAGE);
+    setMeta('twitter:image:alt', `Portrait of ${artist.displayName}`);
 
     let link = document.head.querySelector('link[rel="canonical"]');
     if (!link) {

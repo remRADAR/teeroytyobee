@@ -1,17 +1,17 @@
 /**
  * Approved/local image inventory. The portrait is carried forward from the
- * other repo branch; release covers are sourced from the artist’s Apple Music
- * catalog and stored under public/media/covers.
+ * supplied portrait and the locally stored release artwork.
  */
 const PORTRAIT = '/media/artist-hero.jpeg';
 const PROFILE_PORTRAIT = '/media/artist-profile.jpg';
 const IEMBER_PORTRAIT = '/media/iember-portrait.jpg';
+const SOCIAL_SHARE = '/media/social/teeroy-tyobee-share.jpg';
 
 export const art = {
   artistPortrait: {
     src: PORTRAIT,
     sizes: '100vw',
-    alt: 'Portrait of Teeroy Tyobee; final publication clearance is pending.',
+    alt: 'Portrait of Teeroy Tyobee.',
     width: 1536,
     height: 1920,
   },
@@ -49,6 +49,12 @@ export const art = {
     alt: 'Portrait of Teeroy Tyobee.',
     width: 1536,
     height: 1920,
+  },
+  socialShare: {
+    src: SOCIAL_SHARE,
+    alt: 'Portrait of Teeroy Tyobee for social sharing.',
+    width: 1600,
+    height: 1143,
   },
 };
 

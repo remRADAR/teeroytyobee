@@ -21,11 +21,11 @@
   --gold-bright: #e0c48c;
   --gold-faint: rgba(201, 169, 106, 0.24);
 
-  /* The poster face is bundled locally under OFL; other text remains system-first. */
-  --font-display: Georgia, 'Times New Roman', serif;
-  --font-sans: Inter, -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
-  --font-poster: 'Sofia Sans Extra Condensed', Impact, 'Arial Narrow', 'Liberation Sans Narrow', 'DejaVu Sans Condensed', sans-serif;
-  --font-mono: ui-monospace, 'SFMono-Regular', Menlo, Consolas, monospace;
+  /* Brand type: loaded Google faces plus the locally bundled poster face. */
+  --font-display: 'Instrument Serif', Georgia, 'Times New Roman', serif;
+  --font-sans: 'Space Grotesk', -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
+  --font-poster: 'Sofia Sans Extra Condensed', 'Anton', Impact, 'Arial Narrow', 'Liberation Sans Narrow', sans-serif;
+  --font-mono: 'JetBrains Mono', ui-monospace, 'SFMono-Regular', Menlo, Consolas, monospace;
 
   /* Rhythm */
   --gutter: clamp(1rem, 1.8vw, 3rem);
@@ -76,6 +76,27 @@ body {
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   overflow-x: hidden;
+}
+
+/* Keep every layout participant shrinkable; long source titles and URLs must
+   wrap inside their column instead of forcing horizontal overflow. */
+.wrap,
+.page-head,
+.section-head,
+.section-head__title,
+.editorial-section-head,
+.editorial-section-head > *,
+.release-detail__copy,
+.channel,
+.rel,
+.press-item,
+.timeline__row,
+.epk-download {
+  min-width: 0;
+}
+
+h1, h2, h3, h4, p, a, button, dt, dd, li, small, strong, span {
+  overflow-wrap: anywhere;
 }
 
 img,

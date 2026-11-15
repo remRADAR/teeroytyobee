@@ -11,13 +11,6 @@ import { Tilt } from '../components/Tilt.jsx';
 import { art } from '../lib/artwork.js';
 import { PlayableReleaseArtwork } from '../components/PlayableReleaseArtwork.jsx';
 
-const storeLinks = [
-  { key: 'spotify', label: 'Spotify', kind: 'spotify', url: artist.links.spotify },
-  { key: 'appleMusic', label: 'Apple Music', kind: 'apple', url: artist.links.appleMusic },
-  { key: 'youtube', label: 'YouTube', kind: 'youtube', url: artist.links.youtube },
-  { key: 'audiomack', label: 'Audiomack', kind: 'audiomack', url: artist.links.audiomack },
-];
-
 export default function Home() {
   const featured = featuredRelease();
   const recent = sortedSolo.filter((release) => release.id !== featured.id).slice(0, 4);
@@ -43,13 +36,11 @@ export default function Home() {
             <Link className="masthead__cta" to={`/catalog/${featured.id}`}>
               Explore the release <ArrowIcon />
             </Link>
-            <div className="masthead__stores" aria-label="Listen to Teeroy Tyobee on official platforms">
-              {storeLinks.map((store) => (
-                <a className="masthead__store" href={store.url} key={store.key} target="_blank" rel="noopener noreferrer" aria-label={`Open Teeroy Tyobee on ${store.label}`}>
-                  <PlatformIcon kind={store.kind} />
-                  <span className="masthead__store-label" aria-hidden="true">{store.label}</span>
-                </a>
-              ))}
+            <div className="masthead__stores" aria-label="YouTube playback and artist channel">
+              <a className="masthead__store" href={artist.links.youtube} target="_blank" rel="noopener noreferrer" aria-label="Open Teeroy Tyobee on YouTube in a new tab">
+                <PlatformIcon kind="youtube" />
+                <span className="masthead__store-label" aria-hidden="true">YouTube</span>
+              </a>
             </div>
           </div>
           <Tilt className="masthead__featured-art">
@@ -141,7 +132,7 @@ export default function Home() {
             {item.url && item.verified ? (
               <a className="editorial-link" href={item.url} target="_blank" rel="noopener noreferrer">Read the verified story <ExternalIcon /></a>
             ) : (
-              <span className="editorial-press__pending">Link awaiting verification</span>
+              <span className="editorial-press__pending">Source archived</span>
             )}
           </article>
         ))}

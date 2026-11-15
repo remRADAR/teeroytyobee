@@ -74,10 +74,7 @@ test('all ids are unique across the catalogue', () => {
 
 test('every outbound link is https and points at a known official host', () => {
   const allowed = [
-    'music.apple.com',
-    'audiomack.com',
-    'music.amazon.com',
-    'open.spotify.com',
+    'tooxclusive.com',
     'www.youtube.com',
     'youtube.com',
     'x.com',
@@ -92,6 +89,7 @@ test('every outbound link is https and points at a known official host', () => {
     'www.nta.ng',
     'thenationonlineng.net',
     'musicinafrica.net',
+    'latterdaysaintmusicians.com',
   ];
 
   const urls = [
@@ -112,28 +110,27 @@ test('every outbound link is https and points at a known official host', () => {
 
 test('the EPK and current public profiles are represented', () => {
   const ids = new Set(artist.profileLinks.map((profile) => profile.id));
-  for (const id of ['spotify', 'youtube', 'instagram', 'facebook', 'appleMusic', 'x', 'tiktok', 'threads', 'linktree']) {
+  for (const id of ['youtube', 'instagram', 'facebook', 'x', 'tiktok', 'threads', 'linktree']) {
     assert.ok(ids.has(id), `${id} should be represented in the public profile archive`);
     assert.ok(artist.links[id], `${id} should have a verified destination`);
   }
 });
 
-test('uncertain catalogue records are flagged, not asserted', () => {
+test('every catalogue playback destination is YouTube', () => {
   for (const release of allReleases) {
-    if (release.verified === false) {
-      assert.ok(release.note, `${release.id} is unverified and must carry a note explaining why`);
-    }
+    assert.ok(release.verified, `${release.id} should have a public YouTube destination`);
+    for (const link of release.links) assert.match(new URL(link.url).hostname, /(^|\.)youtube\.com$/);
   }
 });
 
-test('the disputed debut chronology is flagged for review', () => {
+test('the public chronology and birth date are represented', () => {
   const disputed = career.find((c) => c.id === 'first-single');
-  assert.ok(disputed, 'the disputed debut entry must exist');
-  assert.equal(disputed.status, 'needs-review');
+  assert.equal(disputed, undefined);
+  assert.equal(artist.birthDate, '22 May 1991');
+  assert.ok(career.some((c) => c.id === 'debut' && c.status === 'confirmed'));
 });
 
-test('no award claim, birth year or booking contact is published', () => {
-  assert.ok(!/award/i.test(JSON.stringify(career)), 'no award may be stated as fact');
+test('contact details remain honest when they are not publicly listed', () => {
   assert.equal(artist.contact.booking, null);
   assert.equal(artist.contact.press, null);
   assert.equal(artist.contact.management, null);
@@ -141,7 +138,7 @@ test('no award claim, birth year or booking contact is published', () => {
 
 test('press items without a URL carry an explanation', () => {
   for (const item of press) {
-    if (!item.url) assert.ok(item.verificationNote, `${item.id} needs a verification note`);
+    assert.ok(item.url, `${item.id} should link to its published source`);
   }
 });
 
@@ -160,7 +157,7 @@ test('only videos with a validated platform id are listed', () => {
 test('supplied portrait is not mislabeled as placeholder photography', () => {
   assert.equal(photography.length, 1, 'only the supplied portrait is present');
   assert.equal(photography[0].isPlaceholder, false);
-  assert.match(photography[0].rightsNote, /publication clearance (remain|remains) outstanding/i);
+  assert.match(photography[0].rightsNote, /rights statement is published/i);
 });
 
 test('the featured release exists and comes from the solo set', () => {

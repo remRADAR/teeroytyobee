@@ -3,7 +3,7 @@ import { artist } from '../content/artist.js';
 import { allReleases } from '../lib/catalog.js';
 import { PlayableReleaseArtwork } from '../components/PlayableReleaseArtwork.jsx';
 import { videos } from '../content/media.js';
-import { ExtLink, Verified } from '../components/ReleaseRow.jsx';
+import { ExtLink } from '../components/ReleaseRow.jsx';
 import { useRevealOnMount } from '../components/Img.jsx';
 
 export default function ReleaseDetail() {
@@ -40,7 +40,7 @@ export default function ReleaseDetail() {
           </div>
           <div className="release-detail__copy" data-reveal data-reveal-delay="1">
             <div className="release-detail__status">
-              <Verified verified={release.verified}>{release.verified ? 'Confirmed destination' : 'Needs review'}</Verified>
+              <span className="badge badge--gold">YouTube preview</span>
               <span className="micro">{release.kind} · {release.year}</span>
             </div>
             {release.summary && <p className="release-detail__summary">{release.summary}</p>}

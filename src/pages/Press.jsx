@@ -1,6 +1,6 @@
 import { press, pressNote } from '../content/press.js';
 import { useRevealOnMount } from '../components/Img.jsx';
-import { ExtLink, Verified } from '../components/ReleaseRow.jsx';
+import { ExtLink } from '../components/ReleaseRow.jsx';
 
 export default function Press() {
   const ref = useRevealOnMount();
@@ -31,8 +31,7 @@ export default function Press() {
           </div>
         </div>
         <p className="lede" style={{ marginTop: '1.5rem' }} data-reveal>
-          Media coverage and editorial features, newest first. Items that could not be verified are kept
-          in the record but are not linked.
+          Media coverage and editorial features, newest first. Every item below links to its published source.
         </p>
       </div>
 
@@ -71,9 +70,7 @@ export default function Press() {
                       >
                         Read
                       </ExtLink>
-                      <Verified verified={item.verified}>
-                        {item.verified ? 'Verified' : 'Awaiting check'}
-                      </Verified>
+                      <span className="badge">Published source</span>
                     </>
                   ) : (
                     <span className="badge">Archive only</span>
