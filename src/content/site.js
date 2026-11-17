@@ -5,9 +5,6 @@ export const site = {
   description:
     'The official portfolio of Teeroy Tyobee — a Nigerian singer and songwriter from the Tiv Nation of Benue State. Catalogue, press, media and press kit.',
   url: 'https://teeroytyobee.com',
-  /** Attributed art direction disclosure shown in the footer. */
-  artDirectionNote:
-    'The supplied artist portraits are used for this preview; final publication clearance remains outstanding.',
 };
 
 export const nav = [
