@@ -150,11 +150,7 @@ export function Footer() {
         </div>
 
         <div className="foot__bottom">
-          <p>
-            © {new Date().getFullYear()} {artist.displayName}. All rights reserved. External
-            destinations open in a new tab.
-          </p>
-          <p>{site.artDirectionNote}</p>
+          <p>© {new Date().getFullYear()} {artist.displayName}</p>
           <button
             type="button"
             className="foot__top-btn"
