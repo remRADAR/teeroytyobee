@@ -21,6 +21,18 @@ export function ExternalIcon(props) {
   );
 }
 
+export function ProfileIcon({ kind, ...props }) {
+  const common = { ...base, width: 20, height: 20, ...props };
+
+  if (kind === 'youtube') return <svg {...common}><rect x="3" y="6" width="18" height="12" rx="4" /><path fill="currentColor" stroke="none" d="m10 9 6 3-6 3z" /></svg>;
+  if (kind === 'instagram') return <svg {...common}><rect x="4" y="4" width="16" height="16" rx="5" /><circle cx="12" cy="12" r="3.5" /><circle cx="17.2" cy="6.8" r=".8" fill="currentColor" stroke="none" /></svg>;
+  if (kind === 'threads') return <svg {...common}><path d="M17.8 10.5c-.3-3-2.3-4.7-5.5-4.7-3.5 0-5.8 2.3-5.8 6.2 0 4.2 2.4 6.2 5.9 6.2 3.3 0 5.3-1.8 5.3-4.4 0-2.1-1.5-3.5-4.2-3.5-2.4 0-3.8 1-3.8 2.5 0 1.2 1 2 2.4 2 2.4 0 4.3-1.6 4.3-4.2 0-3.5-2.1-5.3-5.2-5.3" /></svg>;
+  if (kind === 'facebook') return <svg {...common}><path fill="currentColor" stroke="none" d="M13.8 20v-7h2.4l.4-2.7h-2.8V8.6c0-.8.2-1.4 1.4-1.4h1.5V4.8c-.3 0-1.2-.1-2.2-.1-2.2 0-3.7 1.3-3.7 3.8v1.8H8.4V13h2.4v7z" /></svg>;
+  if (kind === 'x') return <svg {...common}><path d="M5 4h3.8l3.4 4.7L16.3 4H19l-5.5 6.1L19.5 20h-3.8l-3.9-5.4L7.7 20H5l5.7-6.4z" fill="currentColor" stroke="none" /></svg>;
+  if (kind === 'tiktok') return <svg {...common}><path d="M14 4v10.2a3.8 3.8 0 1 1-2.8-3.7v3a1.2 1.2 0 1 0 1.3 1.2V4h2.8c.2 1.6 1.1 2.8 2.7 3.3v2.8c-1.6-.2-3-1-4-2.1" /></svg>;
+  return <svg {...common}><path d="M6 12a3.5 3.5 0 0 1 5.9-2.5l1.1 1M18 12a3.5 3.5 0 0 1-5.9 2.5l-1.1-1M9 15l6-6" /></svg>;
+}
+
 export function ArrowIcon(props) {
   return (
     <svg {...base} width="16" height="16" {...props}>

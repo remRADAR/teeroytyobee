@@ -338,13 +338,13 @@
 /* Underline that wipes in from the left. */
 .link-arrow,
 .nav__link,
-.foot__nav a {
+.foot__nav a:not(.foot__social-link) {
   position: relative;
 }
 
 .link-arrow::after,
 .nav__link::after,
-.foot__nav a::after {
+.foot__nav a:not(.foot__social-link)::after {
   content: '';
   position: absolute;
   left: 0;
@@ -361,8 +361,8 @@
 .link-arrow:focus-visible::after,
 .nav__link:hover::after,
 .nav__link:focus-visible::after,
-.foot__nav a:hover::after,
-.foot__nav a:focus-visible::after {
+.foot__nav a:not(.foot__social-link):hover::after,
+.foot__nav a:not(.foot__social-link):focus-visible::after {
   transform: scaleX(1);
 }
 

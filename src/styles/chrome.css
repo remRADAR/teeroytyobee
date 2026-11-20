@@ -382,6 +382,38 @@ a.ext:hover { color: var(--gold-bright); }
 
 .foot__nav a:hover { color: var(--gold); }
 
+.foot__socials {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.55rem;
+  align-items: center;
+}
+
+.foot__socials a::after { display: none; }
+
+.foot__social-link {
+  display: grid !important;
+  width: 2.45rem;
+  height: 2.45rem;
+  min-height: 0 !important;
+  padding: 0 !important;
+  place-items: center;
+  border: 1px solid var(--ink-line-strong);
+  border-radius: 50%;
+  color: var(--bone-dim);
+  transition: color var(--dur-fast) var(--ease-out), background var(--dur-fast) var(--ease-out), border-color var(--dur-fast) var(--ease-out), transform var(--dur-fast) var(--ease-out);
+}
+
+.foot__social-link:hover,
+.foot__social-link:focus-visible {
+  color: var(--ink);
+  background: var(--gold);
+  border-color: var(--gold);
+  transform: translateY(-2px);
+}
+
+.foot__social-link svg { width: 1.1rem; height: 1.1rem; }
+
 .foot__bottom {
   margin-top: clamp(2rem, 4vw, 3rem);
   padding-top: 1.25rem;

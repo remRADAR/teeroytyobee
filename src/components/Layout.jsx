@@ -4,7 +4,7 @@ import { nav, site } from '../content/site.js';
 import { artist } from '../content/artist.js';
 import { featuredRelease } from '../lib/catalog.js';
 import { useScrollLock } from '../lib/motion.js';
-import { ExternalIcon } from './Icons.jsx';
+import { ExternalIcon, ProfileIcon } from './Icons.jsx';
 
 function Wordmark() {
   const [first, ...rest] = artist.displayName.split(' ');
@@ -140,10 +140,19 @@ export function Footer() {
             ))}
           </nav>
 
-          <nav className="foot__nav" aria-label="Social and music profiles">
+          <nav className="foot__nav foot__socials" aria-label="Social and music profiles">
             {artist.profileLinks.map((profile) => (
-              <a key={profile.id} href={profile.url} target="_blank" rel="noopener noreferrer" className="ext">
-                {profile.label} <ExternalIcon />
+              <a
+                key={profile.id}
+                href={profile.url}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="foot__social-link"
+                aria-label={`${profile.label} — ${profile.role}`}
+                title={profile.label}
+              >
+                <ProfileIcon kind={profile.id} />
+                <span className="visually-hidden">{profile.label}</span>
               </a>
             ))}
           </nav>
